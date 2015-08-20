@@ -1,12 +1,13 @@
 # SwiftRTP
 
-Swift 1.2 implementation of RTP and the H264 RTP Profile.
+Swift 1.2 (iOS and Mac OS) implementation of RTP (["RTP: A Transport Protocol for Real-Time Applications"](https://tools.ietf.org/html/rfc3550)) and the H264 RTP Profile (["RTP Payload Format for H.264 Video"](http://tools.ietf.org/html/rfc3984)).
 
 ## What Works
 
-* Run the sample OS X application. It should be able to connect to a 3DR Solo and
+* Live streaming of RTP H264 video from [3DRobotics Solo](http://3drobotics.com/solo-drone/) drone.
+* Hardware acceleration of H264 decoding on (supported) iOS devices. (See the [WWDC 2014 Session 513: "Direct Access to Video Encoding and Decoding](https://developer.apple.com/videos/wwdc/2014/#513)).
+* Run the sample OS X application. It should be able to connect to a 3DRobotics Solo and
 display a video stream (along with statistics about failed packets etc).
-
 * Run a "test card" video stream using ffmpeg, the sample app will connect to it
 and display the card - (maybe with some corruption due to buggy `STAP-A`)
 
