@@ -16,25 +16,21 @@ public class TCPChannel {
 
     public let address:Address
     public let port:UInt16
-    public var readHandler:(Void -> Void)? = nil
     public var errorHandler:(ErrorType -> Void)? = loggingErrorHandler
 
     private var resumed:Bool = false
     private var queue:dispatch_queue_t!
     private var socket:Int32!
 
-    public init(address:Address, port:UInt16, readHandler:(Void -> Void)? = nil) {
+    public init(address:Address, port:UInt16) {
         self.address = address
         self.port = port
-        if let readHandler = readHandler {
-            self.readHandler = readHandler
-        }
     }
 
-    public convenience init(hostname:String = "0.0.0.0", port:UInt16, family:ProtocolFamily? = nil, readHandler:(Void -> Void)? = nil) {
+    public convenience init(hostname:String = "0.0.0.0", port:UInt16, family:ProtocolFamily? = nil) {
         var error: ErrorType?
         let addresses:[Address] = Address.addresses(hostname, `protocol`: .TCP, family: family, error: &error)!
-        self.init(address:addresses[0], port:port, readHandler:readHandler)
+        self.init(address:addresses[0], port:port)
     }
 
     public func resume(inout error:ErrorType?) -> Bool {
@@ -45,9 +41,6 @@ public class TCPChannel {
             errorHandler?(Error.generic("socket() failed"))
             return false
         }
-
-//let flags = Darwin.fcntl(socket, F_GETFL, 0)
-//fcntl(socket, F_SETFL, flags | O_NONBLOCK)
 
         var addr = address.to_sockaddr(port: port)
 
@@ -70,15 +63,6 @@ public class TCPChannel {
     public func cancel() {
     }
 
-    public func send(data:NSData, address:Address! = nil, writeHandler:((Bool,Error?) -> Void)? = loggingWriteHandler) {
-        // TODO
-    }
-
-    internal func read() {
-        // TODO
-
-    }
-
     internal func cleanup() {
         if let socket = self.socket {
             Darwin.close(socket)
@@ -89,10 +73,6 @@ public class TCPChannel {
 }
 
 // MARK: -
-
-internal func loggingReadHandler(datagram:Datagram) {
-    debugLog?("READ")
-}
 
 internal func loggingErrorHandler(error:ErrorType) {
     debugLog?("ERROR: \(error)")
