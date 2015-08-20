@@ -71,6 +71,11 @@
 		457EF97F1B83B7D400A432FA /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF95E1B83B7D400A432FA /* Errors.swift */; };
 		457EF9901B83B88200A432FA /* Timestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF96F1B83B7D400A432FA /* Timestamp.swift */; };
 		45A2A6511B853381006ACBAE /* SwiftRTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A2A63A1B853381006ACBAE /* SwiftRTP.framework */; };
+		45C72C111B869B7300EC39AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C72C101B869B7300EC39AF /* AppDelegate.swift */; };
+		45C72C131B869B7300EC39AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C72C121B869B7300EC39AF /* ViewController.swift */; };
+		45C72C161B869B7300EC39AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C72C141B869B7300EC39AF /* Main.storyboard */; };
+		45C72C181B869B7300EC39AF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45C72C171B869B7300EC39AF /* Images.xcassets */; };
+		45C72C1B1B869B7400EC39AF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C72C191B869B7400EC39AF /* LaunchScreen.xib */; };
 		45CEE9741B83930C00ED7D23 /* SwiftRTP.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CEE9731B83930C00ED7D23 /* SwiftRTP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45CEE9791B83930C00ED7D23 /* SwiftRTP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 45CEE9711B83930C00ED7D23 /* SwiftRTP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		45CEE97E1B83937800ED7D23 /* RTPChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451E2D801B435F8B00F93401 /* RTPChannel.swift */; };
@@ -82,6 +87,10 @@
 		45CEE9841B83937800ED7D23 /* RTPUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DBF7621B448189005705E2 /* RTPUtilities.swift */; };
 		45CEE9851B83937800ED7D23 /* Support.m in Sources */ = {isa = PBXBuildFile; fileRef = 45194E711B7D431B0017E89A /* Support.m */; };
 		45CEE9891B83970800ED7D23 /* FragmentationUnitDefragmenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CEE9881B83970800ED7D23 /* FragmentationUnitDefragmenter.swift */; };
+		45DBE26B1B869C04000D20F2 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DBE26A1B869C04000D20F2 /* VideoView.swift */; };
+		45DBE26E1B869CC8000D20F2 /* SwiftRTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A2A63A1B853381006ACBAE /* SwiftRTP.framework */; };
+		45DBE2701B869CE5000D20F2 /* SwiftRTP.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 45A2A63A1B853381006ACBAE /* SwiftRTP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		45DBE2711B869D20000D20F2 /* TCPChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4532ADD11B852066002080D7 /* TCPChannel.swift */; };
 		45E5040D1B39CCA5007AE307 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E5040C1B39CCA5007AE307 /* AppDelegate.swift */; };
 		45E5040F1B39CCA5007AE307 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E5040E1B39CCA5007AE307 /* ViewController.swift */; };
 		45E504111B39CCA5007AE307 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45E504101B39CCA5007AE307 /* Images.xcassets */; };
@@ -124,9 +133,27 @@
 			remoteGlobalIDString = 45A2A6391B853381006ACBAE;
 			remoteInfo = RTP_iOS;
 		};
+		45DBE26C1B869CC0000D20F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45E503FF1B39CCA5007AE307 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 45A2A6391B853381006ACBAE;
+			remoteInfo = SwiftRTP_iOS;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		45DBE26F1B869CCE000D20F2 /* Copy Files (1 item) */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				45DBE2701B869CE5000D20F2 /* SwiftRTP.framework in Copy Files (1 item) */,
+			);
+			name = "Copy Files (1 item)";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		45E504641B39CD9E007AE307 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -171,12 +198,20 @@
 		45A2A62F1B852F72006ACBAE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45A2A63A1B853381006ACBAE /* SwiftRTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftRTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45ACBEB31B8665B9004C0525 /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
+		45C72C0C1B869B7300EC39AF /* SwiftRTP iOS Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftRTP iOS Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		45C72C0F1B869B7300EC39AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45C72C101B869B7300EC39AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		45C72C121B869B7300EC39AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		45C72C151B869B7300EC39AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		45C72C171B869B7300EC39AF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		45C72C1A1B869B7400EC39AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		45CEE9711B83930C00ED7D23 /* SwiftRTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftRTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45CEE9731B83930C00ED7D23 /* SwiftRTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftRTP.h; sourceTree = "<group>"; };
 		45CEE9881B83970800ED7D23 /* FragmentationUnitDefragmenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FragmentationUnitDefragmenter.swift; sourceTree = "<group>"; };
 		45CEE98B1B839B2B00ED7D23 /* DecompressionSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecompressionSession.swift; sourceTree = "<group>"; };
 		45DA8D5F1B3E1FC9001F739F /* RTPProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTPProcessor.swift; sourceTree = "<group>"; };
 		45DA8D651B3E22FB001F739F /* RTPTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTPTypes.swift; sourceTree = "<group>"; };
+		45DBE26A1B869C04000D20F2 /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		45DBF7621B448189005705E2 /* RTPUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTPUtilities.swift; sourceTree = "<group>"; };
 		45E504071B39CCA5007AE307 /* SwiftRTP Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftRTP Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45E5040B1B39CCA5007AE307 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -191,6 +226,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		45C72C091B869B7300EC39AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45DBE26E1B869CC8000D20F2 /* SwiftRTP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,14 +307,37 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		45ACBEB21B86653D004C0525 /* Support */ = {
+		45ACBEB21B86653D004C0525 /* Externals */ = {
 			isa = PBXGroup;
 			children = (
 				45ACBEB31B8665B9004C0525 /* README.markdown */,
 				4540CEF71B83B61F00229CC9 /* SwiftIO */,
 				457EF94F1B83B7D400A432FA /* SwiftUtilities */,
 			);
+			name = Externals;
 			path = Support;
+			sourceTree = "<group>";
+		};
+		45C72C0D1B869B7300EC39AF /* SwiftRTP iOS Test */ = {
+			isa = PBXGroup;
+			children = (
+				45C72C101B869B7300EC39AF /* AppDelegate.swift */,
+				45C72C121B869B7300EC39AF /* ViewController.swift */,
+				45DBE26A1B869C04000D20F2 /* VideoView.swift */,
+				45C72C141B869B7300EC39AF /* Main.storyboard */,
+				45C72C171B869B7300EC39AF /* Images.xcassets */,
+				45C72C191B869B7400EC39AF /* LaunchScreen.xib */,
+				45C72C0E1B869B7300EC39AF /* Supporting Files */,
+			);
+			path = "SwiftRTP iOS Test";
+			sourceTree = "<group>";
+		};
+		45C72C0E1B869B7300EC39AF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				45C72C0F1B869B7300EC39AF /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		45CEE9721B83930C00ED7D23 /* SwiftRTP */ = {
@@ -298,9 +364,10 @@
 			isa = PBXGroup;
 			children = (
 				4596DEFF1B825E0E00A5FD87 /* README.markdown */,
-				45E504091B39CCA5007AE307 /* SwiftRTP Test */,
 				45CEE9721B83930C00ED7D23 /* SwiftRTP */,
-				45ACBEB21B86653D004C0525 /* Support */,
+				45E504091B39CCA5007AE307 /* SwiftRTP Mac Test */,
+				45C72C0D1B869B7300EC39AF /* SwiftRTP iOS Test */,
+				45ACBEB21B86653D004C0525 /* Externals */,
 				451868DA1B3CD10300BBBCD8 /* Frameworks */,
 				45E504081B39CCA5007AE307 /* Products */,
 			);
@@ -312,11 +379,12 @@
 				45E504071B39CCA5007AE307 /* SwiftRTP Test.app */,
 				45CEE9711B83930C00ED7D23 /* SwiftRTP.framework */,
 				45A2A63A1B853381006ACBAE /* SwiftRTP.framework */,
+				45C72C0C1B869B7300EC39AF /* SwiftRTP iOS Test.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		45E504091B39CCA5007AE307 /* SwiftRTP Test */ = {
+		45E504091B39CCA5007AE307 /* SwiftRTP Mac Test */ = {
 			isa = PBXGroup;
 			children = (
 				45E5040C1B39CCA5007AE307 /* AppDelegate.swift */,
@@ -327,6 +395,7 @@
 				45E504101B39CCA5007AE307 /* Images.xcassets */,
 				45E5040A1B39CCA5007AE307 /* Supporting Files */,
 			);
+			name = "SwiftRTP Mac Test";
 			path = "SwiftRTP Test";
 			sourceTree = "<group>";
 		};
@@ -379,6 +448,25 @@
 			productName = RTP;
 			productReference = 45A2A63A1B853381006ACBAE /* SwiftRTP.framework */;
 			productType = "com.apple.product-type.framework";
+		};
+		45C72C0B1B869B7300EC39AF /* SwiftRTP iOS Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 45C72C281B869B7400EC39AF /* Build configuration list for PBXNativeTarget "SwiftRTP iOS Test" */;
+			buildPhases = (
+				45C72C081B869B7300EC39AF /* Sources */,
+				45C72C091B869B7300EC39AF /* Frameworks */,
+				45C72C0A1B869B7300EC39AF /* Resources */,
+				45DBE26F1B869CCE000D20F2 /* Copy Files (1 item) */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				45DBE26D1B869CC0000D20F2 /* PBXTargetDependency */,
+			);
+			name = "SwiftRTP iOS Test";
+			productName = "SwiftRTP iOS Test";
+			productReference = 45C72C0C1B869B7300EC39AF /* SwiftRTP iOS Test.app */;
+			productType = "com.apple.product-type.application";
 		};
 		45CEE9701B83930C00ED7D23 /* SwiftRTP_OSX */ = {
 			isa = PBXNativeTarget;
@@ -434,6 +522,9 @@
 					45A2A6591B853436006ACBAE = {
 						CreatedOnToolsVersion = 6.4;
 					};
+					45C72C0B1B869B7300EC39AF = {
+						CreatedOnToolsVersion = 6.4;
+					};
 					45CEE9701B83930C00ED7D23 = {
 						CreatedOnToolsVersion = 7.0;
 					};
@@ -456,9 +547,10 @@
 			projectRoot = "";
 			targets = (
 				45A2A6591B853436006ACBAE /* All */,
-				45E504061B39CCA5007AE307 /* SwiftRTP Test */,
 				45CEE9701B83930C00ED7D23 /* SwiftRTP_OSX */,
 				45A2A6391B853381006ACBAE /* SwiftRTP_iOS */,
+				45E504061B39CCA5007AE307 /* SwiftRTP Test */,
+				45C72C0B1B869B7300EC39AF /* SwiftRTP iOS Test */,
 			);
 		};
 /* End PBXProject section */
@@ -468,6 +560,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		45C72C0A1B869B7300EC39AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45C72C161B869B7300EC39AF /* Main.storyboard in Resources */,
+				45C72C1B1B869B7400EC39AF /* LaunchScreen.xib in Resources */,
+				45C72C181B869B7300EC39AF /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,6 +619,17 @@
 				4526B34E1B85417E001EB22E /* RTPUtilities.swift in Sources */,
 				4526B34F1B85417E001EB22E /* Support.m in Sources */,
 				4526B3571B85417E001EB22E /* Logging.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		45C72C081B869B7300EC39AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45DBE26B1B869C04000D20F2 /* VideoView.swift in Sources */,
+				45C72C131B869B7300EC39AF /* ViewController.swift in Sources */,
+				45C72C111B869B7300EC39AF /* AppDelegate.swift in Sources */,
+				45DBE2711B869D20000D20F2 /* TCPChannel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,9 +702,30 @@
 			target = 45A2A6391B853381006ACBAE /* SwiftRTP_iOS */;
 			targetProxy = 45A2A6611B853440006ACBAE /* PBXContainerItemProxy */;
 		};
+		45DBE26D1B869CC0000D20F2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 45A2A6391B853381006ACBAE /* SwiftRTP_iOS */;
+			targetProxy = 45DBE26C1B869CC0000D20F2 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		45C72C141B869B7300EC39AF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				45C72C151B869B7300EC39AF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		45C72C191B869B7400EC39AF /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				45C72C1A1B869B7400EC39AF /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
 		45E504121B39CCA5007AE307 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -665,6 +799,40 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		45C72C291B869B7400EC39AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "SwiftRTP iOS Test/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		45C72C2A1B869B7400EC39AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "SwiftRTP iOS Test/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -841,6 +1009,15 @@
 			buildConfigurations = (
 				45A2A65B1B853436006ACBAE /* Debug */,
 				45A2A65C1B853436006ACBAE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		45C72C281B869B7400EC39AF /* Build configuration list for PBXNativeTarget "SwiftRTP iOS Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45C72C291B869B7400EC39AF /* Debug */,
+				45C72C2A1B869B7400EC39AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
