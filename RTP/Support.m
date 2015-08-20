@@ -3,7 +3,7 @@
 //  RTP Test
 //
 //  Created by Jonathan Wight on 8/13/15.
-//  Copyright © 2015 schwa. All rights reserved.
+//  Copyright © 2015 3D Robotics Inc. All rights reserved.
 //
 
 #import "Support.h"

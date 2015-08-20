@@ -170,11 +170,12 @@
 		4596DEFF1B825E0E00A5FD87 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		45A2A62F1B852F72006ACBAE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45A2A63A1B853381006ACBAE /* RTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		45ACBEB31B8665B9004C0525 /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		45CEE9711B83930C00ED7D23 /* RTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45CEE9731B83930C00ED7D23 /* RTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTP.h; sourceTree = "<group>"; };
 		45CEE9881B83970800ED7D23 /* FragmentationUnitDefragmenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FragmentationUnitDefragmenter.swift; sourceTree = "<group>"; };
 		45CEE98A1B839A6300ED7D23 /* RTP Test-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RTP Test-Bridging-Header.h"; sourceTree = "<group>"; };
-		45CEE98B1B839B2B00ED7D23 /* DecompressionSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DecompressionSession.swift; path = "RTP Test/DecompressionSession.swift"; sourceTree = SOURCE_ROOT; };
+		45CEE98B1B839B2B00ED7D23 /* DecompressionSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecompressionSession.swift; sourceTree = "<group>"; };
 		45DA8D5F1B3E1FC9001F739F /* RTPProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTPProcessor.swift; sourceTree = "<group>"; };
 		45DA8D651B3E22FB001F739F /* RTPTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTPTypes.swift; sourceTree = "<group>"; };
 		45DBF7621B448189005705E2 /* RTPUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTPUtilities.swift; sourceTree = "<group>"; };
@@ -264,6 +265,16 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		45ACBEB21B86653D004C0525 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				45ACBEB31B8665B9004C0525 /* README.markdown */,
+				4540CEF71B83B61F00229CC9 /* SwiftIO */,
+				457EF94F1B83B7D400A432FA /* SwiftUtilities */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 		45CEE9721B83930C00ED7D23 /* RTP */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,8 +291,6 @@
 				45194E711B7D431B0017E89A /* Support.m */,
 				45A2A62F1B852F72006ACBAE /* Info.plist */,
 				45CEE9731B83930C00ED7D23 /* RTP.h */,
-				4540CEF71B83B61F00229CC9 /* SwiftIO */,
-				457EF94F1B83B7D400A432FA /* SwiftUtilities */,
 			);
 			path = RTP;
 			sourceTree = "<group>";
@@ -292,6 +301,7 @@
 				4596DEFF1B825E0E00A5FD87 /* README.markdown */,
 				45E504091B39CCA5007AE307 /* RTP Test */,
 				45CEE9721B83930C00ED7D23 /* RTP */,
+				45ACBEB21B86653D004C0525 /* Support */,
 				451868DA1B3CD10300BBBCD8 /* Frameworks */,
 				45E504081B39CCA5007AE307 /* Products */,
 			);
