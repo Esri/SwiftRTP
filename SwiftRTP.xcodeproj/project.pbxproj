@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				459D5CA61B869EBC001C3EE5 /* PBXTargetDependency */,
 				45A2A65E1B853440006ACBAE /* PBXTargetDependency */,
 				45A2A6601B853440006ACBAE /* PBXTargetDependency */,
 				45A2A6621B853440006ACBAE /* PBXTargetDependency */,
@@ -98,6 +99,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		459D5CA51B869EBC001C3EE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45E503FF1B39CCA5007AE307 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 45C72C0B1B869B7300EC39AF;
+			remoteInfo = "SwiftRTP iOS Demo";
+		};
 		45A2A62B1B852F22006ACBAE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 45E503FF1B39CCA5007AE307 /* Project object */;
@@ -314,11 +322,10 @@
 				4540CEF71B83B61F00229CC9 /* SwiftIO */,
 				457EF94F1B83B7D400A432FA /* SwiftUtilities */,
 			);
-			name = Externals;
-			path = Support;
+			path = Externals;
 			sourceTree = "<group>";
 		};
-		45C72C0D1B869B7300EC39AF /* SwiftRTP iOS Test */ = {
+		45C72C0D1B869B7300EC39AF /* SwiftRTP iOS Demo */ = {
 			isa = PBXGroup;
 			children = (
 				45C72C101B869B7300EC39AF /* AppDelegate.swift */,
@@ -329,7 +336,7 @@
 				45C72C191B869B7400EC39AF /* LaunchScreen.xib */,
 				45C72C0E1B869B7300EC39AF /* Supporting Files */,
 			);
-			path = "SwiftRTP iOS Test";
+			path = "SwiftRTP iOS Demo";
 			sourceTree = "<group>";
 		};
 		45C72C0E1B869B7300EC39AF /* Supporting Files */ = {
@@ -337,7 +344,7 @@
 			children = (
 				45C72C0F1B869B7300EC39AF /* Info.plist */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		45CEE9721B83930C00ED7D23 /* SwiftRTP */ = {
@@ -365,8 +372,8 @@
 			children = (
 				4596DEFF1B825E0E00A5FD87 /* README.markdown */,
 				45CEE9721B83930C00ED7D23 /* SwiftRTP */,
-				45E504091B39CCA5007AE307 /* SwiftRTP Mac Test */,
-				45C72C0D1B869B7300EC39AF /* SwiftRTP iOS Test */,
+				45E504091B39CCA5007AE307 /* SwiftRTP Mac Demo */,
+				45C72C0D1B869B7300EC39AF /* SwiftRTP iOS Demo */,
 				45ACBEB21B86653D004C0525 /* Externals */,
 				451868DA1B3CD10300BBBCD8 /* Frameworks */,
 				45E504081B39CCA5007AE307 /* Products */,
@@ -384,7 +391,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		45E504091B39CCA5007AE307 /* SwiftRTP Mac Test */ = {
+		45E504091B39CCA5007AE307 /* SwiftRTP Mac Demo */ = {
 			isa = PBXGroup;
 			children = (
 				45E5040C1B39CCA5007AE307 /* AppDelegate.swift */,
@@ -395,8 +402,7 @@
 				45E504101B39CCA5007AE307 /* Images.xcassets */,
 				45E5040A1B39CCA5007AE307 /* Supporting Files */,
 			);
-			name = "SwiftRTP Mac Test";
-			path = "SwiftRTP Test";
+			path = "SwiftRTP Mac Demo";
 			sourceTree = "<group>";
 		};
 		45E5040A1B39CCA5007AE307 /* Supporting Files */ = {
@@ -449,9 +455,9 @@
 			productReference = 45A2A63A1B853381006ACBAE /* SwiftRTP.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		45C72C0B1B869B7300EC39AF /* SwiftRTP iOS Test */ = {
+		45C72C0B1B869B7300EC39AF /* SwiftRTP iOS Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 45C72C281B869B7400EC39AF /* Build configuration list for PBXNativeTarget "SwiftRTP iOS Test" */;
+			buildConfigurationList = 45C72C281B869B7400EC39AF /* Build configuration list for PBXNativeTarget "SwiftRTP iOS Demo" */;
 			buildPhases = (
 				45C72C081B869B7300EC39AF /* Sources */,
 				45C72C091B869B7300EC39AF /* Frameworks */,
@@ -463,7 +469,7 @@
 			dependencies = (
 				45DBE26D1B869CC0000D20F2 /* PBXTargetDependency */,
 			);
-			name = "SwiftRTP iOS Test";
+			name = "SwiftRTP iOS Demo";
 			productName = "SwiftRTP iOS Test";
 			productReference = 45C72C0C1B869B7300EC39AF /* SwiftRTP iOS Test.app */;
 			productType = "com.apple.product-type.application";
@@ -486,9 +492,9 @@
 			productReference = 45CEE9711B83930C00ED7D23 /* SwiftRTP.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		45E504061B39CCA5007AE307 /* SwiftRTP Test */ = {
+		45E504061B39CCA5007AE307 /* SwiftRTP Mac Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 45E504231B39CCA6007AE307 /* Build configuration list for PBXNativeTarget "SwiftRTP Test" */;
+			buildConfigurationList = 45E504231B39CCA6007AE307 /* Build configuration list for PBXNativeTarget "SwiftRTP Mac Demo" */;
 			buildPhases = (
 				45E504031B39CCA5007AE307 /* Sources */,
 				45E504041B39CCA5007AE307 /* Frameworks */,
@@ -501,7 +507,7 @@
 				45A2A62C1B852F22006ACBAE /* PBXTargetDependency */,
 				45A2A6501B853381006ACBAE /* PBXTargetDependency */,
 			);
-			name = "SwiftRTP Test";
+			name = "SwiftRTP Mac Demo";
 			productName = "RTP Test";
 			productReference = 45E504071B39CCA5007AE307 /* SwiftRTP Test.app */;
 			productType = "com.apple.product-type.application";
@@ -549,8 +555,8 @@
 				45A2A6591B853436006ACBAE /* All */,
 				45CEE9701B83930C00ED7D23 /* SwiftRTP_OSX */,
 				45A2A6391B853381006ACBAE /* SwiftRTP_iOS */,
-				45E504061B39CCA5007AE307 /* SwiftRTP Test */,
-				45C72C0B1B869B7300EC39AF /* SwiftRTP iOS Test */,
+				45E504061B39CCA5007AE307 /* SwiftRTP Mac Demo */,
+				45C72C0B1B869B7300EC39AF /* SwiftRTP iOS Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -677,6 +683,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		459D5CA61B869EBC001C3EE5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 45C72C0B1B869B7300EC39AF /* SwiftRTP iOS Demo */;
+			targetProxy = 459D5CA51B869EBC001C3EE5 /* PBXContainerItemProxy */;
+		};
 		45A2A62C1B852F22006ACBAE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 45CEE9701B83930C00ED7D23 /* SwiftRTP_OSX */;
@@ -689,7 +700,7 @@
 		};
 		45A2A65E1B853440006ACBAE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 45E504061B39CCA5007AE307 /* SwiftRTP Test */;
+			target = 45E504061B39CCA5007AE307 /* SwiftRTP Mac Demo */;
 			targetProxy = 45A2A65D1B853440006ACBAE /* PBXContainerItemProxy */;
 		};
 		45A2A6601B853440006ACBAE /* PBXTargetDependency */ = {
@@ -716,6 +727,7 @@
 				45C72C151B869B7300EC39AF /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		45C72C191B869B7400EC39AF /* LaunchScreen.xib */ = {
@@ -724,6 +736,7 @@
 				45C72C1A1B869B7400EC39AF /* Base */,
 			);
 			name = LaunchScreen.xib;
+			path = .;
 			sourceTree = "<group>";
 		};
 		45E504121B39CCA5007AE307 /* Main.storyboard */ = {
@@ -812,7 +825,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "SwiftRTP iOS Test/Info.plist";
+				INFOPLIST_FILE = "SwiftRTP iOS Demo/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -826,7 +839,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "SwiftRTP iOS Test/Info.plist";
+				INFOPLIST_FILE = "SwiftRTP iOS Demo/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -968,7 +981,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				INFOPLIST_FILE = "SwiftRTP Test/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "SwiftRTP Mac Demo/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.schwa.$(PRODUCT_NAME:rfc1034identifier)";
@@ -984,7 +997,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				INFOPLIST_FILE = "SwiftRTP Test/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "SwiftRTP Mac Demo/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.schwa.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1013,7 +1026,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		45C72C281B869B7400EC39AF /* Build configuration list for PBXNativeTarget "SwiftRTP iOS Test" */ = {
+		45C72C281B869B7400EC39AF /* Build configuration list for PBXNativeTarget "SwiftRTP iOS Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45C72C291B869B7400EC39AF /* Debug */,
@@ -1040,7 +1053,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		45E504231B39CCA6007AE307 /* Build configuration list for PBXNativeTarget "SwiftRTP Test" */ = {
+		45E504231B39CCA6007AE307 /* Build configuration list for PBXNativeTarget "SwiftRTP Mac Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45E504241B39CCA6007AE307 /* Debug */,

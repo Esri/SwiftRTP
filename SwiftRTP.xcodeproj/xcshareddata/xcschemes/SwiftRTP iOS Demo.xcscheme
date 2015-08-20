@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "45E504061B39CCA5007AE307"
-               BuildableName = "SwiftRTP Test.app"
-               BlueprintName = "SwiftRTP Test"
+               BlueprintIdentifier = "45C72C0B1B869B7300EC39AF"
+               BuildableName = "SwiftRTP iOS Demo.app"
+               BlueprintName = "SwiftRTP iOS Demo"
                ReferencedContainer = "container:SwiftRTP.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45E504061B39CCA5007AE307"
-            BuildableName = "SwiftRTP Test.app"
-            BlueprintName = "SwiftRTP Test"
+            BlueprintIdentifier = "45C72C0B1B869B7300EC39AF"
+            BuildableName = "SwiftRTP iOS Demo.app"
+            BlueprintName = "SwiftRTP iOS Demo"
             ReferencedContainer = "container:SwiftRTP.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -52,9 +52,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45E504061B39CCA5007AE307"
-            BuildableName = "SwiftRTP Test.app"
-            BlueprintName = "SwiftRTP Test"
+            BlueprintIdentifier = "45C72C0B1B869B7300EC39AF"
+            BuildableName = "SwiftRTP iOS Demo.app"
+            BlueprintName = "SwiftRTP iOS Demo"
             ReferencedContainer = "container:SwiftRTP.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -71,9 +71,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45E504061B39CCA5007AE307"
-            BuildableName = "SwiftRTP Test.app"
-            BlueprintName = "SwiftRTP Test"
+            BlueprintIdentifier = "45C72C0B1B869B7300EC39AF"
+            BuildableName = "SwiftRTP iOS Demo.app"
+            BlueprintName = "SwiftRTP iOS Demo"
             ReferencedContainer = "container:SwiftRTP.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
