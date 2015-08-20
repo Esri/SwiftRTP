@@ -14,40 +14,37 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "45A2A6391B853381006ACBAE"
+               BlueprintIdentifier = "45CEE9701B83930C00ED7D23"
                BuildableName = "SwiftRTP.framework"
-               BlueprintName = "SwiftRTP_iOS"
+               BlueprintName = "SwiftRTP_OSX"
                ReferencedContainer = "container:SwiftRTP.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      buildConfiguration = "Debug">
       <Testables>
       </Testables>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
-      debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45A2A6391B853381006ACBAE"
+            BlueprintIdentifier = "45CEE9701B83930C00ED7D23"
             BuildableName = "SwiftRTP.framework"
-            BlueprintName = "SwiftRTP_iOS"
+            BlueprintName = "SwiftRTP_OSX"
             ReferencedContainer = "container:SwiftRTP.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -55,17 +52,17 @@
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45A2A6391B853381006ACBAE"
+            BlueprintIdentifier = "45CEE9701B83930C00ED7D23"
             BuildableName = "SwiftRTP.framework"
-            BlueprintName = "SwiftRTP_iOS"
+            BlueprintName = "SwiftRTP_OSX"
             ReferencedContainer = "container:SwiftRTP.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

@@ -14,61 +14,69 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "45CEE9701B83930C00ED7D23"
-               BuildableName = "SwiftRTP.framework"
-               BlueprintName = "SwiftRTP_OSX"
+               BlueprintIdentifier = "45E504061B39CCA5007AE307"
+               BuildableName = "SwiftRTP Test.app"
+               BlueprintName = "SwiftRTP Test"
                ReferencedContainer = "container:SwiftRTP.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      buildConfiguration = "Debug">
       <Testables>
       </Testables>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "45E504061B39CCA5007AE307"
+            BuildableName = "SwiftRTP Test.app"
+            BlueprintName = "SwiftRTP Test"
+            ReferencedContainer = "container:SwiftRTP.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
-      debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45CEE9701B83930C00ED7D23"
-            BuildableName = "SwiftRTP.framework"
-            BlueprintName = "SwiftRTP_OSX"
+            BlueprintIdentifier = "45E504061B39CCA5007AE307"
+            BuildableName = "SwiftRTP Test.app"
+            BlueprintName = "SwiftRTP Test"
             ReferencedContainer = "container:SwiftRTP.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45CEE9701B83930C00ED7D23"
-            BuildableName = "SwiftRTP.framework"
-            BlueprintName = "SwiftRTP_OSX"
+            BlueprintIdentifier = "45E504061B39CCA5007AE307"
+            BuildableName = "SwiftRTP Test.app"
+            BlueprintName = "SwiftRTP Test"
             ReferencedContainer = "container:SwiftRTP.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
