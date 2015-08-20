@@ -21,14 +21,19 @@ public class RTPProcessor {
             firstTimestamp = packet.timestamp
         }
 
+        // TODO
         if packet.paddingFlag != false {
             error = RTPError.unsupportedFeature("RTP padding flag not supported (yet)")
             return nil
         }
+
+        // TODO
         if packet.extensionFlag != false {
             error = RTPError.unsupportedFeature("RTP extension flag not supported (yet)")
             return nil
         }
+
+        // TODO
         if packet.csrcCount != 0 {
             error = RTPError.unsupportedFeature("Non-zero CSRC not supported (yet)")
             return nil
