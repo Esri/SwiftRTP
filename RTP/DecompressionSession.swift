@@ -8,6 +8,12 @@
 
 import VideoToolbox
 
+import Darwin
+import Foundation
+//import VideoToolbox
+//import CoreMedia
+//import CoreVideo
+
 public class DecompressionSession {
 
     public var formatDescription:CMVideoFormatDescription! {

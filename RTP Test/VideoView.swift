@@ -9,7 +9,7 @@
 import Cocoa
 import AVFoundation
 
-import RTP
+import SwiftRTP
 
 class VideoView: NSView {
 

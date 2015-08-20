@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "45CEE9701B83930C00ED7D23"
+               BlueprintIdentifier = "45A2A6391B853381006ACBAE"
                BuildableName = "RTP.framework"
-               BlueprintName = "RTP_OSX"
-               ReferencedContainer = "container:RTP.xcodeproj">
+               BlueprintName = "SwiftRTP_iOS"
+               ReferencedContainer = "container:SwiftRTP.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -42,10 +42,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45CEE9701B83930C00ED7D23"
+            BlueprintIdentifier = "45A2A6391B853381006ACBAE"
             BuildableName = "RTP.framework"
-            BlueprintName = "RTP_OSX"
-            ReferencedContainer = "container:RTP.xcodeproj">
+            BlueprintName = "SwiftRTP_iOS"
+            ReferencedContainer = "container:SwiftRTP.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -60,10 +60,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45CEE9701B83930C00ED7D23"
+            BlueprintIdentifier = "45A2A6391B853381006ACBAE"
             BuildableName = "RTP.framework"
-            BlueprintName = "RTP_OSX"
-            ReferencedContainer = "container:RTP.xcodeproj">
+            BlueprintName = "SwiftRTP_iOS"
+            ReferencedContainer = "container:SwiftRTP.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

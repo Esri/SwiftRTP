@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "45E504061B39CCA5007AE307"
-               BuildableName = "RTP Test.app"
-               BlueprintName = "RTP Test"
-               ReferencedContainer = "container:RTP.xcodeproj">
+               BlueprintIdentifier = "45A2A6591B853436006ACBAE"
+               BuildableName = "All"
+               BlueprintName = "All"
+               ReferencedContainer = "container:SwiftRTP.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,15 +29,6 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45E504061B39CCA5007AE307"
-            BuildableName = "RTP Test.app"
-            BlueprintName = "RTP Test"
-            ReferencedContainer = "container:RTP.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -48,16 +39,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45E504061B39CCA5007AE307"
-            BuildableName = "RTP Test.app"
-            BlueprintName = "RTP Test"
-            ReferencedContainer = "container:RTP.xcodeproj">
+            BlueprintIdentifier = "45A2A6591B853436006ACBAE"
+            BuildableName = "All"
+            BlueprintName = "All"
+            ReferencedContainer = "container:SwiftRTP.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -67,16 +57,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45E504061B39CCA5007AE307"
-            BuildableName = "RTP Test.app"
-            BlueprintName = "RTP Test"
-            ReferencedContainer = "container:RTP.xcodeproj">
+            BlueprintIdentifier = "45A2A6591B853436006ACBAE"
+            BuildableName = "All"
+            BlueprintName = "All"
+            ReferencedContainer = "container:SwiftRTP.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

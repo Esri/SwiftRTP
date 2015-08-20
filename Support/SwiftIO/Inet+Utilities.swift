@@ -30,6 +30,7 @@
 
 
 import Darwin
+import Foundation
 
 // MARK: in_addr extensions
 

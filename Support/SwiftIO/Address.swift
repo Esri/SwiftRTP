@@ -33,6 +33,9 @@
  *
  *  sockaddr generally store IP address (either IPv4 or IPv6), port, protocol family and type.
  */
+
+import Darwin
+
 public struct Address {
 
     enum InternalAddress {

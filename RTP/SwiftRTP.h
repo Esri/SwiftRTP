@@ -15,5 +15,5 @@ FOUNDATION_EXPORT double RTPVersionNumber;
 FOUNDATION_EXPORT const unsigned char RTPVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <RTP/PublicHeader.h>
-#import <RTP/Support.h>
+#import <SwiftRTP/Support.h>
 

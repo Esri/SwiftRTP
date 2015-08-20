@@ -10,7 +10,7 @@ import Cocoa
 import AVFoundation
 import CoreMedia
 
-import RTP
+import SwiftRTP
 
 class ViewController: NSViewController {
 

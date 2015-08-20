@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A244d" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A263e" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <development version="6300" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
@@ -11,11 +11,11 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="RTP" id="1Xt-HY-uBw">
+                            <menuItem title="SwiftRTP" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="RTP" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="SwiftRTP" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About RTP" id="5kV-Vb-QxS">
+                                        <menuItem title="About SwiftRTP" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
@@ -29,7 +29,7 @@
                                             <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                                        <menuItem title="Hide RTP" keyEquivalent="h" id="Olw-nP-bQN">
+                                        <menuItem title="Hide SwiftRTP" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
                                                 <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
                                             </connections>
@@ -47,7 +47,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                                        <menuItem title="Quit RTP" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit SwiftRTP" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -628,7 +628,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="RTP Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                                        <menuItem title="SwiftRTP Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
@@ -642,7 +642,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="RTP_Test" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="SwiftRTP_Test" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
@@ -663,12 +663,12 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="233" y="235"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="RTP_Test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="SwiftRTP_Test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="954" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -676,7 +676,7 @@
                             <splitView dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eDF-VG-VRD">
                                 <rect key="frame" x="0.0" y="0.0" width="954" height="270"/>
                                 <subviews>
-                                    <customView fixedFrame="YES" id="CuF-kt-uma" customClass="VideoView" customModule="RTP_Test" customModuleProvider="target">
+                                    <customView fixedFrame="YES" id="CuF-kt-uma" customClass="VideoView" customModule="SwiftRTP_Test" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="625" height="270"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <animations/>
@@ -685,7 +685,7 @@
                                         <rect key="frame" x="635" y="0.0" width="319" height="270"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
-                                            <box autoresizesSubviews="NO" title="RTP Channel Statistics" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="ock-t4-x2R">
+                                            <box autoresizesSubviews="NO" title="SwiftRTP Channel Statistics" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="ock-t4-x2R">
                                                 <rect key="frame" x="17" y="102" width="286" height="148"/>
                                                 <view key="contentView">
                                                     <rect key="frame" x="1" y="1" width="284" height="132"/>
