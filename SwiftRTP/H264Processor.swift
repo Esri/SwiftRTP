@@ -22,18 +22,16 @@ public class H264Processor {
     public var defaultFormatDescription:CMFormatDescription?
     public var lastFormatDescription:CMFormatDescription?
 
-    var firstTimestamp: Double?
-    var lastTimestamp: Double?
+    var firstTimestamp: UInt32?
+    var lastTimestamp: UInt32?
 
     public init() {
     }
 
     public func process(nalu:H264NALU, inout error:ErrorType?) -> Output? {
 
-        let timestamp = Double(nalu.timestamp) / Double(H264ClockRate)
-
         if firstTimestamp == nil {
-            firstTimestamp = timestamp
+            firstTimestamp = nalu.timestamp
         }
 
         var result:Output? = nil
@@ -62,7 +60,7 @@ public class H264Processor {
             error = RTPError.unknownH264Type(nalu.rawType)
         }
 
-        lastTimestamp = timestamp
+        lastTimestamp = nalu.timestamp
 
         return result
     }
@@ -84,7 +82,7 @@ public class H264Processor {
 
 public extension H264NALU {
 
-    func toCMSampleBuffer(firstTimestamp:Double, formatDescription:CMFormatDescription, inout error:ErrorType?) -> CMSampleBuffer? {
+    func toCMSampleBuffer(firstTimestamp:UInt32, formatDescription:CMFormatDescription, inout error:ErrorType?) -> CMSampleBuffer? {
 
         // Prepend the size of the data to the data as a 32-bit network endian uint. (keyword: "elementary stream")
         let headerValue = UInt32(data.length)
@@ -93,12 +91,9 @@ public extension H264NALU {
 
         if let blockBuffer = sizedData.toCMBlockBuffer(&error) {
 
-            let timestamp = Double(self.timestamp) / Double(H264ClockRate)
-
             // Computer the duration and time
-            let seconds = timestamp - firstTimestamp
-            let duration = CMTimeMake(1, 30) // TODO: Making this up
-            let time = CMTimeMakeWithSeconds(seconds, H264ClockRate)
+            let duration = CMTimeMake(3000, H264ClockRate) // TODO: 1/30th of a second. Making this up.
+            let time = CMTimeMake(Int64(timestamp - firstTimestamp), H264ClockRate)
 
             // Inputs to CMSampleBufferCreate
             let timingInfo:[CMSampleTimingInfo] = [CMSampleTimingInfo(duration: duration, presentationTimeStamp: time, decodeTimeStamp: time)]
