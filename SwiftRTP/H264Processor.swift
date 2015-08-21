@@ -91,6 +91,9 @@ public extension H264NALU {
 
         if let blockBuffer = sizedData.toCMBlockBuffer(&error) {
 
+            // So what about STAP???? From CMSampleBufferCreate "Behavior is undefined if samples in a CMSampleBuffer (or even in multiple buffers in the same stream) have the same presentationTimeStamp"
+
+
             // Computer the duration and time
             let duration = CMTimeMake(3000, H264ClockRate) // TODO: 1/30th of a second. Making this up.
             let time = CMTimeMake(Int64(timestamp - firstTimestamp), H264ClockRate)

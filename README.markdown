@@ -56,6 +56,8 @@ hard-coded.
 * SDP file reader?
 * More statistics generation
 * Hooks for logging (don't log to println)
+* For STAP and MTAP packets we _should_ be calling CMSampleBufferCreate once for
+all samples in the packet.
 
 
 ## Notes
