@@ -55,7 +55,10 @@ public class FragmentationUnitDefragmenter {
 
         let data = headerData + bodyData
 
-        let nalu = H264NALU(timestamp:0, data: data)
+        let timestamp = Double(firstFragmentationUnit.timestamp) / 90_000
+
+
+        let nalu = H264NALU(timestamp:timestamp, data: data)
 
         assert(nalu.rawType == firstFragmentationUnit.subtype)
 
