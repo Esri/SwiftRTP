@@ -17,7 +17,6 @@ public class H264Processor {
 
     public internal(set) var lastSPS:H264NALU?
     public internal(set) var lastPPS:H264NALU?
-    public internal(set) var firstTimestamp:UInt32?
     public var defaultFormatDescription:CMFormatDescription?
     public var lastFormatDescription:CMFormatDescription?
 

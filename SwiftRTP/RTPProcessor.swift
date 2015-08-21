@@ -11,15 +11,11 @@ import CoreMedia
 
 public class RTPProcessor {
 
-    public private(set) var firstTimestamp:UInt32?
     var defragmenter = FragmentationUnitDefragmenter()
 
     public func process(data:DispatchData <Void>, inout error:ErrorType?) -> [H264NALU]? {
 
         let packet = RTPPacket(data: data)
-        if firstTimestamp == nil {
-            firstTimestamp = packet.timestamp
-        }
 
         // TODO
         if packet.paddingFlag != false {
