@@ -35,9 +35,7 @@ public class RTPProcessor {
             return nil
         }
 
-        let timestamp = Double(packet.timestamp) / 90_000
-
-        let nalu = H264NALU(timestamp: timestamp, data: packet.body)
+        let nalu = H264NALU(timestamp: packet.timestamp, data: packet.body)
 
         if packet.payloadType != 96 {
             error = RTPError.unknownH264Type(nalu.rawType)
@@ -86,9 +84,7 @@ public class RTPProcessor {
 
                 let subdata = data.subBuffer(startIndex: sizeof(UInt16), count:Int(chunkLength))
 
-                let timestamp = Double(rtpPacket.timestamp) / 90_000
-
-                let nalu = H264NALU(timestamp: timestamp, data: subdata)
+                let nalu = H264NALU(timestamp: rtpPacket.timestamp, data: subdata)
                 nalus.append(nalu)
 
                 data = data.inset(startInset: sizeof(UInt16) + Int(chunkLength), endInset: 0)

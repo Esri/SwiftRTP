@@ -8,6 +8,8 @@
 
 import CoreMedia
 
+let H264ClockRate:Int32 = 90_000
+
 public class H264Processor {
 
     public enum Output {
@@ -28,8 +30,10 @@ public class H264Processor {
 
     public func process(nalu:H264NALU, inout error:ErrorType?) -> Output? {
 
+        let timestamp = Double(nalu.timestamp) / Double(H264ClockRate)
+
         if firstTimestamp == nil {
-            firstTimestamp = nalu.timestamp
+            firstTimestamp = timestamp
         }
 
         var result:Output? = nil
@@ -58,7 +62,7 @@ public class H264Processor {
             error = RTPError.unknownH264Type(nalu.rawType)
         }
 
-        lastTimestamp = nalu.timestamp
+        lastTimestamp = timestamp
 
         return result
     }
@@ -89,10 +93,12 @@ public extension H264NALU {
 
         if let blockBuffer = sizedData.toCMBlockBuffer(&error) {
 
+            let timestamp = Double(self.timestamp) / Double(H264ClockRate)
+
             // Computer the duration and time
             let seconds = timestamp - firstTimestamp
             let duration = CMTimeMake(1, 30) // TODO: Making this up
-            let time = CMTimeMakeWithSeconds(seconds, 90_000)
+            let time = CMTimeMakeWithSeconds(seconds, H264ClockRate)
 
             // Inputs to CMSampleBufferCreate
             let timingInfo:[CMSampleTimingInfo] = [CMSampleTimingInfo(duration: duration, presentationTimeStamp: time, decodeTimeStamp: time)]

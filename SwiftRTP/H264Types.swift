@@ -37,7 +37,7 @@ public struct H264NALU {
     public let data:DispatchData <Void>
 //    public let header:DispatchData <Void>
     public let body:DispatchData <Void>
-    public let timestamp:Double
+    public let timestamp:UInt32
 
     public private(set) var forbidden_zero_bit:Bool = false
     public private(set) var nal_ref_idc:UInt8 = 0
@@ -54,7 +54,7 @@ public struct H264NALU {
         return value
     }
 
-    public init(timestamp:Double, data:DispatchData <Void>) {
+    public init(timestamp:UInt32, data:DispatchData <Void>) {
         assert(data.length > 0)
 
         self.timestamp = timestamp
