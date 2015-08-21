@@ -34,3 +34,16 @@ static void RTP_VTDecompressionOutputCallback(void *decompressionOutputRefCon, v
     VTDecompressionOutputCallbackBlock block = (__bridge VTDecompressionOutputCallbackBlock)decompressionOutputRefCon;
     block(sourceFrameRefCon, status, infoFlags, imageBuffer, presentationTimeStamp, presentationDuration);
 }
+
+// MARK: -
+
+static void RTP_FreeBlock(void *refCon, void *doomedMemoryBlock, size_t sizeInBytes) {
+    FreeBlock block = (__bridge FreeBlock)refCon;
+    block();
+    Block_release((__bridge const void *)block);
+}
+
+void MakeBlockBufferCustomBlockSource(CMBlockBufferCustomBlockSource *outCMBlockBufferCustomBlockSource, FreeBlock block) {
+    outCMBlockBufferCustomBlockSource->FreeBlock = RTP_FreeBlock;
+    outCMBlockBufferCustomBlockSource->refCon = Block_copy((__bridge void *)block);
+}

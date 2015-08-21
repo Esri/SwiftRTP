@@ -55,7 +55,11 @@ public class H264Processor {
 
     public func processVideoFrame(nalu:H264NALU, inout error:ErrorType?) -> Output? {
         if let formatDescription = lastFormatDescription {
-            if let sampleBuffer = nalu.data.toCMSampleBuffer(formatDescription, error:&error) {
+            let headerValue = UInt32(nalu.data.length)
+            let headerData = DispatchData <Void>(value:headerValue.bigEndian)
+            let data = headerData + nalu.data
+
+            if let sampleBuffer = data.toCMSampleBuffer(formatDescription, error:&error) {
                 return .sampleBuffer(sampleBuffer)
             }
         }
@@ -68,38 +72,28 @@ public class H264Processor {
 
 // MARK: -
 
-private func MyFreeBlock(refcon:UnsafeMutablePointer<Void>, doomedMemoryBlock:UnsafeMutablePointer<Void>, sizeInBytes:Int) {
-    Unmanaged<dispatch_data_t>.fromOpaque(COpaquePointer(refcon)).takeRetainedValue()
-}
-
 public extension DispatchData {
 
     func toCMBlockBuffer(inout error:ErrorType?) -> CMBlockBuffer? {
 
-        let payloadData = self
-
-        let headerValue = UInt32(payloadData.length)
-        let headerData = DispatchData(value:headerValue.bigEndian)
-        let data = headerData + payloadData
-
-        let blockBuffer = data.map() {
+        let blockBuffer = map() {
             (data, buffer) -> CMBlockBuffer? in
 
+            var data:dispatch_data_t? = data.data
+
             var source = CMBlockBufferCustomBlockSource()
-            source.refCon = UnsafeMutablePointer(Unmanaged.passRetained(data.data).toOpaque())
-//            source.FreeBlock = MyFreeBlock
-
-
-            // TODO: We're leaking dispatch_data here
+            MakeBlockBufferCustomBlockSource(&source) {
+                data = nil
+                return
+            }
 
             var unmanagedBlockBuffer:Unmanaged <CMBlockBuffer>?
-            let result = CMBlockBufferCreateWithMemoryBlock(kCFAllocatorDefault, UnsafeMutablePointer <Void> (buffer.baseAddress), buffer.length, kCFAllocatorNull, nil, 0, buffer.length, 0, &unmanagedBlockBuffer)
-//            let result = CMBlockBufferCreateWithMemoryBlock(kCFAllocatorDefault, UnsafeMutablePointer <Void> (buffer.baseAddress), buffer.length, kCFAllocatorNull, &source, 0, buffer.length, 0, &unmanagedBlockBuffer)
+            let result = CMBlockBufferCreateWithMemoryBlock(kCFAllocatorDefault, UnsafeMutablePointer <Void> (buffer.baseAddress), buffer.length, kCFAllocatorNull, &source, 0, buffer.length, 0, &unmanagedBlockBuffer)
             if Int(result) != kCMBlockBufferNoErr {
                 error = Error.todo
                 return nil
             }
-            let blockBuffer = unmanagedBlockBuffer?.takeRetainedValue() // TODO: vs retained
+            let blockBuffer = unmanagedBlockBuffer?.takeRetainedValue()
 
             assert(CMBlockBufferGetDataLength(blockBuffer!) == buffer.count)
             return blockBuffer
@@ -144,7 +138,7 @@ public extension DispatchData {
 
     //        CMSampleBufferSetDisplayImmediately(sampleBuffer)
 
-            let sampleBuffer = unmanagedSampleBuffer?.takeRetainedValue() // TODO: vs retained
+            let sampleBuffer = unmanagedSampleBuffer?.takeRetainedValue()
             return sampleBuffer
         }
         else {
@@ -185,7 +179,7 @@ public func makeFormatDescription(SPS:DispatchData <Void>, PPS:DispatchData <Voi
             if result != 0 {
                 error = makeOSStatusError(result, description: "CMVideoFormatDescriptionCreateFromH264ParameterSets failed")
             }
-            var formatDescription = unmanagedFormatDescription?.takeRetainedValue() // TODO
+            var formatDescription = unmanagedFormatDescription?.takeRetainedValue()
             return formatDescription
         }
     }

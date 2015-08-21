@@ -7,7 +7,8 @@ RTP Profile (["RTP Payload Format for H.264 Video"](http://tools.ietf.org/html/r
 ## What Works
 
 * Hardware acceleration of H264 decoding on (supported) iOS devices. (See the
-[WWDC 2014 Session 513: "Direct Access to Video Encoding and Decoding](https://developer.apple.com/videos/wwdc/2014/#513)).
+[WWDC 2014 Session 513: "Direct Access to
+Video Encoding and Decoding](https://developer.apple.com/videos/wwdc/2014/#513)).
 * Live streaming of RTP H264 video from [3DRobotics Solo](http://3drobotics.com/solo-drone/) drone.
 * Partial support of live streaming of ffmpeg rtp streams. Run a "test card"
 video stream using ffmpeg, the sample app will connect to it and display the
@@ -21,9 +22,6 @@ ffmpeg -re -f lavfi -i smptebars -vcodec libx264 -tune zerolatency -vf scale=192
 ## What Does Not Work
 
 * Check the liberal amount of `// TODO`s in the code.
-* This code leaks like a sieve. Do not use in production!!! Lots of leaks of
-DispatchData objects (because they're retained by CMDataBuffers but not cleaned
-up). Use of `Unmanaged <>` needs to be validated.
 * Embeds (private) subsets of SwiftIO and SwiftUtilities. These frameworks
 should be made internal. However some of SwiftUtilities is exposed (e.g.
 DispatchData)

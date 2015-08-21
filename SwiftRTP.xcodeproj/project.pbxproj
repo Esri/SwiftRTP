@@ -206,7 +206,7 @@
 		45A2A62F1B852F72006ACBAE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45A2A63A1B853381006ACBAE /* SwiftRTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftRTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45ACBEB31B8665B9004C0525 /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
-		45C72C0C1B869B7300EC39AF /* SwiftRTP iOS Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftRTP iOS Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		45C72C0C1B869B7300EC39AF /* SwiftRTP iOS Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftRTP iOS Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C72C0F1B869B7300EC39AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45C72C101B869B7300EC39AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45C72C121B869B7300EC39AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -386,7 +386,7 @@
 				45E504071B39CCA5007AE307 /* SwiftRTP Test.app */,
 				45CEE9711B83930C00ED7D23 /* SwiftRTP.framework */,
 				45A2A63A1B853381006ACBAE /* SwiftRTP.framework */,
-				45C72C0C1B869B7300EC39AF /* SwiftRTP iOS Test.app */,
+				45C72C0C1B869B7300EC39AF /* SwiftRTP iOS Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -471,7 +471,7 @@
 			);
 			name = "SwiftRTP iOS Demo";
 			productName = "SwiftRTP iOS Test";
-			productReference = 45C72C0C1B869B7300EC39AF /* SwiftRTP iOS Test.app */;
+			productReference = 45C72C0C1B869B7300EC39AF /* SwiftRTP iOS Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
 		45CEE9701B83930C00ED7D23 /* SwiftRTP_OSX */ = {

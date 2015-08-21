@@ -15,9 +15,19 @@
 
 extern void CMSampleBufferSetDisplayImmediately(CMSampleBufferRef sampleBuffer);
 
+// MARK: -
+
 typedef void (^VTDecompressionOutputCallbackBlock)(void *sourceFrameRefCon, OSStatus status, VTDecodeInfoFlags infoFlags, CVImageBufferRef imageBuffer, CMTime presentationTimeStamp, CMTime presentationDuration);
 
-OSStatus VTDecompressionSessionCreateWithBlock(CFAllocatorRef allocator, CMVideoFormatDescriptionRef videoFormatDescription, CFDictionaryRef videoDecoderSpecification, CFDictionaryRef destinationImageBufferAttributes, const VTDecompressionOutputCallbackBlock block, VTDecompressionSessionRef *decompressionSessionOut);
+extern OSStatus VTDecompressionSessionCreateWithBlock(CFAllocatorRef allocator, CMVideoFormatDescriptionRef videoFormatDescription, CFDictionaryRef videoDecoderSpecification, CFDictionaryRef destinationImageBufferAttributes, const VTDecompressionOutputCallbackBlock block, VTDecompressionSessionRef *decompressionSessionOut);
 
+// MARK: -
+
+//typedef void (^VTDecompressionOutputCallbackBlock)(void *sourceFrameRefCon, OSStatus status, VTDecodeInfoFlags infoFlags, CVImageBufferRef imageBuffer, CMTime presentationTimeStamp, CMTime presentationDuration);
+
+typedef void (^FreeBlock)();
+
+
+extern void MakeBlockBufferCustomBlockSource(CMBlockBufferCustomBlockSource *outCMBlockBufferCustomBlockSource, FreeBlock block);
 
 #endif /* Support_h */
