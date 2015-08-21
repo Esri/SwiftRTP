@@ -20,15 +20,24 @@ public class H264Processor {
     public var defaultFormatDescription:CMFormatDescription?
     public var lastFormatDescription:CMFormatDescription?
 
+    var firstTimestamp: Double?
+    var lastTimestamp: Double?
+
     public init() {
     }
 
     public func process(nalu:H264NALU, inout error:ErrorType?) -> Output? {
 
+        if firstTimestamp == nil {
+            firstTimestamp = nalu.timestamp
+        }
+
+        var result:Output? = nil
+
         if let type = nalu.type {
             switch type {
                 case .SliceIDR, .SliceNonIDR:
-                    return processVideoFrame(nalu, error:&error)
+                    result = processVideoFrame(nalu, error:&error)
                 case .SPS:
                     lastSPS = nalu
                 case .PPS:
@@ -41,21 +50,22 @@ public class H264Processor {
                     // TODO: Do we want to do this
                     lastSPS = nil
                     lastPPS = nil
-                    return .formatDescription(formatDescription)
+                    result = .formatDescription(formatDescription)
                 }
             }
-
         }
         else {
             error = RTPError.unknownH264Type(nalu.rawType)
         }
-        return nil
+
+        lastTimestamp = nalu.timestamp
+
+        return result
     }
 
     public func processVideoFrame(nalu:H264NALU, inout error:ErrorType?) -> Output? {
         if let formatDescription = lastFormatDescription {
-
-            if let sampleBuffer = nalu.toCMSampleBuffer(formatDescription, error:&error) {
+            if let sampleBuffer = nalu.toCMSampleBuffer(firstTimestamp!, formatDescription: formatDescription, error:&error) {
                 return .sampleBuffer(sampleBuffer)
             }
         }
@@ -66,27 +76,29 @@ public class H264Processor {
     }
 }
 
-
 // MARK: -
-
 
 public extension H264NALU {
 
-    func toCMSampleBuffer(formatDescription:CMFormatDescription, inout error:ErrorType?) -> CMSampleBuffer? {
+    func toCMSampleBuffer(firstTimestamp:Double, formatDescription:CMFormatDescription, inout error:ErrorType?) -> CMSampleBuffer? {
 
+        // Prepend the size of the data to the data as a 32-bit network endian uint. (keyword: "elementary stream")
         let headerValue = UInt32(data.length)
         let headerData = DispatchData <Void>(value:headerValue.bigEndian)
         let sizedData = headerData + data
 
         if let blockBuffer = sizedData.toCMBlockBuffer(&error) {
 
-            let duration = CMTimeMake(1, 60)
-            let clock = CMClockGetHostTimeClock()
-            let time = CMClockGetTime(clock)
-            let timingInfo:[CMSampleTimingInfo] = [CMSampleTimingInfo(duration: duration, presentationTimeStamp: time, decodeTimeStamp: time)]
+            // Computer the duration and time
+            let seconds = timestamp - firstTimestamp
+            let duration = CMTimeMake(1, 30) // TODO: Making this up
+            let time = CMTimeMakeWithSeconds(seconds, 90_000)
 
+            // Inputs to CMSampleBufferCreate
+            let timingInfo:[CMSampleTimingInfo] = [CMSampleTimingInfo(duration: duration, presentationTimeStamp: time, decodeTimeStamp: time)]
             let sampleSizes:[Int] = [CMBlockBufferGetDataLength(blockBuffer)]
 
+            // Outputs from CMSampleBufferCreate
             var unmanagedSampleBuffer: Unmanaged <CMSampleBuffer>?
 
             let result = CMSampleBufferCreate(
@@ -97,21 +109,17 @@ public extension H264NALU {
                 nil,                            // makeDataReadyRefcon: UnsafeMutablePointer<Void>,
                 formatDescription,              // formatDescription: CMFormatDescription?,
                 1,                              // numSamples: CMItemCount,
-                timingInfo.count,             // numSampleTimingEntries: CMItemCount,
-                timingInfo,                   // sampleTimingArray: UnsafePointer<CMSampleTimingInfo>,
-    //            0,                              // numSampleTimingEntries: CMItemCount,
-    //            nil,                            // sampleTimingArray: UnsafePointer<CMSampleTimingInfo>,
+                timingInfo.count,               // numSampleTimingEntries: CMItemCount,
+                timingInfo,                     // sampleTimingArray: UnsafePointer<CMSampleTimingInfo>,
                 sampleSizes.count,              // numSampleSizeEntries: CMItemCount,
                 sampleSizes,                    // sampleSizeArray: UnsafePointer<Int>,
-                &unmanagedSampleBuffer                   // sBufOut: UnsafeMutablePointer<Unmanaged<CMSampleBuffer>?>
+                &unmanagedSampleBuffer          // sBufOut: UnsafeMutablePointer<Unmanaged<CMSampleBuffer>?>
             )
 
             if result != 0 {
                 error = makeOSStatusError(result, description:"CMSampleBufferCreate() failed")
                 return nil
             }
-
-    //        CMSampleBufferSetDisplayImmediately(sampleBuffer)
 
             let sampleBuffer = unmanagedSampleBuffer?.takeRetainedValue()
             return sampleBuffer
