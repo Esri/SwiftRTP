@@ -95,7 +95,7 @@ public extension H264NALU {
 
 
             // Computer the duration and time
-            let duration = CMTimeMake(3000, H264ClockRate) // TODO: 1/30th of a second. Making this up.
+            let duration = kCMTimeInvalid // CMTimeMake(3000, H264ClockRate) // TODO: 1/30th of a second. Making this up.
             let time = CMTimeMake(Int64(timestamp - firstTimestamp), H264ClockRate)
 
             // Inputs to CMSampleBufferCreate
