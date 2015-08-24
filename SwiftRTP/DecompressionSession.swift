@@ -10,9 +10,8 @@ import VideoToolbox
 
 import Darwin
 import Foundation
-//import VideoToolbox
-//import CoreMedia
-//import CoreVideo
+import VideoToolbox
+import CoreVideo
 
 public class DecompressionSession {
 
@@ -49,13 +48,17 @@ public class DecompressionSession {
 
             assert(formatDescription != nil)
 
-            let videoDecoderSpecification:NSDictionary? = nil
-//            let videoDecoderSpecification:NSDictionary = [
+#if os(Mac)
+            let videoDecoderSpecification:NSDictionary = [
 //                kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder as String: true
-//            ]
+                "EnableHardwareAcceleratedVideoDecoder": true
+            ]
+#else
+            let videoDecoderSpecification:NSDictionary? = nil
+#endif
 
             let destinationImageBufferAttributes:NSDictionary = [
-                kCVPixelFormatName as String: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
+                kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
             ]
 
             var unmanagedDecompressionSession:Unmanaged <VTDecompressionSession>?
