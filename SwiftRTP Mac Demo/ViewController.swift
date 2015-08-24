@@ -18,6 +18,7 @@ class ViewController: NSViewController {
     var tcpChannel:TCPChannel!
 
     let decompressionSession = DecompressionSession()
+    var movieWriter:MovieWriter? = nil
 
     @IBOutlet var videoView: VideoView!
     dynamic var packetsReceived: Int = 0
@@ -32,15 +33,23 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        decompressionSession.imageBufferDecoded = {
-//            (imageBuffer:CVImageBuffer, presentationTimeStamp:CMTime, presentationDuration:CMTime) -> Void in
-//        }
+        var error:ErrorType?
+//        movieWriter = MovieWriter(movieURL:NSURL(fileURLWithPath: "/Users/schwa/Desktop/Test.h264")!, size:CGSize(width: 1280, height: 7820), error:&error)
+//        movieWriter?.resume(&error)
+
+        decompressionSession.imageBufferDecoded = {
+            (imageBuffer:CVImageBuffer, presentationTimeStamp:CMTime, presentationDuration:CMTime) -> Void in
+
+            var error:ErrorType?
+            self.movieWriter?.handlePixelBuffer(imageBuffer, presentationTime: presentationTimeStamp, error: &error)
+        }
 
         startUDP()
     }
 
     func startUDP() {
         var error:ErrorType?
+
 
 //        let SPS:[UInt8] = [ 0x68, 0xCE, 0x30, 0xA6, 0x80 ]
 //        let PPS:[UInt8] = [ 0x67, 0x42, 0x40, 0x1F, 0xA6, 0x80, 0x50, 0x05, 0xB9 ]
@@ -53,6 +62,7 @@ class ViewController: NSViewController {
 
         tcpChannel = TCPChannel(hostname:"10.1.1.1", port:5502)
         tcpChannel.resume(&error)
+
 
         rtpChannel = RTPChannel(port:5600)
         rtpChannel.handler = {

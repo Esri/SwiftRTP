@@ -67,6 +67,8 @@
 		4540CF191B83B61F00229CC9 /* UDPChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CF081B83B61F00229CC9 /* UDPChannel.swift */; };
 		4540CF1B1B83B67700229CC9 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CF1A1B83B67700229CC9 /* Logging.swift */; };
 		4540CF1C1B83B6F100229CC9 /* NetworkEndian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CF041B83B61F00229CC9 /* NetworkEndian.swift */; };
+		454873221B8BC62200EB3CD3 /* MovieWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454873211B8BC62200EB3CD3 /* MovieWriter.swift */; };
+		454873231B8BC62200EB3CD3 /* MovieWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454873211B8BC62200EB3CD3 /* MovieWriter.swift */; };
 		457EF9771B83B7D400A432FA /* BitRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF9561B83B7D400A432FA /* BitRange.swift */; };
 		457EF97B1B83B7D400A432FA /* DispatchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF95A1B83B7D400A432FA /* DispatchData.swift */; };
 		457EF97F1B83B7D400A432FA /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF95E1B83B7D400A432FA /* Errors.swift */; };
@@ -196,6 +198,7 @@
 		4540CF041B83B61F00229CC9 /* NetworkEndian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkEndian.swift; sourceTree = "<group>"; };
 		4540CF081B83B61F00229CC9 /* UDPChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPChannel.swift; sourceTree = "<group>"; };
 		4540CF1A1B83B67700229CC9 /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
+		454873211B8BC62200EB3CD3 /* MovieWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieWriter.swift; sourceTree = "<group>"; };
 		457EF9561B83B7D400A432FA /* BitRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitRange.swift; sourceTree = "<group>"; };
 		457EF9581B83B7D400A432FA /* BufferType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferType.swift; sourceTree = "<group>"; };
 		457EF95A1B83B7D400A432FA /* DispatchData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchData.swift; sourceTree = "<group>"; };
@@ -294,6 +297,14 @@
 			path = SwiftIO;
 			sourceTree = "<group>";
 		};
+		454873201B8BC62200EB3CD3 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				454873211B8BC62200EB3CD3 /* MovieWriter.swift */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
 		457EF94F1B83B7D400A432FA /* SwiftUtilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -372,6 +383,7 @@
 			children = (
 				4596DEFF1B825E0E00A5FD87 /* README.markdown */,
 				45CEE9721B83930C00ED7D23 /* SwiftRTP */,
+				454873201B8BC62200EB3CD3 /* Demo */,
 				45E504091B39CCA5007AE307 /* SwiftRTP Mac Demo */,
 				45C72C0D1B869B7300EC39AF /* SwiftRTP iOS Demo */,
 				45ACBEB21B86653D004C0525 /* Externals */,
@@ -634,6 +646,7 @@
 			files = (
 				45DBE26B1B869C04000D20F2 /* VideoView.swift in Sources */,
 				45C72C131B869B7300EC39AF /* ViewController.swift in Sources */,
+				454873231B8BC62200EB3CD3 /* MovieWriter.swift in Sources */,
 				45C72C111B869B7300EC39AF /* AppDelegate.swift in Sources */,
 				45DBE2711B869D20000D20F2 /* TCPChannel.swift in Sources */,
 			);
@@ -675,6 +688,7 @@
 			files = (
 				451868DD1B3CD37300BBBCD8 /* VideoView.swift in Sources */,
 				4532ADD21B852066002080D7 /* TCPChannel.swift in Sources */,
+				454873221B8BC62200EB3CD3 /* MovieWriter.swift in Sources */,
 				45E5040F1B39CCA5007AE307 /* ViewController.swift in Sources */,
 				45E5040D1B39CCA5007AE307 /* AppDelegate.swift in Sources */,
 			);
