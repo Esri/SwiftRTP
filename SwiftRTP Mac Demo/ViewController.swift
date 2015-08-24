@@ -51,8 +51,8 @@ class ViewController: NSViewController {
 //        let description = makeFormatDescription(DispatchData <Void> (data:SPSData.data), DispatchData <Void> (data:PPSData.data), error: &error)
 //        print(description)
 
-//        tcpChannel = TCPChannel(hostname:"10.1.1.1", port:5502)
-//        tcpChannel.resume(&error)
+        tcpChannel = TCPChannel(hostname:"10.1.1.1", port:5502)
+        tcpChannel.resume(&error)
 
         rtpChannel = RTPChannel(port:5600)
         rtpChannel.handler = {
