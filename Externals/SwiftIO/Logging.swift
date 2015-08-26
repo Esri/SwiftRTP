@@ -29,17 +29,23 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
+var debugLog:(AnyObject? -> Void)? = {
+    if let value: AnyObject = $0 {
+        SwiftRTP.sharedInstance.debugLog?("READ")
+    }
+}
+
 internal func loggingReadHandler(datagram:Datagram) {
-    debugLog?("READ")
+    SwiftRTP.sharedInstance.debugLog?("READ")
 }
 
 internal func loggingErrorHandler(error:ErrorType) {
-    debugLog?("ERROR: \(error)")
+    SwiftRTP.sharedInstance.debugLog?("Error: \(error)")
 }
 
 internal func loggingWriteHandler(success:Bool, error:Error?) {
     if success {
-        debugLog?("WRITE")
+        SwiftRTP.sharedInstance.debugLog?("WRITE")
     }
     else {
         loggingErrorHandler(error!)

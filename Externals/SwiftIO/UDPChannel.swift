@@ -32,13 +32,6 @@
 import Darwin
 import Foundation
 
-// MARK: -
-
-public var debugLog:(AnyObject? -> Void)? = {
-    if let value: AnyObject = $0 {
-        println(value)
-    }
-}
 
 // MARK: -
 

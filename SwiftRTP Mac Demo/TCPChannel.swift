@@ -16,7 +16,6 @@ public class TCPChannel {
 
     public let address:Address
     public let port:UInt16
-    public var errorHandler:(ErrorType -> Void)? = loggingErrorHandler
 
     private var resumed:Bool = false
     private var queue:dispatch_queue_t!
@@ -34,11 +33,9 @@ public class TCPChannel {
     }
 
     public func resume(inout error:ErrorType?) -> Bool {
-        debugLog?("Resuming")
 
         socket = Darwin.socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)
         if socket < 0 {
-            errorHandler?(Error.generic("socket() failed"))
             return false
         }
 
@@ -73,16 +70,3 @@ public class TCPChannel {
 }
 
 // MARK: -
-
-internal func loggingErrorHandler(error:ErrorType) {
-    debugLog?("ERROR: \(error)")
-}
-
-internal func loggingWriteHandler(success:Bool, error:Error?) {
-    if success {
-        debugLog?("WRITE")
-    }
-    else {
-        loggingErrorHandler(error!)
-    }
-}
