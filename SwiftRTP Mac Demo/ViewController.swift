@@ -25,6 +25,7 @@ class ViewController: NSViewController {
     dynamic var nalusProduced: Int = 0
     dynamic var h264FramesProduced: Int = 0
     dynamic var h264ProductionErrorsProduced: Int = 0
+    dynamic var lastH264FrameProduced: NSDate? = nil
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -101,6 +102,7 @@ class ViewController: NSViewController {
                 self.nalusProduced = statistics.nalusProduced
                 self.h264FramesProduced = statistics.h264FramesProduced
                 self.h264ProductionErrorsProduced = statistics.errorsProduced
+                self.lastH264FrameProduced = NSDate(timeIntervalSinceReferenceDate: statistics.lastH264FrameProduced ?? 0)
             })
         }
 

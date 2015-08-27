@@ -46,7 +46,7 @@ public class UDPChannel {
     public var errorHandler:(ErrorType -> Void)? = loggingErrorHandler
 
     private var resumed:Bool = false
-    private var queue:dispatch_queue_t!
+    private let queue:dispatch_queue_t = dispatch_queue_create("io.schwa.SwiftIO.UDP", DISPATCH_QUEUE_CONCURRENT)
     private var source:dispatch_source_t!
     private var socket:Int32!
 
@@ -66,8 +66,6 @@ public class UDPChannel {
     }
 
     public func resume(inout error:ErrorType?) -> Bool {
-        debugLog?("Resuming")
-
         socket = Darwin.socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP)
         if socket < 0 {
             error = Error.generic("socket() failed")
@@ -79,13 +77,6 @@ public class UDPChannel {
         if result != 0 {
             cleanup()
             error = Error.generic("setsockopt() failed")
-            return false
-        }
-
-        queue = dispatch_queue_create("io.schwa.SwiftIO.UDP", DISPATCH_QUEUE_CONCURRENT)
-        if queue == nil {
-            cleanup()
-            error = Error.generic("dispatch_queue_create() failed")
             return false
         }
 
@@ -140,7 +131,6 @@ public class UDPChannel {
     }
 
     public func send(data:NSData, address:Address! = nil, port:UInt16, writeHandler:((Bool,Error?) -> Void)? = loggingWriteHandler) {
-        precondition(queue != nil, "Cannot send data without a queue")
         precondition(resumed == true, "Cannot send data on unresumed queue")
 
         dispatch_async(queue) {
@@ -202,7 +192,6 @@ public class UDPChannel {
             Darwin.close(socket)
         }
         self.socket = nil
-        self.queue = nil
         self.source = nil
     }
 }
