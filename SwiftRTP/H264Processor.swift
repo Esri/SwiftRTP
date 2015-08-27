@@ -84,6 +84,11 @@ public extension H264NALU {
 
     func toCMSampleBuffer(firstTimestamp:UInt32, formatDescription:CMFormatDescription, inout error:ErrorType?) -> CMSampleBuffer? {
 
+        if timestamp < firstTimestamp {
+            error = Error.generic("Got a timestamp from before first timestamp.")
+            return nil
+        }
+
         // Prepend the size of the data to the data as a 32-bit network endian uint. (keyword: "elementary stream")
         let headerValue = UInt32(data.length)
         let headerData = DispatchData <Void>(value:headerValue.bigEndian)
