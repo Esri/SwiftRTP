@@ -2,3 +2,4 @@ language: objective-c
 osx_image: xcode6.4
 script:
    - ./scripts/build.sh
+
