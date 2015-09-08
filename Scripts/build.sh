@@ -2,7 +2,7 @@
 
 export PATH=$PATH:/usr/local/bin
 
-xcodebuild -version | grep "Xcode 6" > /dev/null || { echo 'Not running Xcode 6' ; exit 1; }
+xcodebuild -version | grep "Xcode 7" > /dev/null || { echo 'Not running Xcode 7' ; exit 1; }
 
 cd `git rev-parse --show-toplevel`
 
