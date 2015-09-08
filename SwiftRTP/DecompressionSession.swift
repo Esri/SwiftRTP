@@ -15,29 +15,31 @@ import CoreVideo
 
 public class DecompressionSession {
 
-    public var formatDescription:CMVideoFormatDescription! {
+    private var decompressionSession:VTDecompressionSession?
+
+    public var formatDescription:CMVideoFormatDescription? {
         didSet {
-//            if formatDescription == oldValue {
-//                return
-//            }
-//            guard let decompressionSession = decompressionSession else {
-//                return
-//            }
-//            print(VTDecompressionSessionCanAcceptFormatDescription(decompressionSession, formatDescription))
+            if let formatDescription = formatDescription, let decompressionSession = decompressionSession {
+                if VTDecompressionSessionCanAcceptFormatDescription(decompressionSession, formatDescription) == 0 {
+                    VTDecompressionSessionInvalidate(decompressionSession)
+                    self.decompressionSession = nil
+                }
+            }
         }
-    }
-
-    public var decompressionSession:VTDecompressionSession?
-
-    public init() {
     }
 
     public var imageBufferDecoded:((imageBuffer:CVImageBuffer, presentationTimeStamp:CMTime, presentationDuration:CMTime) -> Void)?
 
+    public init() {
+    }
+
     public func decodeFrame(sampleBuffer:CMSampleBuffer, inout error:ErrorType?) -> Bool {
 
-        if decompressionSession == nil {
+        if formatDescription == nil {
+            formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer) as CMVideoFormatDescription
+        }
 
+        if decompressionSession == nil {
             let callback = {
                 (sourceFrameRefCon:UnsafeMutablePointer<Void>, status:OSStatus, infoFlags:VTDecodeInfoFlags, imageBuffer:CVImageBuffer!, presentationTimeStamp:CMTime, presentationDuration:CMTime) -> Void in
                 if status != 0 {
@@ -46,20 +48,23 @@ public class DecompressionSession {
                 self.imageBufferDecoded?(imageBuffer: imageBuffer, presentationTimeStamp: presentationTimeStamp, presentationDuration: presentationDuration)
             }
 
-            assert(formatDescription != nil)
-
-#if os(Mac)
-            let videoDecoderSpecification:NSDictionary = [
-//                kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder as String: true
-                "EnableHardwareAcceleratedVideoDecoder": true
-            ]
-#else
+#if TARGET_OS_IPHONE
             let videoDecoderSpecification:NSDictionary? = nil
-#endif
-
             let destinationImageBufferAttributes:NSDictionary = [
+                kCVPixelBufferOpenGLESCompatibilityKey as String: true,
+                kCVPixelBufferMetalCompatibilityKey as String: true,
                 kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
             ]
+#else
+            let videoDecoderSpecification:NSDictionary = [
+                // kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder as String: true
+                "EnableHardwareAcceleratedVideoDecoder": true
+            ]
+            let destinationImageBufferAttributes:NSDictionary = [
+                kCVPixelBufferOpenGLCompatibilityKey as String: true,
+                kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
+            ]
+#endif
 
             var unmanagedDecompressionSession:Unmanaged <VTDecompressionSession>?
             let result = VTDecompressionSessionCreateWithBlock(kCFAllocatorDefault, formatDescription, videoDecoderSpecification, destinationImageBufferAttributes, callback, &unmanagedDecompressionSession)
@@ -71,10 +76,11 @@ public class DecompressionSession {
             decompressionSession = unmanagedDecompressionSession?.takeRetainedValue()
         }
 
-        var flags:VTDecodeInfoFlags = VTDecodeInfoFlags()
-        let result = VTDecompressionSessionDecodeFrame(decompressionSession!, sampleBuffer, VTDecodeFrameFlags(), nil, &flags)
+        let frameFlags = VTDecodeFrameFlags(kVTDecodeFrame_EnableAsynchronousDecompression)
+        var decodeFlags = VTDecodeInfoFlags()
+        let result = VTDecompressionSessionDecodeFrame(decompressionSession!, sampleBuffer, frameFlags, nil, &decodeFlags)
         if result != 0 {
-            error = makeOSStatusError(result, description: "VTDecompressionSessionDecodeFrame failed (flags: \(flags))")
+            error = makeOSStatusError(result, description: "VTDecompressionSessionDecodeFrame failed (flags: \(decodeFlags))")
             return false
         }
 
@@ -86,13 +92,20 @@ public class DecompressionSession {
 
 public extension DecompressionSession {
 
-    func process(input:H264Processor.Output, inout error:ErrorType?) -> Bool {
+    public func process(input:H264Processor.Output, inout error:ErrorType?) -> Bool {
         switch input {
             case .formatDescription(let formatDescription):
                 self.formatDescription = formatDescription
                 return true
             case .sampleBuffer(let sampleBuffer):
-                return decodeFrame(sampleBuffer, error: &error)
+                let result = self.decodeFrame(sampleBuffer, error: &error)
+                if !result {
+                    if let decompressionSession = self.decompressionSession {
+                        VTDecompressionSessionInvalidate(decompressionSession)
+                        self.decompressionSession = nil
+                    }
+                }
+                return result
         }
     }
 }
