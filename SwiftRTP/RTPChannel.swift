@@ -8,6 +8,9 @@
 
 import CoreMedia
 
+import SwiftUtilities
+import SwiftIO
+
 public class RTPChannel {
 
     public struct Statistics {
@@ -47,7 +50,7 @@ public class RTPChannel {
     }
 
     public init(port:UInt16) {
-        udpChannel = UDPChannel(port: port) {
+        udpChannel = try! UDPChannel(port: port) {
             [weak self] (datagram) in
             self?.udpReadHandler(datagram)
         }
@@ -57,8 +60,7 @@ public class RTPChannel {
         if resumed == true {
             return
         }
-        var error:ErrorType?
-        udpChannel.resume(&error)
+        try! udpChannel.resume()
         resumed = true
     }
 
@@ -66,7 +68,7 @@ public class RTPChannel {
         if resumed == false {
             return
         }
-        udpChannel.cancel()
+        try! udpChannel.cancel()
         resumed = false
     }
 

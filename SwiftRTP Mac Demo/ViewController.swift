@@ -34,7 +34,6 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var error:ErrorType?
 //        movieWriter = MovieWriter(movieURL:NSURL(fileURLWithPath: "/Users/schwa/Desktop/Test.h264")!, size:CGSize(width: 1280, height: 7820), error:&error)
 //        movieWriter?.resume(&error)
 
@@ -88,10 +87,10 @@ class ViewController: NSViewController {
                         case .skippedFrame:
                             return
                         default:
-                            println("ERROR: \(error)")
+                            print("ERROR: \(error)")
                     }
                 default:
-                    println("ERROR: \(error)")
+                    print("ERROR: \(error)")
             }
         }
         rtpChannel.statisticsHandler = {

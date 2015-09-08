@@ -8,6 +8,8 @@
 
 import CoreMedia
 
+import SwiftUtilities
+
 let H264ClockRate:Int32 = 90_000
 
 public class H264Processor {
@@ -47,7 +49,7 @@ public class H264Processor {
             }
 
             if let SPS = lastSPS, let PPS = lastPPS {
-                if let formatDescription = makeFormatDescription(SPS, PPS, error:&error) {
+                if let formatDescription = makeFormatDescription(SPS, PPS: PPS, error:&error) {
                     self.lastFormatDescription = formatDescription
                     // TODO: Do we want to do this
                     lastSPS = nil
@@ -85,7 +87,7 @@ public extension H264NALU {
     func toCMSampleBuffer(firstTimestamp:UInt32, formatDescription:CMFormatDescription, inout error:ErrorType?) -> CMSampleBuffer? {
 
         if timestamp < firstTimestamp {
-            error = Error.generic("Got a timestamp from before first timestamp.")
+            error = SwiftUtilities.Error.generic("Got a timestamp from before first timestamp.")
             return nil
         }
 
@@ -108,12 +110,12 @@ public extension H264NALU {
             let sampleSizes:[Int] = [CMBlockBufferGetDataLength(blockBuffer)]
 
             // Outputs from CMSampleBufferCreate
-            var unmanagedSampleBuffer: Unmanaged <CMSampleBuffer>?
+            var unmanagedSampleBuffer: CMSampleBuffer?
 
             let result = CMSampleBufferCreate(
                 kCFAllocatorDefault,            // allocator: CFAllocator?,
                 blockBuffer,                    // dataBuffer: CMBlockBuffer?,
-                Boolean(1),                     // dataReady: Boolean,
+                true,                           // dataReady: Boolean,
                 nil,                            // makeDataReadyCallback: CMSampleBufferMakeDataReadyCallback?,
                 nil,                            // makeDataReadyRefcon: UnsafeMutablePointer<Void>,
                 formatDescription,              // formatDescription: CMFormatDescription?,
@@ -130,8 +132,7 @@ public extension H264NALU {
                 return nil
             }
 
-            let sampleBuffer = unmanagedSampleBuffer?.takeRetainedValue()
-            return sampleBuffer
+            return unmanagedSampleBuffer
         }
         else {
             return nil

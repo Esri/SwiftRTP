@@ -6,6 +6,8 @@
 //  Copyright © 2015 3D Robotics Inc. All rights reserved.
 //
 
+import SwiftUtilities
+
 public class FragmentationUnitDefragmenter {
 
     public private(set) var fragmentationUnits: [FragmentationUnit] = []
@@ -30,7 +32,7 @@ public class FragmentationUnitDefragmenter {
         // TODO: Deal with wrapping of sequence number
         // TODO: check timestamps and subtypes are correct
 
-        sort(&fragmentationUnits) {
+        fragmentationUnits.sortInPlace {
             return $0.sequenceNumber < $1.sequenceNumber
         }
 

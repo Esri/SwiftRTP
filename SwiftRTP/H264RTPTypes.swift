@@ -6,6 +6,8 @@
 //  Copyright © 2015 3D Robotics Inc. All rights reserved.
 //
 
+import SwiftUtilities
+
 public enum H264RTPType: UInt8 {
     case STAP_A = 24
     case STAP_B = 25
@@ -46,7 +48,7 @@ public struct FragmentationUnit {
         self.sequenceNumber = rtpPacket.sequenceNumber
         self.nal_ref_idc = nalu.nal_ref_idc
 
-        header.map() {
+        header.createMap() {
             (_, header) -> Void in
 
             let rawPosition = UInt8(bitRange(header, range:0..<2))

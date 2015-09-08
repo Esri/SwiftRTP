@@ -40,42 +40,24 @@
 		4526B34E1B85417E001EB22E /* RTPUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DBF7621B448189005705E2 /* RTPUtilities.swift */; };
 		4526B34F1B85417E001EB22E /* Support.m in Sources */ = {isa = PBXBuildFile; fileRef = 45194E711B7D431B0017E89A /* Support.m */; };
 		4526B3501B85417E001EB22E /* SwiftRTP.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CEE9731B83930C00ED7D23 /* SwiftRTP.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4526B3511B85417E001EB22E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CEF81B83B61F00229CC9 /* Address.swift */; };
-		4526B3521B85417E001EB22E /* Datagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CEFD1B83B61F00229CC9 /* Datagram.swift */; };
-		4526B3531B85417E001EB22E /* Inet+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CF001B83B61F00229CC9 /* Inet+Utilities.swift */; };
-		4526B3541B85417E001EB22E /* Inet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CF011B83B61F00229CC9 /* Inet.swift */; };
-		4526B3551B85417E001EB22E /* NetworkEndian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CF041B83B61F00229CC9 /* NetworkEndian.swift */; };
-		4526B3561B85417E001EB22E /* UDPChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CF081B83B61F00229CC9 /* UDPChannel.swift */; };
 		4526B3571B85417E001EB22E /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CF1A1B83B67700229CC9 /* Logging.swift */; };
-		4526B3581B85417E001EB22E /* BitRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF9561B83B7D400A432FA /* BitRange.swift */; };
-		4526B3591B85417E001EB22E /* BufferType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF9581B83B7D400A432FA /* BufferType.swift */; };
-		4526B35A1B85417E001EB22E /* DispatchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF95A1B83B7D400A432FA /* DispatchData.swift */; };
-		4526B35B1B85417E001EB22E /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF95E1B83B7D400A432FA /* Errors.swift */; };
-		4526B35C1B85417E001EB22E /* Timestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF96F1B83B7D400A432FA /* Timestamp.swift */; };
-		4526B35D1B85417E001EB22E /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF9701B83B7D400A432FA /* Utilities.swift */; };
 		4526B3631B854E23001EB22E /* DecompressionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CEE98B1B839B2B00ED7D23 /* DecompressionSession.swift */; };
 		4526B3641B854E23001EB22E /* DecompressionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CEE98B1B839B2B00ED7D23 /* DecompressionSession.swift */; };
 		4526B3651B854FA7001EB22E /* Support.h in Headers */ = {isa = PBXBuildFile; fileRef = 45194E731B7D43230017E89A /* Support.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4526B3661B854FAB001EB22E /* Support.h in Headers */ = {isa = PBXBuildFile; fileRef = 45194E731B7D43230017E89A /* Support.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		452C70F61B83CB5C00897FE1 /* BufferType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF9581B83B7D400A432FA /* BufferType.swift */; };
-		452C71091B83D05700897FE1 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF9701B83B7D400A432FA /* Utilities.swift */; };
 		4532ADD21B852066002080D7 /* TCPChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4532ADD11B852066002080D7 /* TCPChannel.swift */; };
 		453CB3E61B8E403E00622621 /* SwiftRTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CB3E51B8E403E00622621 /* SwiftRTP.swift */; };
 		453CB3E71B8E404100622621 /* SwiftRTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CB3E51B8E403E00622621 /* SwiftRTP.swift */; };
-		4540CF091B83B61F00229CC9 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CEF81B83B61F00229CC9 /* Address.swift */; };
-		4540CF0E1B83B61F00229CC9 /* Datagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CEFD1B83B61F00229CC9 /* Datagram.swift */; };
-		4540CF111B83B61F00229CC9 /* Inet+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CF001B83B61F00229CC9 /* Inet+Utilities.swift */; };
-		4540CF121B83B61F00229CC9 /* Inet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CF011B83B61F00229CC9 /* Inet.swift */; };
-		4540CF191B83B61F00229CC9 /* UDPChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CF081B83B61F00229CC9 /* UDPChannel.swift */; };
 		4540CF1B1B83B67700229CC9 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CF1A1B83B67700229CC9 /* Logging.swift */; };
-		4540CF1C1B83B6F100229CC9 /* NetworkEndian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CF041B83B61F00229CC9 /* NetworkEndian.swift */; };
 		454873221B8BC62200EB3CD3 /* MovieWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454873211B8BC62200EB3CD3 /* MovieWriter.swift */; };
 		454873231B8BC62200EB3CD3 /* MovieWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454873211B8BC62200EB3CD3 /* MovieWriter.swift */; };
-		457EF9771B83B7D400A432FA /* BitRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF9561B83B7D400A432FA /* BitRange.swift */; };
-		457EF97B1B83B7D400A432FA /* DispatchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF95A1B83B7D400A432FA /* DispatchData.swift */; };
-		457EF97F1B83B7D400A432FA /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF95E1B83B7D400A432FA /* Errors.swift */; };
-		457EF9901B83B88200A432FA /* Timestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457EF96F1B83B7D400A432FA /* Timestamp.swift */; };
 		45A2A6511B853381006ACBAE /* SwiftRTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A2A63A1B853381006ACBAE /* SwiftRTP.framework */; };
+		45B9317B1B9F7C8A00DA7EE9 /* SwiftIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931761B9F7BE700DA7EE9 /* SwiftIO.framework */; settings = {ASSET_TAGS = (); }; };
+		45B9317C1B9F7C8A00DA7EE9 /* SwiftUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931781B9F7BE700DA7EE9 /* SwiftUtilities.framework */; settings = {ASSET_TAGS = (); }; };
+		45B9317D1B9F7E0100DA7EE9 /* SwiftIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931761B9F7BE700DA7EE9 /* SwiftIO.framework */; };
+		45B9317E1B9F7E0100DA7EE9 /* SwiftIO.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931761B9F7BE700DA7EE9 /* SwiftIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		45B9317F1B9F7E0100DA7EE9 /* SwiftUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931781B9F7BE700DA7EE9 /* SwiftUtilities.framework */; };
+		45B931801B9F7E0100DA7EE9 /* SwiftUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931781B9F7BE700DA7EE9 /* SwiftUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		45C72C111B869B7300EC39AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C72C101B869B7300EC39AF /* AppDelegate.swift */; };
 		45C72C131B869B7300EC39AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C72C121B869B7300EC39AF /* ViewController.swift */; };
 		45C72C161B869B7300EC39AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C72C141B869B7300EC39AF /* Main.storyboard */; };
@@ -100,6 +82,12 @@
 		45E5040F1B39CCA5007AE307 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E5040E1B39CCA5007AE307 /* ViewController.swift */; };
 		45E504111B39CCA5007AE307 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45E504101B39CCA5007AE307 /* Images.xcassets */; };
 		45E504141B39CCA5007AE307 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45E504121B39CCA5007AE307 /* Main.storyboard */; };
+		45F39ABE1B9F94A80069084D /* SwiftIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931711B9F7BE700DA7EE9 /* SwiftIO.framework */; settings = {ASSET_TAGS = (); }; };
+		45F39ABF1B9F94A80069084D /* SwiftUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931731B9F7BE700DA7EE9 /* SwiftUtilities.framework */; settings = {ASSET_TAGS = (); }; };
+		45F39AC01B9F95690069084D /* SwiftIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931711B9F7BE700DA7EE9 /* SwiftIO.framework */; };
+		45F39AC11B9F95690069084D /* SwiftIO.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 45B931711B9F7BE700DA7EE9 /* SwiftIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		45F39AC21B9F95690069084D /* SwiftUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931731B9F7BE700DA7EE9 /* SwiftUtilities.framework */; };
+		45F39AC31B9F95690069084D /* SwiftUtilities.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 45B931731B9F7BE700DA7EE9 /* SwiftUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,13 +104,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 45CEE9701B83930C00ED7D23;
 			remoteInfo = RTP_OSX;
-		};
-		45A2A64F1B853381006ACBAE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 45E503FF1B39CCA5007AE307 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 45A2A6391B853381006ACBAE;
-			remoteInfo = RTP;
 		};
 		45A2A65D1B853440006ACBAE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -161,6 +142,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				45F39AC11B9F95690069084D /* SwiftIO.framework in Copy Files (1 item) */,
+				45F39AC31B9F95690069084D /* SwiftUtilities.framework in Copy Files (1 item) */,
 				45DBE2701B869CE5000D20F2 /* SwiftRTP.framework in Copy Files (1 item) */,
 			);
 			name = "Copy Files (1 item)";
@@ -172,6 +155,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				45B9317E1B9F7E0100DA7EE9 /* SwiftIO.framework in Embed Frameworks */,
+				45B931801B9F7E0100DA7EE9 /* SwiftUtilities.framework in Embed Frameworks */,
 				45CEE9791B83930C00ED7D23 /* SwiftRTP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -194,24 +179,19 @@
 		451E2D891B43614800F93401 /* H264Processor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = H264Processor.swift; sourceTree = "<group>"; };
 		4532ADD11B852066002080D7 /* TCPChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPChannel.swift; sourceTree = "<group>"; };
 		453CB3E51B8E403E00622621 /* SwiftRTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRTP.swift; sourceTree = "<group>"; };
-		4540CEF81B83B61F00229CC9 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
-		4540CEFD1B83B61F00229CC9 /* Datagram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datagram.swift; sourceTree = "<group>"; };
-		4540CF001B83B61F00229CC9 /* Inet+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Inet+Utilities.swift"; sourceTree = "<group>"; };
-		4540CF011B83B61F00229CC9 /* Inet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Inet.swift; sourceTree = "<group>"; };
-		4540CF041B83B61F00229CC9 /* NetworkEndian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkEndian.swift; sourceTree = "<group>"; };
-		4540CF081B83B61F00229CC9 /* UDPChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPChannel.swift; sourceTree = "<group>"; };
 		4540CF1A1B83B67700229CC9 /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Logging.swift; path = ../Externals/SwiftIO/Logging.swift; sourceTree = "<group>"; };
 		454873211B8BC62200EB3CD3 /* MovieWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieWriter.swift; sourceTree = "<group>"; };
-		457EF9561B83B7D400A432FA /* BitRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitRange.swift; sourceTree = "<group>"; };
-		457EF9581B83B7D400A432FA /* BufferType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferType.swift; sourceTree = "<group>"; };
-		457EF95A1B83B7D400A432FA /* DispatchData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchData.swift; sourceTree = "<group>"; };
-		457EF95E1B83B7D400A432FA /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
-		457EF96F1B83B7D400A432FA /* Timestamp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timestamp.swift; sourceTree = "<group>"; };
-		457EF9701B83B7D400A432FA /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		4596DEFF1B825E0E00A5FD87 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		45A2A62F1B852F72006ACBAE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45A2A63A1B853381006ACBAE /* SwiftRTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftRTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		45ACBEB31B8665B9004C0525 /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
+		45B931711B9F7BE700DA7EE9 /* SwiftIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftIO.framework; sourceTree = "<group>"; };
+		45B931721B9F7BE700DA7EE9 /* SwiftIO.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SwiftIO.framework.dSYM; sourceTree = "<group>"; };
+		45B931731B9F7BE700DA7EE9 /* SwiftUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftUtilities.framework; sourceTree = "<group>"; };
+		45B931741B9F7BE700DA7EE9 /* SwiftUtilities.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SwiftUtilities.framework.dSYM; sourceTree = "<group>"; };
+		45B931761B9F7BE700DA7EE9 /* SwiftIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftIO.framework; sourceTree = "<group>"; };
+		45B931771B9F7BE700DA7EE9 /* SwiftIO.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SwiftIO.framework.dSYM; sourceTree = "<group>"; };
+		45B931781B9F7BE700DA7EE9 /* SwiftUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftUtilities.framework; sourceTree = "<group>"; };
+		45B931791B9F7BE700DA7EE9 /* SwiftUtilities.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SwiftUtilities.framework.dSYM; sourceTree = "<group>"; };
 		45C72C0C1B869B7300EC39AF /* SwiftRTP iOS Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftRTP iOS Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C72C0F1B869B7300EC39AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45C72C101B869B7300EC39AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -240,6 +220,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45F39ABE1B9F94A80069084D /* SwiftIO.framework in Frameworks */,
+				45F39ABF1B9F94A80069084D /* SwiftUtilities.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +229,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45F39AC01B9F95690069084D /* SwiftIO.framework in Frameworks */,
+				45F39AC21B9F95690069084D /* SwiftUtilities.framework in Frameworks */,
 				45DBE26E1B869CC8000D20F2 /* SwiftRTP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -255,6 +239,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45B9317B1B9F7C8A00DA7EE9 /* SwiftIO.framework in Frameworks */,
+				45B9317C1B9F7C8A00DA7EE9 /* SwiftUtilities.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,7 +253,9 @@
 				451868D51B3CD0EF00BBBCD8 /* VideoToolbox.framework in Frameworks */,
 				451868D31B3CD0E600BBBCD8 /* AVFoundation.framework in Frameworks */,
 				451868CD1B3CD0E000BBBCD8 /* AVKit.framework in Frameworks */,
+				45B9317F1B9F7E0100DA7EE9 /* SwiftUtilities.framework in Frameworks */,
 				45A2A6511B853381006ACBAE /* SwiftRTP.framework in Frameworks */,
+				45B9317D1B9F7E0100DA7EE9 /* SwiftIO.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,19 +274,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4540CEF71B83B61F00229CC9 /* SwiftIO */ = {
-			isa = PBXGroup;
-			children = (
-				4540CEF81B83B61F00229CC9 /* Address.swift */,
-				4540CEFD1B83B61F00229CC9 /* Datagram.swift */,
-				4540CF001B83B61F00229CC9 /* Inet+Utilities.swift */,
-				4540CF011B83B61F00229CC9 /* Inet.swift */,
-				4540CF041B83B61F00229CC9 /* NetworkEndian.swift */,
-				4540CF081B83B61F00229CC9 /* UDPChannel.swift */,
-			);
-			path = SwiftIO;
-			sourceTree = "<group>";
-		};
 		454873201B8BC62200EB3CD3 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,35 +282,43 @@
 			path = Demo;
 			sourceTree = "<group>";
 		};
-		457EF94F1B83B7D400A432FA /* SwiftUtilities */ = {
+		45B9316E1B9F7BE700DA7EE9 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
-				457EF9541B83B7D400A432FA /* Data */,
-				457EF95E1B83B7D400A432FA /* Errors.swift */,
-				457EF96F1B83B7D400A432FA /* Timestamp.swift */,
-				457EF9701B83B7D400A432FA /* Utilities.swift */,
+				45B9316F1B9F7BE700DA7EE9 /* Build */,
 			);
-			path = SwiftUtilities;
+			path = Carthage;
 			sourceTree = "<group>";
 		};
-		457EF9541B83B7D400A432FA /* Data */ = {
+		45B9316F1B9F7BE700DA7EE9 /* Build */ = {
 			isa = PBXGroup;
 			children = (
-				457EF9561B83B7D400A432FA /* BitRange.swift */,
-				457EF9581B83B7D400A432FA /* BufferType.swift */,
-				457EF95A1B83B7D400A432FA /* DispatchData.swift */,
+				45B931701B9F7BE700DA7EE9 /* iOS */,
+				45B931751B9F7BE700DA7EE9 /* Mac */,
 			);
-			path = Data;
+			path = Build;
 			sourceTree = "<group>";
 		};
-		45ACBEB21B86653D004C0525 /* Externals */ = {
+		45B931701B9F7BE700DA7EE9 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				45ACBEB31B8665B9004C0525 /* README.markdown */,
-				4540CEF71B83B61F00229CC9 /* SwiftIO */,
-				457EF94F1B83B7D400A432FA /* SwiftUtilities */,
+				45B931711B9F7BE700DA7EE9 /* SwiftIO.framework */,
+				45B931721B9F7BE700DA7EE9 /* SwiftIO.framework.dSYM */,
+				45B931731B9F7BE700DA7EE9 /* SwiftUtilities.framework */,
+				45B931741B9F7BE700DA7EE9 /* SwiftUtilities.framework.dSYM */,
 			);
-			path = Externals;
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		45B931751B9F7BE700DA7EE9 /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				45B931761B9F7BE700DA7EE9 /* SwiftIO.framework */,
+				45B931771B9F7BE700DA7EE9 /* SwiftIO.framework.dSYM */,
+				45B931781B9F7BE700DA7EE9 /* SwiftUtilities.framework */,
+				45B931791B9F7BE700DA7EE9 /* SwiftUtilities.framework.dSYM */,
+			);
+			path = Mac;
 			sourceTree = "<group>";
 		};
 		45C72C0D1B869B7300EC39AF /* SwiftRTP iOS Demo */ = {
@@ -386,11 +369,11 @@
 			isa = PBXGroup;
 			children = (
 				4596DEFF1B825E0E00A5FD87 /* README.markdown */,
+				45B9316E1B9F7BE700DA7EE9 /* Carthage */,
 				45CEE9721B83930C00ED7D23 /* SwiftRTP */,
 				454873201B8BC62200EB3CD3 /* Demo */,
 				45E504091B39CCA5007AE307 /* SwiftRTP Mac Demo */,
 				45C72C0D1B869B7300EC39AF /* SwiftRTP iOS Demo */,
-				45ACBEB21B86653D004C0525 /* Externals */,
 				451868DA1B3CD10300BBBCD8 /* Frameworks */,
 				45E504081B39CCA5007AE307 /* Products */,
 			);
@@ -521,7 +504,6 @@
 			);
 			dependencies = (
 				45A2A62C1B852F22006ACBAE /* PBXTargetDependency */,
-				45A2A6501B853381006ACBAE /* PBXTargetDependency */,
 			);
 			name = "SwiftRTP Mac Demo";
 			productName = "RTP Test";
@@ -534,6 +516,7 @@
 		45E503FF1B39CCA5007AE307 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = schwa;
@@ -618,27 +601,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4526B35C1B85417E001EB22E /* Timestamp.swift in Sources */,
-				4526B3561B85417E001EB22E /* UDPChannel.swift in Sources */,
-				4526B35D1B85417E001EB22E /* Utilities.swift in Sources */,
 				4526B34A1B85417E001EB22E /* RTPTypes.swift in Sources */,
 				4526B34C1B85417E001EB22E /* H264Types.swift in Sources */,
 				4526B3631B854E23001EB22E /* DecompressionSession.swift in Sources */,
-				4526B35A1B85417E001EB22E /* DispatchData.swift in Sources */,
-				4526B3591B85417E001EB22E /* BufferType.swift in Sources */,
 				4526B3471B85417E001EB22E /* RTPChannel.swift in Sources */,
-				4526B3521B85417E001EB22E /* Datagram.swift in Sources */,
-				4526B3581B85417E001EB22E /* BitRange.swift in Sources */,
 				4526B34B1B85417E001EB22E /* H264RTPTypes.swift in Sources */,
 				453CB3E71B8E404100622621 /* SwiftRTP.swift in Sources */,
-				4526B3511B85417E001EB22E /* Address.swift in Sources */,
-				4526B3531B85417E001EB22E /* Inet+Utilities.swift in Sources */,
-				4526B3551B85417E001EB22E /* NetworkEndian.swift in Sources */,
 				4526B3491B85417E001EB22E /* FragmentationUnitDefragmenter.swift in Sources */,
 				4526B3481B85417E001EB22E /* RTPProcessor.swift in Sources */,
-				4526B3541B85417E001EB22E /* Inet.swift in Sources */,
 				4526B34D1B85417E001EB22E /* H264Processor.swift in Sources */,
-				4526B35B1B85417E001EB22E /* Errors.swift in Sources */,
 				4526B34E1B85417E001EB22E /* RTPUtilities.swift in Sources */,
 				4526B34F1B85417E001EB22E /* Support.m in Sources */,
 				4526B3571B85417E001EB22E /* Logging.swift in Sources */,
@@ -661,29 +632,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				457EF9901B83B88200A432FA /* Timestamp.swift in Sources */,
-				4540CF111B83B61F00229CC9 /* Inet+Utilities.swift in Sources */,
-				452C71091B83D05700897FE1 /* Utilities.swift in Sources */,
 				45CEE9801B83937800ED7D23 /* RTPTypes.swift in Sources */,
 				45CEE9821B83937800ED7D23 /* H264Types.swift in Sources */,
 				4526B3641B854E23001EB22E /* DecompressionSession.swift in Sources */,
 				45CEE97F1B83937800ED7D23 /* RTPProcessor.swift in Sources */,
 				4540CF1B1B83B67700229CC9 /* Logging.swift in Sources */,
-				457EF9771B83B7D400A432FA /* BitRange.swift in Sources */,
-				4540CF121B83B61F00229CC9 /* Inet.swift in Sources */,
-				4540CF0E1B83B61F00229CC9 /* Datagram.swift in Sources */,
-				457EF97F1B83B7D400A432FA /* Errors.swift in Sources */,
 				453CB3E61B8E403E00622621 /* SwiftRTP.swift in Sources */,
 				45CEE9811B83937800ED7D23 /* H264RTPTypes.swift in Sources */,
-				4540CF091B83B61F00229CC9 /* Address.swift in Sources */,
 				45CEE97E1B83937800ED7D23 /* RTPChannel.swift in Sources */,
 				45CEE9841B83937800ED7D23 /* RTPUtilities.swift in Sources */,
 				45CEE9831B83937800ED7D23 /* H264Processor.swift in Sources */,
 				45CEE9851B83937800ED7D23 /* Support.m in Sources */,
-				457EF97B1B83B7D400A432FA /* DispatchData.swift in Sources */,
-				4540CF191B83B61F00229CC9 /* UDPChannel.swift in Sources */,
-				452C70F61B83CB5C00897FE1 /* BufferType.swift in Sources */,
-				4540CF1C1B83B6F100229CC9 /* NetworkEndian.swift in Sources */,
 				45CEE9891B83970800ED7D23 /* FragmentationUnitDefragmenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -712,11 +671,6 @@
 			isa = PBXTargetDependency;
 			target = 45CEE9701B83930C00ED7D23 /* SwiftRTP_OSX */;
 			targetProxy = 45A2A62B1B852F22006ACBAE /* PBXContainerItemProxy */;
-		};
-		45A2A6501B853381006ACBAE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 45A2A6391B853381006ACBAE /* SwiftRTP_iOS */;
-			targetProxy = 45A2A64F1B853381006ACBAE /* PBXContainerItemProxy */;
 		};
 		45A2A65E1B853440006ACBAE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -781,6 +735,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -789,6 +747,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.schwa.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SwiftRTP;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -807,10 +766,15 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SwiftRTP/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.schwa.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SwiftRTP;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -841,6 +805,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -848,6 +816,7 @@
 				INFOPLIST_FILE = "SwiftRTP iOS Demo/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.3dr.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -859,9 +828,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "SwiftRTP iOS Demo/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.3dr.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -878,6 +852,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = SwiftRTP/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -900,6 +878,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = SwiftRTP/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1001,6 +983,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = "SwiftRTP Mac Demo/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1017,6 +1003,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = "SwiftRTP Mac Demo/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;

@@ -6,6 +6,9 @@
 //  Copyright © 2015 3D Robotics Inc. All rights reserved.
 //
 
+
+import SwiftUtilities
+
 public enum H264NALUType:UInt8 {
     case SliceNonIDR = 1 // P/B-Frame
     case SliceIDR = 5 // I-Frame
@@ -47,7 +50,7 @@ public struct H264NALU {
         return H264NALUType(rawValue: rawType)
     }
 
-    static func headerForType(# nal_ref_idc:UInt8, type:UInt8) -> UInt8 {
+    static func headerForType(nal_ref_idc  nal_ref_idc:UInt8, type:UInt8) -> UInt8 {
         var value:UInt8 = 0x0
         value = bitSet(value, range: 1..<3, flipped:true, newValue: nal_ref_idc)
         value = bitSet(value, range: 3..<8, flipped:true, newValue: type)
@@ -63,7 +66,7 @@ public struct H264NALU {
         let header = data.subBuffer(startIndex: 0, count: 1)
         body = data.inset(startInset: 1)
 
-        header.map() {
+        header.createMap() {
             (_, header) -> Void in
             forbidden_zero_bit = bitRange(header, range: 0..<1) == 1 ? true : false
             nal_ref_idc = UInt8(bitRange(header, range: 1..<3))

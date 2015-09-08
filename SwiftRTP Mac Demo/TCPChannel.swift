@@ -9,6 +9,7 @@
 import Darwin
 
 import SwiftRTP
+import SwiftIO
 
 // TODO: This is a very very very very early WIP
 
@@ -27,8 +28,7 @@ public class TCPChannel {
     }
 
     public convenience init(hostname:String = "0.0.0.0", port:UInt16, family:ProtocolFamily? = nil) {
-        var error: ErrorType?
-        let addresses:[Address] = Address.addresses(hostname, `protocol`: .TCP, family: family, error: &error)!
+        let addresses:[Address] = try! Address.addresses(hostname, `protocol`: .TCP, family: family)
         self.init(address:addresses[0], port:port)
     }
 

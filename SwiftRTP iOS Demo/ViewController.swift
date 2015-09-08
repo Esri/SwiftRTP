@@ -30,8 +30,6 @@ class ViewController: UIViewController {
     }
 
     func startUDP() {
-        var error:ErrorType?
-
 //        let SPS:[UInt8] = [ 0x68, 0xCE, 0x30, 0xA6, 0x80 ]
 //        let PPS:[UInt8] = [ 0x67, 0x42, 0x40, 0x1F, 0xA6, 0x80, 0x50, 0x05, 0xB9 ]
 //
@@ -67,10 +65,10 @@ class ViewController: UIViewController {
                         case .skippedFrame:
                             return
                         default:
-                            println("ERROR: \(error)")
+                            print("ERROR: \(error)")
                     }
                 default:
-                    println("ERROR: \(error)")
+                    print(")ERROR: \(error)")
             }
         }
         rtpChannel.statisticsHandler = {

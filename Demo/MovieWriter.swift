@@ -22,30 +22,26 @@ public final class MovieWriter
     public let movieURL: NSURL
     public let size: CGSize
 
-    let writer: AVAssetWriter!
-    let writerInput: AVAssetWriterInput!
-    let writerAdaptor: AVAssetWriterInputPixelBufferAdaptor!
+    var writer: AVAssetWriter!
+    var writerInput: AVAssetWriterInput!
+    var writerAdaptor: AVAssetWriterInputPixelBufferAdaptor!
 
     public private(set) var state: State = .Initial
 
-    public init(movieURL: NSURL, size: CGSize, inout error:ErrorType?) {
+    public init(movieURL: NSURL, size: CGSize) throws {
 
-        MovieWriter.removeMovieFile(movieURL)
 
         self.movieURL = movieURL
         self.size = size
 
-        var nsError: NSError? = nil
-        writer = AVAssetWriter(URL: movieURL, fileType: AVFileTypeQuickTimeMovie, error: &nsError)
-        if writer == nil {
-            error = RTPError.generic("Failed to create asset writer: \(error)")
-            // return
-        }
+        writer = try AVAssetWriter(URL: movieURL, fileType: AVFileTypeQuickTimeMovie)
         writer.movieFragmentInterval = CMTimeMakeWithSeconds(1, 1)
         writer.shouldOptimizeForNetworkUse = true
 
+        try MovieWriter.removeMovieFile(movieURL)
+
         //
-        let videoSettings: [NSObject: AnyObject] = [
+        let videoSettings: [String: AnyObject] = [
             AVVideoCodecKey: AVVideoCodecH264,
             AVVideoWidthKey: size.width,
             AVVideoHeightKey: size.height,
@@ -59,7 +55,7 @@ public final class MovieWriter
         writerAdaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerInput, sourcePixelBufferAttributes: nil)
 
         if writer.canAddInput(writerInput) == false {
-            error = RTPError.generic("Cannot add writer input")
+            throw RTPError.generic("Cannot add writer input")
             // return
         }
         writer.addInput(writerInput)
@@ -75,7 +71,7 @@ public final class MovieWriter
 
     public func finishRecordingWithCompletionHandler(block: (success: Bool) -> Void) {
         if state != .Recording {
-            print("Movie is not recording")
+            print("Movie is not recording", terminator: "")
             block(success: false)
             return
         }
@@ -112,11 +108,9 @@ public final class MovieWriter
         return true
     }
 
-    private static func removeMovieFile(movieURL:NSURL) -> Bool {
+    private static func removeMovieFile(movieURL:NSURL) throws -> Bool {
         if NSFileManager().fileExistsAtPath(movieURL.path!) {
-            if NSFileManager().removeItemAtURL(movieURL, error: nil) == false {
-                return false
-            }
+            try NSFileManager().removeItemAtURL(movieURL)
         }
         return true
     }

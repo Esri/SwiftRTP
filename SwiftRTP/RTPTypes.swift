@@ -6,6 +6,8 @@
 //  Copyright © 2015 3D Robotics Inc. All rights reserved.
 //
 
+import SwiftUtilities
+
 public struct RTPPacket {
 
     public let header:DispatchData <Void>
@@ -24,7 +26,7 @@ public struct RTPPacket {
     public init(data:DispatchData <Void>) {
         header = data.subBuffer(startIndex: 0, count: 12)
 
-        header.map() {
+        header.createMap() {
             (_, header) -> Void in
 
             version = UInt8(bitRange(header, range: 0...1))

@@ -13,6 +13,8 @@ import Foundation
 import VideoToolbox
 import CoreVideo
 
+import SwiftUtilities
+
 public class DecompressionSession {
 
     private var decompressionSession:VTDecompressionSession?
@@ -20,7 +22,7 @@ public class DecompressionSession {
     public var formatDescription:CMVideoFormatDescription? {
         didSet {
             if let formatDescription = formatDescription, let decompressionSession = decompressionSession {
-                if VTDecompressionSessionCanAcceptFormatDescription(decompressionSession, formatDescription) == 0 {
+                if VTDecompressionSessionCanAcceptFormatDescription(decompressionSession, formatDescription) == false {
                     VTDecompressionSessionInvalidate(decompressionSession)
                     self.decompressionSession = nil
                 }
@@ -36,7 +38,7 @@ public class DecompressionSession {
     public func decodeFrame(sampleBuffer:CMSampleBuffer, inout error:ErrorType?) -> Bool {
 
         if formatDescription == nil {
-            formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer) as CMVideoFormatDescription
+            formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer) as CMVideoFormatDescription?
         }
 
         if decompressionSession == nil {
@@ -48,23 +50,31 @@ public class DecompressionSession {
                 self.imageBufferDecoded?(imageBuffer: imageBuffer, presentationTimeStamp: presentationTimeStamp, presentationDuration: presentationDuration)
             }
 
-#if TARGET_OS_IPHONE
-            let videoDecoderSpecification:NSDictionary? = nil
-            let destinationImageBufferAttributes:NSDictionary = [
+#if os(iOS)
+            let videoDecoderSpecification:[String:AnyObject]? = nil
+            let destinationImageBufferAttributes:[String:AnyObject] = [
                 kCVPixelBufferOpenGLESCompatibilityKey as String: true,
                 kCVPixelBufferMetalCompatibilityKey as String: true,
-                kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
+            // TODO: This is crashing Swift 2.0b6. Hardcode constant for now.
+            // kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
+                kCVPixelBufferPixelFormatTypeKey as String: 875704438
             ]
 #else
-            let videoDecoderSpecification:NSDictionary = [
-                // kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder as String: true
-                "EnableHardwareAcceleratedVideoDecoder": true
+            let videoDecoderSpecification:[String:AnyObject] = [
+                kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder as String: true
             ]
-            let destinationImageBufferAttributes:NSDictionary = [
+
+            let destinationImageBufferAttributes:[String:AnyObject] = [
                 kCVPixelBufferOpenGLCompatibilityKey as String: true,
-                kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
+
+            // TODO: This is crashing Swift 2.0b6. Hardcode constant for now.
+            // kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
+                kCVPixelBufferPixelFormatTypeKey as String: 875704438
             ]
 #endif
+
+
+
 
             var unmanagedDecompressionSession:Unmanaged <VTDecompressionSession>?
             let result = VTDecompressionSessionCreateWithBlock(kCFAllocatorDefault, formatDescription, videoDecoderSpecification, destinationImageBufferAttributes, callback, &unmanagedDecompressionSession)
@@ -76,7 +86,7 @@ public class DecompressionSession {
             decompressionSession = unmanagedDecompressionSession?.takeRetainedValue()
         }
 
-        let frameFlags = VTDecodeFrameFlags(kVTDecodeFrame_EnableAsynchronousDecompression)
+        let frameFlags = VTDecodeFrameFlags._EnableAsynchronousDecompression
         var decodeFlags = VTDecodeInfoFlags()
         let result = VTDecompressionSessionDecodeFrame(decompressionSession!, sampleBuffer, frameFlags, nil, &decodeFlags)
         if result != 0 {

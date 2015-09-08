@@ -9,6 +9,8 @@
 import AVFoundation
 import CoreMedia
 
+import SwiftUtilities
+
 public class RTPProcessor {
 
     var defragmenter = FragmentationUnitDefragmenter()
@@ -65,7 +67,7 @@ public class RTPProcessor {
     }
 
     // TODO: This is NOT proven working code.
-    func processStapA(# rtpPacket:RTPPacket, nalu:H264NALU, inout error:ErrorType?) -> [H264NALU]? {
+    func processStapA(rtpPacket  rtpPacket:RTPPacket, nalu:H264NALU, inout error:ErrorType?) -> [H264NALU]? {
 
         var nalus:[H264NALU] = []
 
@@ -73,7 +75,7 @@ public class RTPProcessor {
 
         while data.length >= 2 {
 
-            data.map() {
+            data.createMap() {
                 (_, buffer) -> Void in
 
                 let chunkLength = UInt16(networkEndian: UInt16(bitRange(buffer, range: 0..<16)))
