@@ -12,7 +12,7 @@ public class FragmentationUnitDefragmenter {
 
     public private(set) var fragmentationUnits: [FragmentationUnit] = []
 
-    public func processFragmentationUnit(fragmentationUnit:FragmentationUnit, inout error:ErrorType?) -> H264NALU? {
+    public func processFragmentationUnit(fragmentationUnit:FragmentationUnit) throws -> H264NALU? {
         switch fragmentationUnit.position {
             case .Start:
                 fragmentationUnits = [fragmentationUnit]
@@ -22,11 +22,11 @@ public class FragmentationUnitDefragmenter {
                 return nil
             case .End:
                 fragmentationUnits.append(fragmentationUnit)
-                return processFragmentationUnits(fragmentationUnits, error:&error)
+                return try processFragmentationUnits(fragmentationUnits)
         }
     }
 
-    private func processFragmentationUnits(var fragmentationUnits:[FragmentationUnit], inout error:ErrorType?) -> H264NALU? {
+    private func processFragmentationUnits(var fragmentationUnits:[FragmentationUnit]) throws -> H264NALU {
 
         // TODO: Deal with missing sequence numbers
         // TODO: Deal with wrapping of sequence number
@@ -43,8 +43,7 @@ public class FragmentationUnitDefragmenter {
             // Nothing to do
         }
         else {
-            error = RTPError.unknownH264Type(firstFragmentationUnit.subtype)
-            return nil
+            throw RTPError.unknownH264Type(firstFragmentationUnit.subtype)
         }
 
         let header = H264NALU.headerForType(nal_ref_idc:firstFragmentationUnit.nal_ref_idc, type:firstFragmentationUnit.subtype)

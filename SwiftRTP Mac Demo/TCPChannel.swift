@@ -32,11 +32,11 @@ public class TCPChannel {
         self.init(address:addresses[0], port:port)
     }
 
-    public func resume(inout error:ErrorType?) -> Bool {
+    public func resume() throws {
 
         socket = Darwin.socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)
         if socket < 0 {
-            return false
+            return
         }
 
         var addr = address.to_sockaddr(port: port)
@@ -48,16 +48,13 @@ public class TCPChannel {
 
         if result != 0 {
             cleanup()
-            error = Error.posix(errno, "connect() failed")
-            return false
+            throw Error.posix(errno, "connect() failed")
         }
 
         queue = dispatch_queue_create("io.schwa.SwiftIO.TCP", DISPATCH_QUEUE_CONCURRENT)
-
-        return true
     }
 
-    public func cancel() {
+    public func cancel() throws {
     }
 
     internal func cleanup() {

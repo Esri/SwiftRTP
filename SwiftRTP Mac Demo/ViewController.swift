@@ -39,17 +39,13 @@ class ViewController: NSViewController {
 
         decompressionSession.imageBufferDecoded = {
             (imageBuffer:CVImageBuffer, presentationTimeStamp:CMTime, presentationDuration:CMTime) -> Void in
-
-            var error:ErrorType?
-            self.movieWriter?.handlePixelBuffer(imageBuffer, presentationTime: presentationTimeStamp, error: &error)
+            try! self.movieWriter?.handlePixelBuffer(imageBuffer, presentationTime: presentationTimeStamp)
         }
 
-        startUDP()
+        try! startUDP()
     }
 
-    func startUDP() {
-        var error:ErrorType?
-
+    func startUDP() throws {
 
 //        let SPS:[UInt8] = [ 0x68, 0xCE, 0x30, 0xA6, 0x80 ]
 //        let PPS:[UInt8] = [ 0x67, 0x42, 0x40, 0x1F, 0xA6, 0x80, 0x50, 0x05, 0xB9 ]
@@ -61,10 +57,10 @@ class ViewController: NSViewController {
 //        print(description)
 
         tcpChannel = TCPChannel(hostname:"10.1.1.1", port:5502)
-        tcpChannel.resume(&error)
+        try tcpChannel.resume()
 
 
-        rtpChannel = RTPChannel(port:5600)
+        rtpChannel = try RTPChannel(port:5600)
         rtpChannel.handler = {
             (output) -> Void in
             dispatch_async(dispatch_get_main_queue()) {
@@ -73,8 +69,7 @@ class ViewController: NSViewController {
                 if let strong_self = self {
                     strong_self.videoView.process(output)
 
-                    var error: ErrorType?
-                    strong_self.decompressionSession.process(output, error:&error)
+                    try! strong_self.decompressionSession.process(output)
                 }
             }
         }
@@ -105,6 +100,6 @@ class ViewController: NSViewController {
             })
         }
 
-        rtpChannel.resume()
+        try rtpChannel.resume()
     }
 }

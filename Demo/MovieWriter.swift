@@ -65,8 +65,7 @@ public final class MovieWriter
         state = .Configured
     }
 
-    public func resume(inout error:ErrorType?) -> Bool {
-        return true
+    public func resume() throws {
     }
 
     public func finishRecordingWithCompletionHandler(block: (success: Bool) -> Void) {
@@ -84,34 +83,28 @@ public final class MovieWriter
         state = .Finished
     }
 
-    public func handlePixelBuffer(pixelBuffer:CVPixelBuffer, presentationTime:CMTime, inout error:ErrorType?) -> Bool {
+    public func handlePixelBuffer(pixelBuffer:CVPixelBuffer, presentationTime:CMTime) throws {
         if state == .Configured {
             writer.startSessionAtSourceTime(presentationTime)
             state = .Recording
         }
 
         if state != .Recording {
-            error = RTPError.generic("MovieWriter not recording.")
-            return false
+            throw RTPError.generic("MovieWriter not recording.")
         }
         if writer.status != .Writing {
-            error = RTPError.generic("MovieWriter.writer not writing.")
-            return false
+            throw RTPError.generic("MovieWriter.writer not writing.")
         }
         if writerInput.readyForMoreMediaData == false {
-            error = RTPError.generic("MovieWriter.writer not ready for more media data.")
-            return false
+            throw RTPError.generic("MovieWriter.writer not ready for more media data.")
         }
 
         writerAdaptor.appendPixelBuffer(pixelBuffer, withPresentationTime: presentationTime)
-
-        return true
     }
 
-    private static func removeMovieFile(movieURL:NSURL) throws -> Bool {
+    private static func removeMovieFile(movieURL:NSURL) throws {
         if NSFileManager().fileExistsAtPath(movieURL.path!) {
             try NSFileManager().removeItemAtURL(movieURL)
         }
-        return true
     }
 }

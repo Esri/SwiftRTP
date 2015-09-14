@@ -49,41 +49,48 @@ public class RTPChannel {
         }
     }
 
-    public init(port:UInt16) {
-        udpChannel = try! UDPChannel(port: port) {
+    public init(port:UInt16) throws {
+        udpChannel = try UDPChannel(port: port) {
             [weak self] (datagram) in
-            self?.udpReadHandler(datagram)
+            do {
+                try self?.udpReadHandler(datagram)
+            }
+            catch RTPError.skippedFrame {
+            }
+            catch let error {
+                debugLog?("Error caught: \(error)")
+            }
         }
     }
 
-    public func resume() {
+    public func resume() throws {
         if resumed == true {
             return
         }
-        try! udpChannel.resume()
+        try udpChannel.resume()
         resumed = true
     }
 
-    public func cancel() {
+    public func cancel() throws {
         if resumed == false {
             return
         }
-        try! udpChannel.cancel()
+        try udpChannel.cancel()
         resumed = false
     }
 
-    public func udpReadHandler(datagram:Datagram) {
+    public func udpReadHandler(datagram:Datagram) throws {
         statistics.packetsReceived++
 
         var statisticsUpdated = false
         let currentTime = CFAbsoluteTimeGetCurrent()
 
         var error:ErrorType? = nil
-        if let nalus = rtpProcessor.process(datagram.data, error:&error) {
+        if let nalus = try rtpProcessor.process(datagram.data) {
             statistics.nalusProduced += nalus.count
 
             for nalu in nalus {
-                if let output = h264Processor.process(nalu, error:&error) {
+                if let output = try h264Processor.process(nalu) {
                 	statistics.h264FramesProduced++
                     statistics.lastH264FrameProduced = currentTime
                 	handler?(output)

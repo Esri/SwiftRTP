@@ -15,50 +15,45 @@ public class RTPProcessor {
 
     var defragmenter = FragmentationUnitDefragmenter()
 
-    public func process(data:DispatchData <Void>, inout error:ErrorType?) -> [H264NALU]? {
+    public func process(data:DispatchData <Void>) throws -> [H264NALU]? {
 
         let packet = RTPPacket(data: data)
 
         // TODO
         if packet.paddingFlag != false {
-            error = RTPError.unsupportedFeature("RTP padding flag not supported (yet)")
-            return nil
+            throw RTPError.unsupportedFeature("RTP padding flag not supported (yet)")
         }
 
         // TODO
         if packet.extensionFlag != false {
-            error = RTPError.unsupportedFeature("RTP extension flag not supported (yet)")
-            return nil
+            throw RTPError.unsupportedFeature("RTP extension flag not supported (yet)")
         }
 
         // TODO
         if packet.csrcCount != 0 {
-            error = RTPError.unsupportedFeature("Non-zero CSRC not supported (yet)")
-            return nil
+            throw RTPError.unsupportedFeature("Non-zero CSRC not supported (yet)")
         }
 
         let nalu = H264NALU(timestamp: packet.timestamp, data: packet.body)
 
         if packet.payloadType != 96 {
-            error = RTPError.unknownH264Type(nalu.rawType)
-            return nil
+            throw RTPError.unknownH264Type(nalu.rawType)
         }
 
         if let type = H264RTPType(rawValue: nalu.rawType) {
             switch type {
                 case .FU_A:
                     let fragmentationUnit = FragmentationUnit(rtpPacket:packet, nalu:nalu)
-                    if let nalu = defragmenter.processFragmentationUnit(fragmentationUnit, error:&error) {
+                    if let nalu = try defragmenter.processFragmentationUnit(fragmentationUnit) {
                         return [nalu]
                     }
                     else {
                         return nil
                     }
                 case .STAP_A:
-                    return processStapA(rtpPacket:packet, nalu:nalu, error:&error)
+                    return try processStapA(rtpPacket:packet, nalu:nalu)
                 default:
-                    error = RTPError.unsupportedFeature("Unsupported H264 RTP type: \(type)")
-                    return nil
+                    throw RTPError.unsupportedFeature("Unsupported H264 RTP type: \(type)")
             }
         }
         else {
@@ -67,7 +62,7 @@ public class RTPProcessor {
     }
 
     // TODO: This is NOT proven working code.
-    func processStapA(rtpPacket  rtpPacket:RTPPacket, nalu:H264NALU, inout error:ErrorType?) -> [H264NALU]? {
+    func processStapA(rtpPacket  rtpPacket:RTPPacket, nalu:H264NALU) throws -> [H264NALU]? {
 
         var nalus:[H264NALU] = []
 
@@ -75,13 +70,13 @@ public class RTPProcessor {
 
         while data.length >= 2 {
 
-            data.createMap() {
+            try data.createMap() {
                 (_, buffer) -> Void in
 
                 let chunkLength = UInt16(networkEndian: UInt16(bitRange(buffer, range: 0..<16)))
 
                 if Int(chunkLength) > data.length - sizeof(UInt16) {
-                    error = RTPError.generic("STAP-A chunk length \(chunkLength) longer than all of STAP-A data \(data.length) - sizeof(UInt16)")
+                    throw RTPError.generic("STAP-A chunk length \(chunkLength) longer than all of STAP-A data \(data.length) - sizeof(UInt16)")
                 }
 
                 let subdata = data.subBuffer(startIndex: sizeof(UInt16), count:Int(chunkLength))

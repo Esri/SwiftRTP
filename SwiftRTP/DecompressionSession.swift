@@ -35,7 +35,7 @@ public class DecompressionSession {
     public init() {
     }
 
-    public func decodeFrame(sampleBuffer:CMSampleBuffer, inout error:ErrorType?) -> Bool {
+    public func decodeFrame(sampleBuffer:CMSampleBuffer) throws {
 
         if formatDescription == nil {
             formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer) as CMVideoFormatDescription?
@@ -73,14 +73,10 @@ public class DecompressionSession {
             ]
 #endif
 
-
-
-
             var unmanagedDecompressionSession:Unmanaged <VTDecompressionSession>?
             let result = VTDecompressionSessionCreateWithBlock(kCFAllocatorDefault, formatDescription, videoDecoderSpecification, destinationImageBufferAttributes, callback, &unmanagedDecompressionSession)
             if result != 0 {
-                error = makeOSStatusError(result, description: "Unable to create VTDecompressionSession")
-                return false
+                throw makeOSStatusError(result, description: "Unable to create VTDecompressionSession")
             }
 
             decompressionSession = unmanagedDecompressionSession?.takeRetainedValue()
@@ -90,11 +86,8 @@ public class DecompressionSession {
         var decodeFlags = VTDecodeInfoFlags()
         let result = VTDecompressionSessionDecodeFrame(decompressionSession!, sampleBuffer, frameFlags, nil, &decodeFlags)
         if result != 0 {
-            error = makeOSStatusError(result, description: "VTDecompressionSessionDecodeFrame failed (flags: \(decodeFlags))")
-            return false
+            throw makeOSStatusError(result, description: "VTDecompressionSessionDecodeFrame failed (flags: \(decodeFlags))")
         }
-
-        return true
     }
 }
 
@@ -102,20 +95,16 @@ public class DecompressionSession {
 
 public extension DecompressionSession {
 
-    public func process(input:H264Processor.Output, inout error:ErrorType?) -> Bool {
+    public func process(input:H264Processor.Output) throws {
         switch input {
             case .formatDescription(let formatDescription):
                 self.formatDescription = formatDescription
-                return true
             case .sampleBuffer(let sampleBuffer):
-                let result = self.decodeFrame(sampleBuffer, error: &error)
-                if !result {
-                    if let decompressionSession = self.decompressionSession {
-                        VTDecompressionSessionInvalidate(decompressionSession)
-                        self.decompressionSession = nil
-                    }
+                try self.decodeFrame(sampleBuffer)
+                if let decompressionSession = self.decompressionSession {
+                    VTDecompressionSessionInvalidate(decompressionSession)
+                    self.decompressionSession = nil
                 }
-                return result
         }
     }
 }
