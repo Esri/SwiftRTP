@@ -55,14 +55,12 @@ public class RTPChannel {
     public init(port:UInt16) throws {
         udpChannel = try UDPChannel(port: port) {
             [weak self] (datagram) in
-            do {
-                try self?.udpReadHandler(datagram)
+
+            guard let strong_self = self else {
+                return
             }
-            catch RTPError.skippedFrame {
-            }
-            catch let error {
-                debugLog?("Error caught: \(error)")
-            }
+
+            strong_self.udpReadHandler(datagram)
         }
     }
 
@@ -82,7 +80,7 @@ public class RTPChannel {
         resumed = false
     }
 
-    public func udpReadHandler(datagram:Datagram) throws {
+    public func udpReadHandler(datagram:Datagram) {
         statistics.packetsReceived++
 
         let currentTime = CFAbsoluteTimeGetCurrent()
@@ -97,39 +95,44 @@ public class RTPChannel {
             statistics.lastUpdated = currentTime
         }
 
-        guard let nalus = try rtpProcessor.process(datagram.data) else {
-            return
+        do {
+            guard let nalus = try rtpProcessor.process(datagram.data) else {
+                return
+            }
+
+            statistics.nalusProduced += nalus.count
+
+            for nalu in nalus {
+                do {
+                    guard let output = try h264Processor.process(nalu) else {
+                        continue
+                    }
+
+                    switch output {
+                        case .formatDescription:
+                            statistics.formatDescriptionsProduced++
+                        case .sampleBuffer:
+                            statistics.sampleBuffersProduced++
+                    }
+
+                    statistics.h264FramesProduced++
+                    statistics.lastH264FrameProduced = currentTime
+                    try handler?(output)
+                }
+
+                catch let error {
+                    switch error {
+                        case RTPError.skippedFrame:
+                            statistics.h264FramesSkipped++
+                        default:
+                            statistics.errorsProduced++
+                    }
+                    throw error
+                }
+            }
         }
-
-        statistics.nalusProduced += nalus.count
-
-        for nalu in nalus {
-            do {
-                guard let output = try h264Processor.process(nalu) else {
-                    continue
-                }
-
-                switch output {
-                    case .formatDescription:
-                        statistics.formatDescriptionsProduced++
-                    case .sampleBuffer:
-                        statistics.sampleBuffersProduced++
-                }
-
-                statistics.h264FramesProduced++
-                statistics.lastH264FrameProduced = currentTime
-                try handler?(output)
-            }
-
-            catch let error {
-                switch error {
-                    case RTPError.skippedFrame:
-                        statistics.h264FramesSkipped++
-                    default:
-                        statistics.errorsProduced++
-                }
-                self.errorHandler?(error)
-            }
+        catch let error {
+            self.errorHandler?(error)
         }
     }
 }
