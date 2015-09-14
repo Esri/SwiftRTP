@@ -47,15 +47,6 @@ class ViewController: NSViewController {
 
     func startUDP() throws {
 
-//        let SPS:[UInt8] = [ 0x68, 0xCE, 0x30, 0xA6, 0x80 ]
-//        let PPS:[UInt8] = [ 0x67, 0x42, 0x40, 0x1F, 0xA6, 0x80, 0x50, 0x05, 0xB9 ]
-//
-//        let SPSData = DispatchData <UInt8> (value:SPS)
-//        let PPSData = DispatchData <UInt8> (value:PPS)
-//
-//        let description = makeFormatDescription(DispatchData <Void> (data:SPSData.data), DispatchData <Void> (data:PPSData.data), error: &error)
-//        print(description)
-
         tcpChannel = TCPChannel(hostname:"10.1.1.1", port:5502)
         try tcpChannel.resume()
 
