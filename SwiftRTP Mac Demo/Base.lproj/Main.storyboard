@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A263e" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A279b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <development version="6300" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -791,10 +791,31 @@
                                                                 <binding destination="XfG-lQ-9wD" name="value" keyPath="lastH264FrameProduced" id="2qg-EM-Wct"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3gb-zH-rdz">
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3gb-zH-rdz">
                                                             <rect key="frame" x="39" y="60" width="131" height="17"/>
                                                             <animations/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Last H264 Received:" id="4si-ey-RRK">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qVI-Lq-ztb">
+                                                            <rect key="frame" x="174" y="35" width="69" height="17"/>
+                                                            <animations/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="00000000" id="NJk-aR-RF6">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <binding destination="XfG-lQ-9wD" name="value" keyPath="h264FramesSkipped" id="MUd-F0-Iy2"/>
+                                                            </connections>
+                                                        </textField>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LIa-UJ-hVD">
+                                                            <rect key="frame" x="27" y="35" width="143" height="17"/>
+                                                            <animations/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="H264 Skipped Frames:" id="X75-MU-Bmp">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -805,6 +826,7 @@
                                                 </view>
                                                 <constraints>
                                                     <constraint firstItem="A4X-hc-obF" firstAttribute="leading" secondItem="zn9-xD-n4X" secondAttribute="leading" id="0Ha-hS-kYU"/>
+                                                    <constraint firstItem="qVI-Lq-ztb" firstAttribute="leading" secondItem="LIa-UJ-hVD" secondAttribute="trailing" constant="8" symbolic="YES" id="2wL-TY-r3V"/>
                                                     <constraint firstItem="IUb-Ua-1JK" firstAttribute="leading" secondItem="Ios-Ib-D3g" secondAttribute="trailing" constant="8" symbolic="YES" id="7CJ-9h-iEW"/>
                                                     <constraint firstItem="A4X-hc-obF" firstAttribute="trailing" secondItem="zn9-xD-n4X" secondAttribute="trailing" id="9Uz-UU-pxK"/>
                                                     <constraint firstItem="zn9-xD-n4X" firstAttribute="leading" secondItem="hl9-LJ-HmR" secondAttribute="leading" id="BXB-k4-T7j"/>
@@ -823,6 +845,7 @@
                                                     <constraint firstItem="Ig0-8f-R6f" firstAttribute="trailing" secondItem="IUb-Ua-1JK" secondAttribute="trailing" id="lzL-zV-adG"/>
                                                     <constraint firstItem="hl9-LJ-HmR" firstAttribute="trailing" secondItem="zn9-xD-n4X" secondAttribute="trailing" id="nuq-uR-rWZ"/>
                                                     <constraint firstItem="A4X-hc-obF" firstAttribute="leading" secondItem="3gb-zH-rdz" secondAttribute="trailing" constant="8" symbolic="YES" id="oYR-df-c2n"/>
+                                                    <constraint firstItem="LIa-UJ-hVD" firstAttribute="baseline" secondItem="qVI-Lq-ztb" secondAttribute="baseline" id="pFi-U6-u9m"/>
                                                     <constraint firstItem="Ios-Ib-D3g" firstAttribute="top" secondItem="ock-t4-x2R" secondAttribute="top" constant="35" id="pgt-RB-vIJ"/>
                                                     <constraint firstItem="Ig0-8f-R6f" firstAttribute="trailing" secondItem="hl9-LJ-HmR" secondAttribute="trailing" id="qVM-3c-g2X"/>
                                                     <constraint firstAttribute="trailing" secondItem="IUb-Ua-1JK" secondAttribute="trailing" constant="41" id="qqk-pk-dXY"/>

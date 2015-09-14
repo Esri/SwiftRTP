@@ -20,6 +20,7 @@ public class RTPChannel {
         public var h264FramesProduced: Int = 0
         public var lastH264FrameProduced: CFAbsoluteTime? = nil
         public var errorsProduced: Int = 0
+        public var h264FramesSkipped: Int = 0
     }
 
     public private(set) var udpChannel:UDPChannel!
@@ -28,7 +29,7 @@ public class RTPChannel {
     public private(set) var resumed = false
     public private(set) var statistics = Statistics()
 
-    public var handler:(H264Processor.Output -> Void)? {
+    public var handler:(H264Processor.Output throws -> Void)? {
         willSet {
             assert(resumed == false, "It is undefined to set properties while channel is resumed.")
         }
@@ -43,7 +44,7 @@ public class RTPChannel {
             assert(resumed == false, "It is undefined to set properties while channel is resumed.")
         }
     }
-    public var statisticsFrequency:Double = 10.0 {
+    public var statisticsFrequency:Double = 30.0 {
         willSet {
             assert(resumed == false, "It is undefined to set properties while channel is resumed.")
         }
@@ -82,40 +83,44 @@ public class RTPChannel {
     public func udpReadHandler(datagram:Datagram) throws {
         statistics.packetsReceived++
 
-        var statisticsUpdated = false
         let currentTime = CFAbsoluteTimeGetCurrent()
 
-        var error:ErrorType? = nil
-        if let nalus = try rtpProcessor.process(datagram.data) {
-            statistics.nalusProduced += nalus.count
-
-            for nalu in nalus {
-                if let output = try h264Processor.process(nalu) {
-                	statistics.h264FramesProduced++
-                    statistics.lastH264FrameProduced = currentTime
-                	handler?(output)
-                	statisticsUpdated = true
-            	}
-                else if let error = error {
-                    errorHandler?(error)
-                }
-            }
-        }
-
-        if let error = error {
-            self.errorHandler?(error)
-            statistics.errorsProduced++
-            statisticsUpdated = true
-        }
-
-        if statisticsUpdated == true {
+        defer {
             if let lastUpdate = statistics.lastUpdated {
-                if currentTime - lastUpdate < 1.0 / statisticsFrequency {
-                    return
+                let delta = currentTime - lastUpdate
+                if delta > (1.0 / statisticsFrequency) {
+                    statisticsHandler?(statistics)
                 }
             }
             statistics.lastUpdated = currentTime
-            statisticsHandler?(statistics)
+        }
+
+        guard let nalus = try rtpProcessor.process(datagram.data) else {
+            return
+        }
+
+        statistics.nalusProduced += nalus.count
+
+        for nalu in nalus {
+            do {
+                guard let output = try h264Processor.process(nalu) else {
+                    continue
+                }
+
+                statistics.h264FramesProduced++
+                statistics.lastH264FrameProduced = currentTime
+                try handler?(output)
+            }
+
+            catch let error {
+                switch error {
+                    case RTPError.skippedFrame:
+                        statistics.h264FramesSkipped++
+                    default:
+                        statistics.errorsProduced++
+                }
+                self.errorHandler?(error)
+            }
         }
     }
 }

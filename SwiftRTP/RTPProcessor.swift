@@ -44,12 +44,10 @@ public class RTPProcessor {
             switch type {
                 case .FU_A:
                     let fragmentationUnit = FragmentationUnit(rtpPacket:packet, nalu:nalu)
-                    if let nalu = try defragmenter.processFragmentationUnit(fragmentationUnit) {
-                        return [nalu]
-                    }
-                    else {
+                    guard let nalu = try defragmenter.processFragmentationUnit(fragmentationUnit) else {
                         return nil
                     }
+                    return [nalu]
                 case .STAP_A:
                     return try processStapA(rtpPacket:packet, nalu:nalu)
                 default:

@@ -32,14 +32,15 @@ class VideoView: NSView {
 extension VideoView {
 
     func process(input:H264Processor.Output?) {
-        if let input = input {
+        guard let input = input else {
+            return
+        }
         switch input {
-                case .formatDescription:
-                    // Nothing to do here?
-                    break
-                case .sampleBuffer(let sampleBuffer):
-                    sampleBufferDisplayLayer.enqueueSampleBuffer(sampleBuffer)
-            }
+            case .formatDescription:
+                // Nothing to do here?
+                break
+            case .sampleBuffer(let sampleBuffer):
+                sampleBufferDisplayLayer.enqueueSampleBuffer(sampleBuffer)
         }
     }
 }

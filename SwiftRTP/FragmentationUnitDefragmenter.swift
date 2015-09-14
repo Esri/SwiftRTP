@@ -39,10 +39,7 @@ public class FragmentationUnitDefragmenter {
         let firstFragmentationUnit = fragmentationUnits.first!
 
         // Make sure we have a valid subtype
-        if let _ = H264NALUType(rawValue: firstFragmentationUnit.subtype) {
-            // Nothing to do
-        }
-        else {
+        guard let _ = H264NALUType(rawValue: firstFragmentationUnit.subtype) else {
             throw RTPError.unknownH264Type(firstFragmentationUnit.subtype)
         }
 

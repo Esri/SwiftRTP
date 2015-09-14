@@ -24,6 +24,7 @@ class ViewController: NSViewController {
     dynamic var packetsReceived: Int = 0
     dynamic var nalusProduced: Int = 0
     dynamic var h264FramesProduced: Int = 0
+    dynamic var h264FramesSkipped: Int = 0
     dynamic var h264ProductionErrorsProduced: Int = 0
     dynamic var lastH264FrameProduced: NSDate? = nil
 
@@ -57,9 +58,12 @@ class ViewController: NSViewController {
             dispatch_async(dispatch_get_main_queue()) {
                 [weak self] in
 
-                if let strong_self = self {
-                    strong_self.videoView.process(output)
+                guard let strong_self = self else {
+                    return
+                }
 
+                strong_self.videoView.process(output)
+                if strong_self.movieWriter != nil {
                     try! strong_self.decompressionSession.process(output)
                 }
             }
@@ -88,6 +92,7 @@ class ViewController: NSViewController {
                 self.h264FramesProduced = statistics.h264FramesProduced
                 self.h264ProductionErrorsProduced = statistics.errorsProduced
                 self.lastH264FrameProduced = NSDate(timeIntervalSinceReferenceDate: statistics.lastH264FrameProduced ?? 0)
+                self.h264FramesSkipped = statistics.h264FramesSkipped
             })
         }
 

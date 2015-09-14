@@ -38,42 +38,42 @@ public class H264Processor {
 
         var result:Output? = nil
 
-        if let type = nalu.type {
-            switch type {
-                case .SliceIDR, .SliceNonIDR:
-                    result = try processVideoFrame(nalu)
-                case .SPS:
-                    lastSPS = nalu
-                case .PPS:
-                    lastPPS = nalu
-            }
-
-            if let SPS = lastSPS, let PPS = lastPPS {
-                let formatDescription = try makeFormatDescription(SPS, PPS: PPS)
-                self.lastFormatDescription = formatDescription
-                // TODO: Do we want to do this
-                lastSPS = nil
-                lastPPS = nil
-                result = .formatDescription(formatDescription)
-            }
+        defer {
+            lastTimestamp = nalu.timestamp
         }
-        else {
+
+        guard let type = nalu.type else {
             throw RTPError.unknownH264Type(nalu.rawType)
         }
 
-        lastTimestamp = nalu.timestamp
+        switch type {
+            case .SliceIDR, .SliceNonIDR:
+                return try processVideoFrame(nalu)
+            case .SPS:
+                lastSPS = nalu
+            case .PPS:
+                lastPPS = nalu
+        }
 
-        return result
+        guard let SPS = lastSPS, let PPS = lastPPS else {
+            return nil
+        }
+
+        let formatDescription = try makeFormatDescription(SPS, PPS: PPS)
+        self.lastFormatDescription = formatDescription
+        // TODO: Do we want to do this
+        lastSPS = nil
+        lastPPS = nil
+        return .formatDescription(formatDescription)
     }
 
     public func processVideoFrame(nalu:H264NALU) throws -> Output {
-        if let formatDescription = lastFormatDescription {
-            let sampleBuffer = try nalu.toCMSampleBuffer(firstTimestamp!, formatDescription: formatDescription)
-            return .sampleBuffer(sampleBuffer)
-        }
-        else {
+        guard let formatDescription = lastFormatDescription else {
             throw RTPError.skippedFrame("No formatDescription, skipping frame.")
         }
+
+        let sampleBuffer = try nalu.toCMSampleBuffer(firstTimestamp!, formatDescription: formatDescription)
+        return .sampleBuffer(sampleBuffer)
     }
 }
 
