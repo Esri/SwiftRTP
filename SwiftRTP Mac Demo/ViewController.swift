@@ -27,6 +27,9 @@ class ViewController: NSViewController {
     dynamic var h264FramesSkipped: Int = 0
     dynamic var h264ProductionErrorsProduced: Int = 0
     dynamic var lastH264FrameProduced: NSDate? = nil
+    dynamic var formatDescriptionsProduced: Int = 0
+    dynamic var sampleBuffersProduced: Int = 0
+
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -93,6 +96,8 @@ class ViewController: NSViewController {
                 self.h264ProductionErrorsProduced = statistics.errorsProduced
                 self.lastH264FrameProduced = NSDate(timeIntervalSinceReferenceDate: statistics.lastH264FrameProduced ?? 0)
                 self.h264FramesSkipped = statistics.h264FramesSkipped
+                self.sampleBuffersProduced = statistics.sampleBuffersProduced
+                self.formatDescriptionsProduced = statistics.formatDescriptionsProduced
             })
         }
 

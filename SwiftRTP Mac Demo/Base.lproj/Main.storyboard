@@ -670,29 +670,29 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="SwiftRTP_Test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="954" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="954" height="383"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <splitView dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eDF-VG-VRD">
-                                <rect key="frame" x="0.0" y="0.0" width="954" height="270"/>
+                                <rect key="frame" x="0.0" y="0.0" width="954" height="383"/>
                                 <subviews>
                                     <customView fixedFrame="YES" id="CuF-kt-uma" customClass="VideoView" customModule="SwiftRTP_Test" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="625" height="270"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="418" height="383"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <animations/>
                                     </customView>
-                                    <customView id="2VN-NU-34M">
-                                        <rect key="frame" x="635" y="0.0" width="319" height="270"/>
+                                    <customView misplaced="YES" id="2VN-NU-34M">
+                                        <rect key="frame" x="428" y="0.0" width="526" height="383"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
                                             <box autoresizesSubviews="NO" title="SwiftRTP Channel Statistics" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="ock-t4-x2R">
-                                                <rect key="frame" x="17" y="37" width="286" height="213"/>
+                                                <rect key="frame" x="17" y="37" width="286" height="326"/>
                                                 <view key="contentView">
-                                                    <rect key="frame" x="1" y="1" width="284" height="197"/>
+                                                    <rect key="frame" x="1" y="1" width="284" height="310"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zn9-xD-n4X">
-                                                            <rect key="frame" x="174" y="85" width="69" height="17"/>
+                                                            <rect key="frame" x="174" y="198" width="69" height="17"/>
                                                             <animations/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="00000000" id="fYt-UG-7ql">
                                                                 <font key="font" metaFont="system"/>
@@ -704,7 +704,7 @@
                                                             </connections>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IUb-Ua-1JK">
-                                                            <rect key="frame" x="174" y="160" width="69" height="17"/>
+                                                            <rect key="frame" x="174" y="273" width="69" height="17"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="65" id="oaf-UF-8pm"/>
                                                             </constraints>
@@ -719,7 +719,7 @@
                                                             </connections>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ios-Ib-D3g">
-                                                            <rect key="frame" x="55" y="160" width="115" height="17"/>
+                                                            <rect key="frame" x="55" y="273" width="115" height="17"/>
                                                             <animations/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Packets Received:" id="oJa-Fq-ARE">
                                                                 <font key="font" metaFont="system"/>
@@ -728,7 +728,7 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NaR-81-Ove">
-                                                            <rect key="frame" x="58" y="135" width="112" height="17"/>
+                                                            <rect key="frame" x="58" y="248" width="112" height="17"/>
                                                             <animations/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="NALUs Produced:" id="lEJ-Qd-z3n">
                                                                 <font key="font" metaFont="system"/>
@@ -737,7 +737,7 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ig0-8f-R6f">
-                                                            <rect key="frame" x="174" y="135" width="69" height="17"/>
+                                                            <rect key="frame" x="174" y="248" width="69" height="17"/>
                                                             <animations/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="00000000" id="xza-la-deU">
                                                                 <font key="font" metaFont="system"/>
@@ -749,7 +749,7 @@
                                                             </connections>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5kw-1e-N2m">
-                                                            <rect key="frame" x="18" y="110" width="152" height="17"/>
+                                                            <rect key="frame" x="18" y="223" width="152" height="17"/>
                                                             <animations/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="H264 Frames Produced:" id="1OB-7A-DwK">
                                                                 <font key="font" metaFont="system"/>
@@ -758,7 +758,7 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hl9-LJ-HmR">
-                                                            <rect key="frame" x="174" y="110" width="69" height="17"/>
+                                                            <rect key="frame" x="174" y="223" width="69" height="17"/>
                                                             <animations/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="00000000" id="WXr-L9-I50">
                                                                 <font key="font" metaFont="system"/>
@@ -770,7 +770,7 @@
                                                             </connections>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sYG-Fo-9eE">
-                                                            <rect key="frame" x="18" y="85" width="152" height="17"/>
+                                                            <rect key="frame" x="18" y="198" width="152" height="17"/>
                                                             <animations/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="H264 Production Errors:" id="dGY-eG-qUQ">
                                                                 <font key="font" metaFont="system"/>
@@ -779,10 +779,10 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="A4X-hc-obF">
-                                                            <rect key="frame" x="174" y="60" width="69" height="17"/>
+                                                            <rect key="frame" x="174" y="173" width="69" height="17"/>
                                                             <animations/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="00000000" id="M91-f2-wgA">
-                                                                <dateFormatter key="formatter" timeStyle="long" id="aLr-x3-asP"/>
+                                                                <dateFormatter key="formatter" timeStyle="medium" id="aLr-x3-asP"/>
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -791,8 +791,8 @@
                                                                 <binding destination="XfG-lQ-9wD" name="value" keyPath="lastH264FrameProduced" id="2qg-EM-Wct"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3gb-zH-rdz">
-                                                            <rect key="frame" x="39" y="60" width="131" height="17"/>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3gb-zH-rdz">
+                                                            <rect key="frame" x="40" y="173" width="130" height="17"/>
                                                             <animations/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Last H264 Received:" id="4si-ey-RRK">
                                                                 <font key="font" metaFont="system"/>
@@ -800,8 +800,8 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qVI-Lq-ztb">
-                                                            <rect key="frame" x="174" y="35" width="69" height="17"/>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qVI-Lq-ztb">
+                                                            <rect key="frame" x="174" y="148" width="69" height="17"/>
                                                             <animations/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="00000000" id="NJk-aR-RF6">
                                                                 <font key="font" metaFont="system"/>
@@ -812,8 +812,8 @@
                                                                 <binding destination="XfG-lQ-9wD" name="value" keyPath="h264FramesSkipped" id="MUd-F0-Iy2"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LIa-UJ-hVD">
-                                                            <rect key="frame" x="27" y="35" width="143" height="17"/>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LIa-UJ-hVD">
+                                                            <rect key="frame" x="27" y="148" width="143" height="17"/>
                                                             <animations/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="H264 Skipped Frames:" id="X75-MU-Bmp">
                                                                 <font key="font" metaFont="system"/>
@@ -821,24 +821,51 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VBL-nD-wdP">
+                                                            <rect key="frame" x="-19" y="123" width="189" height="17"/>
+                                                            <animations/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Format Descriptions Produced" id="ULe-Jq-46u">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gX7-QN-BUS">
+                                                            <rect key="frame" x="174" y="123" width="69" height="17"/>
+                                                            <animations/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="00000000" id="MyH-fu-VJk">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <binding destination="XfG-lQ-9wD" name="value" keyPath="formatDescriptionsProduced" id="8fG-yv-0Mr"/>
+                                                            </connections>
+                                                        </textField>
                                                     </subviews>
                                                     <animations/>
                                                 </view>
                                                 <constraints>
                                                     <constraint firstItem="A4X-hc-obF" firstAttribute="leading" secondItem="zn9-xD-n4X" secondAttribute="leading" id="0Ha-hS-kYU"/>
+                                                    <constraint firstItem="gX7-QN-BUS" firstAttribute="leading" secondItem="qVI-Lq-ztb" secondAttribute="leading" id="2OX-eN-Wlk"/>
                                                     <constraint firstItem="qVI-Lq-ztb" firstAttribute="leading" secondItem="LIa-UJ-hVD" secondAttribute="trailing" constant="8" symbolic="YES" id="2wL-TY-r3V"/>
                                                     <constraint firstItem="IUb-Ua-1JK" firstAttribute="leading" secondItem="Ios-Ib-D3g" secondAttribute="trailing" constant="8" symbolic="YES" id="7CJ-9h-iEW"/>
                                                     <constraint firstItem="A4X-hc-obF" firstAttribute="trailing" secondItem="zn9-xD-n4X" secondAttribute="trailing" id="9Uz-UU-pxK"/>
                                                     <constraint firstItem="zn9-xD-n4X" firstAttribute="leading" secondItem="hl9-LJ-HmR" secondAttribute="leading" id="BXB-k4-T7j"/>
                                                     <constraint firstItem="sYG-Fo-9eE" firstAttribute="leading" secondItem="5kw-1e-N2m" secondAttribute="leading" id="Bd0-sf-kMX"/>
+                                                    <constraint firstItem="VBL-nD-wdP" firstAttribute="baseline" secondItem="gX7-QN-BUS" secondAttribute="baseline" id="CrF-9v-NlV"/>
+                                                    <constraint firstItem="VBL-nD-wdP" firstAttribute="top" secondItem="LIa-UJ-hVD" secondAttribute="bottom" constant="8" symbolic="YES" id="EuN-gY-zbx"/>
                                                     <constraint firstItem="hl9-LJ-HmR" firstAttribute="leading" secondItem="5kw-1e-N2m" secondAttribute="trailing" constant="8" symbolic="YES" id="GZg-AF-J9q"/>
                                                     <constraint firstItem="Ig0-8f-R6f" firstAttribute="leading" secondItem="NaR-81-Ove" secondAttribute="trailing" constant="8" symbolic="YES" id="H3t-gX-UR0"/>
                                                     <constraint firstItem="Ig0-8f-R6f" firstAttribute="leading" secondItem="IUb-Ua-1JK" secondAttribute="leading" id="HQG-A3-IHw"/>
                                                     <constraint firstItem="zn9-xD-n4X" firstAttribute="leading" secondItem="sYG-Fo-9eE" secondAttribute="trailing" constant="8" symbolic="YES" id="KZn-NG-03k"/>
+                                                    <constraint firstItem="qVI-Lq-ztb" firstAttribute="leading" secondItem="A4X-hc-obF" secondAttribute="leading" id="S03-70-zns"/>
+                                                    <constraint firstItem="LIa-UJ-hVD" firstAttribute="top" secondItem="3gb-zH-rdz" secondAttribute="bottom" constant="8" symbolic="YES" id="SNw-7B-FuQ"/>
                                                     <constraint firstItem="5kw-1e-N2m" firstAttribute="top" secondItem="NaR-81-Ove" secondAttribute="bottom" constant="8" symbolic="YES" id="XZI-tW-vhV"/>
                                                     <constraint firstItem="3gb-zH-rdz" firstAttribute="baseline" secondItem="A4X-hc-obF" secondAttribute="baseline" id="bXC-YG-cLO"/>
                                                     <constraint firstItem="3gb-zH-rdz" firstAttribute="top" secondItem="sYG-Fo-9eE" secondAttribute="bottom" constant="8" symbolic="YES" id="bir-Q3-6bW"/>
                                                     <constraint firstItem="sYG-Fo-9eE" firstAttribute="baseline" secondItem="zn9-xD-n4X" secondAttribute="baseline" id="fgf-o5-clA"/>
+                                                    <constraint firstItem="gX7-QN-BUS" firstAttribute="leading" secondItem="VBL-nD-wdP" secondAttribute="trailing" constant="8" symbolic="YES" id="hss-aN-Pmh"/>
                                                     <constraint firstItem="NaR-81-Ove" firstAttribute="top" secondItem="Ios-Ib-D3g" secondAttribute="bottom" constant="8" symbolic="YES" id="jIj-F3-n4X"/>
                                                     <constraint firstItem="5kw-1e-N2m" firstAttribute="baseline" secondItem="hl9-LJ-HmR" secondAttribute="baseline" id="jtV-fc-dJF"/>
                                                     <constraint firstItem="Ig0-8f-R6f" firstAttribute="leading" secondItem="hl9-LJ-HmR" secondAttribute="leading" id="kPV-be-0nQ"/>
@@ -890,7 +917,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="233" y="655"/>
+            <point key="canvasLocation" x="233" y="711.5"/>
         </scene>
     </scenes>
 </document>

@@ -18,6 +18,8 @@ public class RTPChannel {
         public var packetsReceived: Int = 0
         public var nalusProduced: Int = 0
         public var h264FramesProduced: Int = 0
+        public var formatDescriptionsProduced: Int = 0
+        public var sampleBuffersProduced: Int = 0
         public var lastH264FrameProduced: CFAbsoluteTime? = nil
         public var errorsProduced: Int = 0
         public var h264FramesSkipped: Int = 0
@@ -105,6 +107,13 @@ public class RTPChannel {
             do {
                 guard let output = try h264Processor.process(nalu) else {
                     continue
+                }
+
+                switch output {
+                    case .formatDescription:
+                        statistics.formatDescriptionsProduced++
+                    case .sampleBuffer:
+                        statistics.sampleBuffersProduced++
                 }
 
                 statistics.h264FramesProduced++
