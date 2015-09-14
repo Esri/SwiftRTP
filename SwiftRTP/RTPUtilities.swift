@@ -37,6 +37,11 @@ extension RTPError: CustomStringConvertible {
 
 // MARK: -
 
+func freeBlock(refCon: UnsafeMutablePointer<Void>, doomedMemoryBlock: UnsafeMutablePointer<Void>, sizeInBytes: Int) -> Void {
+    let unmanagedData = Unmanaged<dispatch_data_t>.fromOpaque(COpaquePointer(refCon))
+    unmanagedData.release()
+}
+
 public extension DispatchData {
 
     func toCMBlockBuffer() throws -> CMBlockBuffer {
@@ -44,13 +49,10 @@ public extension DispatchData {
         let blockBuffer = try createMap() {
             (data, buffer) -> CMBlockBuffer in
 
-            var data: dispatch_data_t? = data.data
-
+            let dispatch_data = data.data
             var source = CMBlockBufferCustomBlockSource()
-            MakeBlockBufferCustomBlockSource(&source) {
-                data = nil
-                return
-            }
+            source.refCon = UnsafeMutablePointer<Void> (Unmanaged.passRetained(dispatch_data).toOpaque())
+            source.FreeBlock = freeBlock
 
             var blockBuffer: CMBlockBuffer?
             let result = CMBlockBufferCreateWithMemoryBlock(kCFAllocatorDefault, UnsafeMutablePointer <Void> (buffer.baseAddress), buffer.length, kCFAllocatorNull, &source, 0, buffer.length, 0, &blockBuffer)
