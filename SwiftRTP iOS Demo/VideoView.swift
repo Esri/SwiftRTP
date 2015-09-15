@@ -13,12 +13,36 @@ import SwiftRTP
 
 class VideoView: UIView {
 
-    override class func layerClass() -> AnyClass {
-        return AVSampleBufferDisplayLayer.self
+    var sampleBufferDisplayLayer: AVSampleBufferDisplayLayer!
+
+    override var bounds: CGRect {
+        didSet {
+            sampleBufferDisplayLayer?.frame = self.bounds
+        }
     }
 
-    var sampleBufferDisplayLayer: AVSampleBufferDisplayLayer {
-        return layer as! AVSampleBufferDisplayLayer
+    override var frame: CGRect {
+        didSet {
+            sampleBufferDisplayLayer?.frame = self.bounds
+        }
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+
+        super.init(coder:aDecoder)
+
+        rebuildSampleBufferDisplayLayer()
+    }
+
+    func rebuildSampleBufferDisplayLayer() {
+
+        if sampleBufferDisplayLayer != nil {
+            sampleBufferDisplayLayer.removeFromSuperlayer()
+        }
+
+        sampleBufferDisplayLayer = AVSampleBufferDisplayLayer()
+        sampleBufferDisplayLayer.frame = self.bounds
+        layer.addSublayer(sampleBufferDisplayLayer)
     }
 }
 
@@ -35,6 +59,9 @@ extension VideoView {
                 // Nothing to do here?
                 break
             case .sampleBuffer(let sampleBuffer):
+                if sampleBufferDisplayLayer.error != nil {
+                    rebuildSampleBufferDisplayLayer()
+                }
                 sampleBufferDisplayLayer.enqueueSampleBuffer(sampleBuffer)
         }
     }

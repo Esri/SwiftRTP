@@ -8,6 +8,10 @@
 
 import CoreMedia
 
+#if os(iOS)
+import UIKit
+#endif
+
 import SwiftUtilities
 import SwiftIO
 
@@ -30,6 +34,9 @@ public class RTPChannel {
     public let h264Processor = H264Processor()
     public private(set) var resumed = false
     public private(set) var statistics = Statistics()
+    private var backgroundObserver: AnyObject?
+    private var foregroundObserver: AnyObject?
+    private let queue = dispatch_queue_create("SwiftRTP.RTPChannel", DISPATCH_QUEUE_SERIAL)
 
     public var handler:(H264Processor.Output throws -> Void)? {
         willSet {
@@ -53,6 +60,18 @@ public class RTPChannel {
     }
 
     public init(port:UInt16) throws {
+
+#if os(iOS)
+        backgroundObserver = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidEnterBackgroundNotification, object: nil, queue: nil) {
+            [weak self] (notification) in
+            try! self?.cancel()
+        }
+        foregroundObserver = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: nil) {
+            [weak self] (notification) in
+            try! self?.resume()
+        }
+#endif
+
         udpChannel = try UDPChannel(port: port) {
             [weak self] (datagram) in
 
@@ -60,27 +79,70 @@ public class RTPChannel {
                 return
             }
 
-            strong_self.udpReadHandler(datagram)
+            dispatch_async(strong_self.queue) {
+                strong_self.udpReadHandler(datagram)
+            }
+        }
+    }
+
+    deinit {
+        if let backgroundObserver = backgroundObserver {
+            NSNotificationCenter.defaultCenter().removeObserver(backgroundObserver)
+        }
+        if let foregroundObserver = foregroundObserver {
+            NSNotificationCenter.defaultCenter().removeObserver(foregroundObserver)
         }
     }
 
     public func resume() throws {
-        if resumed == true {
-            return
+        dispatch_sync(queue) {
+            [weak self] in
+
+            guard let strong_self = self else {
+                return
+            }
+
+            if strong_self.resumed == true {
+                return
+            }
+            do {
+                try strong_self.udpChannel.resume()
+                strong_self.resumed = true
+            }
+            catch let error {
+                strong_self.errorHandler?(error)
+            }
         }
-        try udpChannel.resume()
-        resumed = true
     }
 
     public func cancel() throws {
+
+        dispatch_sync(queue) {
+            [weak self] in
+
+            guard let strong_self = self else {
+                return
+            }
+
+            if strong_self.resumed == false {
+                return
+            }
+            do {
+                try strong_self.udpChannel.cancel()
+                strong_self.resumed = false
+            }
+            catch let error {
+                strong_self.errorHandler?(error)
+            }
+        }
+    }
+
+    private func udpReadHandler(datagram:Datagram) {
+
         if resumed == false {
             return
         }
-        try udpChannel.cancel()
-        resumed = false
-    }
 
-    public func udpReadHandler(datagram:Datagram) {
         statistics.packetsReceived++
 
         let currentTime = CFAbsoluteTimeGetCurrent()
