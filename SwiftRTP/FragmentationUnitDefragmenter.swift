@@ -26,15 +26,11 @@ public class FragmentationUnitDefragmenter {
         }
     }
 
-    private func processFragmentationUnits(var fragmentationUnits:[FragmentationUnit]) throws -> H264NALU {
+    private func processFragmentationUnits(fragmentationUnits:[FragmentationUnit]) throws -> H264NALU {
 
-        // TODO: Deal with missing sequence numbers
-        // TODO: Deal with wrapping of sequence number
         // TODO: check timestamps and subtypes are correct
 
-        fragmentationUnits.sortInPlace {
-            return $0.sequenceNumber < $1.sequenceNumber
-        }
+        let fragmentationUnits = try reorderSequence(fragmentationUnits)
 
         let firstFragmentationUnit = fragmentationUnits.first!
 
@@ -60,4 +56,68 @@ public class FragmentationUnitDefragmenter {
         return nalu
     }
 
+    /// Reorder packets based on sequence number while handling sequence number wrap-around. Throws if there are gaps in the sequence.
+    private func reorderSequence(input:[FragmentationUnit]) throws -> [FragmentationUnit] {
+
+        // This should never happen - but if we do see it we're good.
+        if input.count <= 1 {
+            return input
+        }
+
+        // Everything else hinges on sorting the packets by sequence number.
+        let sortedInput = input.sort() {
+            return $0.sequenceNumber < $1.sequenceNumber
+        }
+
+        // We wrap around if the first packet has seq num 0 and last packet has seq num 65535
+        let wrapsAround = sortedInput.first!.sequenceNumber == 0 && sortedInput.last!.sequenceNumber == UInt16.max
+
+        var gapIndex: Int?
+        var lastSequenceNumber: UInt16?
+
+        // Look for gaps and the number of packets that are in the range before the gap.
+        for (index, item) in sortedInput.enumerate() {
+            if let lastSequenceNumber = lastSequenceNumber {
+                // If the packets are in sequence the difference between sequence numbers should be 1...
+                // But if the packets wrap around there should be exactly one (valid) gap.
+                let delta = item.sequenceNumber - lastSequenceNumber
+                if delta != 1 {
+                    // If we don't wrap around _and_ there's a gap then there's a problem.
+                    if wrapsAround == false {
+                        throw RTPError.fragmentationUnitError("Fragmentation unit doesn't wrap but have found a gap in sequence numbers", sortedInput.map { return $0.sequenceNumber })
+                    }
+                    // If we do wrap around _and_ there's already a gap, another gap signifies a problem.
+                    if gapIndex != nil {
+                        throw RTPError.fragmentationUnitError("Fragmentation unit does wrap but have found more than one gap in sequence numbers", sortedInput.map { return $0.sequenceNumber })
+                    }
+                    gapIndex = index
+                }
+            }
+            lastSequenceNumber = item.sequenceNumber
+        }
+
+        let result:[FragmentationUnit]
+
+        if wrapsAround == true {
+            guard let gapIndex = gapIndex else {
+                preconditionFailure()
+            }
+            let start = sortedInput[gapIndex..<sortedInput.endIndex]
+            let end = sortedInput[0..<gapIndex]
+            result = Array <FragmentationUnit> (start + end)
+//            print("WRAP AROUND")
+//            print(result.map { return $0.sequenceNumber })
+        }
+        else {
+            result = sortedInput
+        }
+
+        // Make sure first and last packets are actually start and end packets.
+        // In theory we should make sure other packets are not start and end but that's guaranteed not to happen if we get here.
+        guard result.first!.position == .Start && result.last!.position == .End else {
+            throw RTPError.fragmentationUnitError("First and last packets not start and end packets of a sequence", result.map { return $0.sequenceNumber })
+        }
+
+        return result
+    }
 }

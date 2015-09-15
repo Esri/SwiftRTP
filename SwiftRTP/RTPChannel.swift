@@ -27,6 +27,7 @@ public class RTPChannel {
         public var lastH264FrameProduced: CFAbsoluteTime? = nil
         public var errorsProduced: Int = 0
         public var h264FramesSkipped: Int = 0
+        public var badSequenceErrors: Int = 0
     }
 
     public private(set) var udpChannel:UDPChannel!
@@ -186,6 +187,8 @@ public class RTPChannel {
                     switch error {
                         case RTPError.skippedFrame:
                             statistics.h264FramesSkipped++
+                        case RTPError.fragmentationUnitError:
+                            print("GAP!")
                         default:
                             statistics.errorsProduced++
                     }
@@ -194,7 +197,15 @@ public class RTPChannel {
             }
         }
         catch let error {
-            self.errorHandler?(error)
+            switch error {
+                case RTPError.fragmentationUnitError:
+                    print("GAP!")
+                    statistics.badSequenceErrors++
+                    statistics.errorsProduced++
+                default:
+                    statistics.errorsProduced++
+            }
+            errorHandler?(error)
         }
     }
 }

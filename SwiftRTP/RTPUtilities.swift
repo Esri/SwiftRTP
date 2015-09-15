@@ -17,6 +17,7 @@ public enum RTPError: ErrorType {
     case generic(String)
     case posix(Int32,String)
     case streamReset
+    case fragmentationUnitError(String,[UInt16])
 }
 
 extension RTPError: CustomStringConvertible {
@@ -34,6 +35,8 @@ extension RTPError: CustomStringConvertible {
                 return "\(result): \(string)"
             case .streamReset:
                 return "streamReset"
+            case .fragmentationUnitError(let description, let sequenceNumbers):
+                return "fragmentationUnitError(\(description), \(sequenceNumbers))"
         }
     }
 }

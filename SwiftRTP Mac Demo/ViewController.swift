@@ -82,10 +82,10 @@ class ViewController: NSViewController {
                         case .skippedFrame:
                             return
                         default:
-                            print("ERROR: \(error)")
+                            print("Error handler caught: \(error)")
                     }
                 default:
-                    print("ERROR: \(error)")
+                    print("Error handler caught: \(error)")
             }
         }
         rtpChannel.statisticsHandler = {
