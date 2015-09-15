@@ -14,23 +14,36 @@ class ViewController: UIViewController {
 
     var rtpChannel:RTPChannel!
     var tcpChannel:TCPChannel!
-
     let decompressionSession = DecompressionSession()
+    var movieWriter:MovieWriter? = nil
 
     @IBOutlet var videoView: VideoView!
-    dynamic var packetsReceived: Int = 0
-    dynamic var nalusProduced: Int = 0
-    dynamic var h264FramesProduced: Int = 0
-    dynamic var h264ProductionErrorsProduced: Int = 0
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        startUDP()
+//        movieWriter = MovieWriter(movieURL:NSURL(fileURLWithPath: "/Users/schwa/Desktop/Test.h264")!, size:CGSize(width: 1280, height: 7820), error:&error)
+//        movieWriter?.resume(&error)
+
+        decompressionSession.imageBufferDecoded = {
+            (imageBuffer:CVImageBuffer, presentationTimeStamp:CMTime, presentationDuration:CMTime) -> Void in
+            try! self.movieWriter?.handlePixelBuffer(imageBuffer, presentationTime: presentationTimeStamp)
+        }
+
+        try! startUDP()
     }
 
-    func startUDP() {
-        rtpChannel = RTPChannel(port:5600)
+    func startUDP() throws {
+
+        tcpChannel = TCPChannel(hostname:"10.1.1.1", port:5502)
+        try tcpChannel.resume()
+
+
+        rtpChannel = try RTPChannel(port:5600)
         rtpChannel.handler = {
             (output) -> Void in
             dispatch_async(dispatch_get_main_queue()) {
@@ -41,9 +54,9 @@ class ViewController: UIViewController {
                 }
 
                 strong_self.videoView.process(output)
-
-                var error: ErrorType?
-                strong_self.decompressionSession.process(output, error:&error)
+                if strong_self.movieWriter != nil {
+                    try! strong_self.decompressionSession.process(output)
+                }
             }
         }
         rtpChannel.errorHandler = {
@@ -58,22 +71,10 @@ class ViewController: UIViewController {
                             print("ERROR: \(error)")
                     }
                 default:
-                    print(")ERROR: \(error)")
+                    print("ERROR: \(error)")
             }
         }
-        rtpChannel.statisticsHandler = {
-            (statistics) in
 
-            dispatch_async(dispatch_get_main_queue(), {
-                self.packetsReceived = statistics.packetsReceived
-                self.nalusProduced = statistics.nalusProduced
-                self.h264FramesProduced = statistics.h264FramesProduced
-                self.h264ProductionErrorsProduced = statistics.errorsProduced
-            })
-        }
-
-        rtpChannel.resume()
+        try rtpChannel.resume()
     }
 }
-
-

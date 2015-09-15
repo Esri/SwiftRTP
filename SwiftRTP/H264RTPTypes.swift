@@ -32,7 +32,7 @@ public struct FragmentationUnit {
     private(set) var subtype:UInt8 = 0
 
     // From RTPPacket
-    private(set) var timestamp:UInt32
+    private(set) var time:CMTime
     private(set) var sequenceNumber:UInt16
 
     // From H264NALU
@@ -44,7 +44,7 @@ public struct FragmentationUnit {
 
         header = data.subBuffer(startIndex: 0, count: 1)
         body = data.inset(startInset: 1)
-        self.timestamp = rtpPacket.timestamp
+        self.time = nalu.time
         self.sequenceNumber = rtpPacket.sequenceNumber
         self.nal_ref_idc = nalu.nal_ref_idc
 

@@ -13,11 +13,23 @@ import SwiftUtilities
 
 public class RTPProcessor {
 
+    var stream:RTPStream!
     var defragmenter = FragmentationUnitDefragmenter()
 
     public func process(data:DispatchData <Void>) throws -> [H264NALU]? {
 
         let packet = RTPPacket(data: data)
+        print(packet.timestamp, packet.sequenceNumber, packet.ssrcIdentifier)
+
+        if stream == nil {
+            stream = RTPStream(ssrcIdentifier: packet.ssrcIdentifier)
+        }
+
+        if stream.ssrcIdentifier != packet.ssrcIdentifier {
+            throw RTPError.streamReset
+        }
+
+        let time = try stream.clock.processTimestamp(packet.timestamp)
 
         // TODO
         if packet.paddingFlag != false {
@@ -34,7 +46,7 @@ public class RTPProcessor {
             throw RTPError.unsupportedFeature("Non-zero CSRC not supported (yet)")
         }
 
-        let nalu = H264NALU(timestamp: packet.timestamp, data: packet.body)
+        let nalu = H264NALU(time: time, data: packet.body)
 
         if packet.payloadType != 96 {
             throw RTPError.unknownH264Type(nalu.rawType)
@@ -60,7 +72,7 @@ public class RTPProcessor {
     }
 
     // TODO: This is NOT proven working code.
-    func processStapA(rtpPacket  rtpPacket:RTPPacket, nalu:H264NALU) throws -> [H264NALU]? {
+    func processStapA(rtpPacket rtpPacket:RTPPacket, nalu:H264NALU) throws -> [H264NALU]? {
 
         var nalus:[H264NALU] = []
 
@@ -79,7 +91,7 @@ public class RTPProcessor {
 
                 let subdata = data.subBuffer(startIndex: sizeof(UInt16), count:Int(chunkLength))
 
-                let nalu = H264NALU(timestamp: rtpPacket.timestamp, data: subdata)
+                let nalu = H264NALU(time: nalu.time, data: subdata)
                 nalus.append(nalu)
 
                 data = data.inset(startInset: sizeof(UInt16) + Int(chunkLength), endInset: 0)
@@ -91,3 +103,72 @@ public class RTPProcessor {
 
 }
 
+// MARK: -
+
+class RTPStream {
+    var ssrcIdentifier: UInt32
+    var clock = RTPClock()
+
+    init(ssrcIdentifier: UInt32) {
+        self.ssrcIdentifier = ssrcIdentifier
+    }
+}
+
+
+class RTPClock {
+    var firstTimestamp: UInt32? = nil
+    var lastTimestamp: UInt32? = nil
+    var lastClock: CFAbsoluteTime? = nil
+    var maxDiff: Double = 0.0
+    var totalDiff: Double = 0.0
+    var count: Int = 0
+    var offset = kCMTimeZero
+
+    func processTimestamp(timestamp:UInt32) throws -> CMTime {
+
+        count++
+
+        let clock = CFAbsoluteTimeGetCurrent()
+
+        defer {
+            lastTimestamp = timestamp
+            lastClock = clock
+        }
+
+        if firstTimestamp == nil {
+            firstTimestamp = timestamp
+        }
+
+        guard let firstTimestamp = firstTimestamp else {
+            fatalError()
+        }
+
+        if let lastClock = lastClock, let lastTimestamp = lastTimestamp {
+            let deltaTimestamp = Double(timestamp - lastTimestamp) / 90_000
+            let deltaClock = clock - lastClock
+            let diff = abs(deltaTimestamp - deltaClock)
+
+            totalDiff += diff
+
+//            print(totalDiff / Double(count))
+
+            if diff > 60 {
+                throw RTPError.streamReset
+            }
+
+
+            if diff > maxDiff {
+                print("Max \(diff)")
+                maxDiff = diff
+            }
+        }
+
+
+        let deltaTimestamp = timestamp - firstTimestamp
+        let time = CMTimeAdd(offset, CMTimeMake(Int64(deltaTimestamp), H264ClockRate))
+
+        print(time)
+
+        return time
+    }
+}

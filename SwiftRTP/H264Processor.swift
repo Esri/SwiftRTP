@@ -12,6 +12,8 @@ import SwiftUtilities
 
 let H264ClockRate:Int32 = 90_000
 
+
+
 public class H264Processor {
 
     public enum Output {
@@ -24,23 +26,10 @@ public class H264Processor {
     public var defaultFormatDescription:CMFormatDescription?
     public var lastFormatDescription:CMFormatDescription?
 
-    var firstTimestamp: UInt32?
-    var lastTimestamp: UInt32?
-
     public init() {
     }
 
     public func process(nalu:H264NALU) throws -> Output? {
-
-        if firstTimestamp == nil {
-            firstTimestamp = nalu.timestamp
-        }
-
-        var result:Output? = nil
-
-        defer {
-            lastTimestamp = nalu.timestamp
-        }
 
         guard let type = nalu.type else {
             throw RTPError.unknownH264Type(nalu.rawType)
@@ -61,7 +50,6 @@ public class H264Processor {
 
         let formatDescription = try makeFormatDescription(SPS, PPS: PPS)
         self.lastFormatDescription = formatDescription
-        // TODO: Do we want to do this
         lastSPS = nil
         lastPPS = nil
         return .formatDescription(formatDescription)
@@ -72,37 +60,27 @@ public class H264Processor {
             throw RTPError.skippedFrame("No formatDescription, skipping frame.")
         }
 
-        let sampleBuffer = try nalu.toCMSampleBuffer(firstTimestamp!, formatDescription: formatDescription)
+        let sampleBuffer = try naluToCMSampleBuffer(nalu, formatDescription: formatDescription)
         return .sampleBuffer(sampleBuffer)
     }
-}
 
-// MARK: -
-
-public extension H264NALU {
-
-    func toCMSampleBuffer(firstTimestamp:UInt32, formatDescription:CMFormatDescription) throws -> CMSampleBuffer {
-
-        if timestamp < firstTimestamp {
-            throw SwiftUtilities.Error.generic("Got a timestamp from before first timestamp.")
-        }
+    func naluToCMSampleBuffer(nalu:H264NALU, formatDescription:CMFormatDescription) throws -> CMSampleBuffer {
 
         // Prepend the size of the data to the data as a 32-bit network endian uint. (keyword: "elementary stream")
-        let headerValue = UInt32(data.length)
+        let headerValue = UInt32(nalu.data.length)
         let headerData = DispatchData <Void>(value:headerValue.bigEndian)
-        let sizedData = headerData + data
+        let sizedData = headerData + nalu.data
 
         let blockBuffer = try sizedData.toCMBlockBuffer()
 
         // So what about STAP???? From CMSampleBufferCreate "Behavior is undefined if samples in a CMSampleBuffer (or even in multiple buffers in the same stream) have the same presentationTimeStamp"
 
-
         // Computer the duration and time
         let duration = kCMTimeInvalid // CMTimeMake(3000, H264ClockRate) // TODO: 1/30th of a second. Making this up.
-        let time = CMTimeMake(Int64(timestamp - firstTimestamp), H264ClockRate)
+
 
         // Inputs to CMSampleBufferCreate
-        let timingInfo:[CMSampleTimingInfo] = [CMSampleTimingInfo(duration: duration, presentationTimeStamp: time, decodeTimeStamp: time)]
+        let timingInfo:[CMSampleTimingInfo] = [CMSampleTimingInfo(duration: duration, presentationTimeStamp: nalu.time, decodeTimeStamp: nalu.time)]
         let sampleSizes:[Int] = [CMBlockBufferGetDataLength(blockBuffer)]
 
         // Outputs from CMSampleBufferCreate

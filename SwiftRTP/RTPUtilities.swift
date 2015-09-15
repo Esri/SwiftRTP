@@ -16,6 +16,7 @@ public enum RTPError: ErrorType {
     case skippedFrame(String)
     case generic(String)
     case posix(Int32,String)
+    case streamReset
 }
 
 extension RTPError: CustomStringConvertible {
@@ -31,6 +32,8 @@ extension RTPError: CustomStringConvertible {
                 return "\(string)"
             case .posix(let result, let string):
                 return "\(result): \(string)"
+            case .streamReset:
+                return "streamReset"
         }
     }
 }

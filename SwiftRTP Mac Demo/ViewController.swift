@@ -38,6 +38,8 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NSProcessInfo.processInfo().beginActivityWithOptions(.LatencyCritical, reason: "Because")
+
 //        movieWriter = MovieWriter(movieURL:NSURL(fileURLWithPath: "/Users/schwa/Desktop/Test.h264")!, size:CGSize(width: 1280, height: 7820), error:&error)
 //        movieWriter?.resume(&error)
 

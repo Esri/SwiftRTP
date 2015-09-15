@@ -38,9 +38,8 @@ extension H264NALUType: CustomStringConvertible {
 public struct H264NALU {
 
     public let data:DispatchData <Void>
-//    public let header:DispatchData <Void>
     public let body:DispatchData <Void>
-    public let timestamp:UInt32
+    public let time:CMTime
 
     public private(set) var forbidden_zero_bit:Bool = false
     public private(set) var nal_ref_idc:UInt8 = 0
@@ -57,10 +56,10 @@ public struct H264NALU {
         return value
     }
 
-    public init(timestamp:UInt32, data:DispatchData <Void>) {
+    public init(time:CMTime, data:DispatchData <Void>) {
         assert(data.length > 0)
 
-        self.timestamp = timestamp
+        self.time = time
         self.data = data
 
         let header = data.subBuffer(startIndex: 0, count: 1)
