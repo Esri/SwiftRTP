@@ -19,7 +19,6 @@ public class RTPProcessor {
     public func process(data:DispatchData <Void>) throws -> [H264NALU]? {
 
         let packet = RTPPacket(data: data)
-        print(packet.timestamp, packet.sequenceNumber, packet.ssrcIdentifier)
 
         if stream == nil {
             stream = RTPStream(ssrcIdentifier: packet.ssrcIdentifier)
@@ -158,7 +157,7 @@ class RTPClock {
 
 
             if diff > maxDiff {
-                print("Max \(diff)")
+//                print("Max \(diff)")
                 maxDiff = diff
             }
         }
@@ -166,8 +165,6 @@ class RTPClock {
 
         let deltaTimestamp = timestamp - firstTimestamp
         let time = CMTimeAdd(offset, CMTimeMake(Int64(deltaTimestamp), H264ClockRate))
-
-        print(time)
 
         return time
     }
