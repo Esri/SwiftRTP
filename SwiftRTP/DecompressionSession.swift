@@ -101,10 +101,6 @@ public extension DecompressionSession {
                 self.formatDescription = formatDescription
             case .sampleBuffer(let sampleBuffer):
                 try self.decodeFrame(sampleBuffer)
-                if let decompressionSession = self.decompressionSession {
-                    VTDecompressionSessionInvalidate(decompressionSession)
-                    self.decompressionSession = nil
-                }
         }
     }
 }
