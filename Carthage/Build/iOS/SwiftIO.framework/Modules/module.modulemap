@@ -1,0 +1,10 @@
+framework module SwiftIO {
+  umbrella header "SwiftIO.h"
+
+  export *
+  module * { export * }
+}
+
+module SwiftIO.Swift {
+    header "SwiftIO-Swift.h"
+}
