@@ -51,16 +51,12 @@ public class H264Processor {
             return nil
         }
 
-
         let formatDescription = try currentParameterSet.toFormatDescription()
 
         if lastParameterSet != currentParameterSet {
             lastParameterSet = currentParameterSet
             currentParameterSet = H264ParameterSet()
-            print("CYCLE")
         }
-
-
 
         return .formatDescription(formatDescription)
     }
