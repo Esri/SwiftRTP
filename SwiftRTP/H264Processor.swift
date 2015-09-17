@@ -12,8 +12,6 @@ import SwiftUtilities
 
 let H264ClockRate:Int32 = 90_000
 
-
-
 public class H264Processor {
 
     public enum Output {
@@ -21,10 +19,8 @@ public class H264Processor {
         case sampleBuffer(CMSampleBuffer)
     }
 
-    public internal(set) var lastSPS:H264NALU?
-    public internal(set) var lastPPS:H264NALU?
-    public var defaultFormatDescription:CMFormatDescription?
-    public var lastFormatDescription:CMFormatDescription?
+    var lastParameterSet: H264ParameterSet?
+    var currentParameterSet: H264ParameterSet = H264ParameterSet()
 
     public init() {
     }
@@ -38,29 +34,43 @@ public class H264Processor {
         switch type {
             case .SliceIDR, .SliceNonIDR:
                 return try processVideoFrame(nalu)
-            case .SPS:
-                lastSPS = nalu
-            case .PPS:
-                lastPPS = nalu
+            default:
+                break
         }
 
-        guard let SPS = lastSPS, let PPS = lastPPS else {
+        switch type {
+            case .SPS:
+                currentParameterSet.sps = nalu
+            case .PPS:
+                currentParameterSet.pps = nalu
+            default:
+                throw Error.generic("Unhandled NALU type.")
+        }
+
+        guard currentParameterSet.isComplete == true else {
             return nil
         }
 
-        let formatDescription = try makeFormatDescription(SPS, PPS: PPS)
-        self.lastFormatDescription = formatDescription
-        lastSPS = nil
-        lastPPS = nil
+
+        let formatDescription = try currentParameterSet.toFormatDescription()
+
+        if lastParameterSet != currentParameterSet {
+            lastParameterSet = currentParameterSet
+            currentParameterSet = H264ParameterSet()
+            print("CYCLE")
+        }
+
+
+
         return .formatDescription(formatDescription)
     }
 
     public func processVideoFrame(nalu:H264NALU) throws -> Output {
-        guard let formatDescription = lastFormatDescription else {
+        guard let lastParameterSet = lastParameterSet where lastParameterSet.isComplete == true else {
             throw RTPError.skippedFrame("No formatDescription, skipping frame.")
         }
 
-        let sampleBuffer = try naluToCMSampleBuffer(nalu, formatDescription: formatDescription)
+        let sampleBuffer = try naluToCMSampleBuffer(nalu, formatDescription: lastParameterSet.toFormatDescription())
         return .sampleBuffer(sampleBuffer)
     }
 

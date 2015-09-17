@@ -49,6 +49,8 @@
 		453CB3E71B8E404100622621 /* SwiftRTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CB3E51B8E403E00622621 /* SwiftRTP.swift */; };
 		454873221B8BC62200EB3CD3 /* MovieWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454873211B8BC62200EB3CD3 /* MovieWriter.swift */; };
 		454873231B8BC62200EB3CD3 /* MovieWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454873211B8BC62200EB3CD3 /* MovieWriter.swift */; };
+		4569E00C1BAB30150001AD40 /* H264ParameterSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4569E00B1BAB30150001AD40 /* H264ParameterSet.swift */; settings = {ASSET_TAGS = (); }; };
+		4569E00D1BAB30150001AD40 /* H264ParameterSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4569E00B1BAB30150001AD40 /* H264ParameterSet.swift */; settings = {ASSET_TAGS = (); }; };
 		45A2A6511B853381006ACBAE /* SwiftRTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A2A63A1B853381006ACBAE /* SwiftRTP.framework */; };
 		45B9317B1B9F7C8A00DA7EE9 /* SwiftIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931761B9F7BE700DA7EE9 /* SwiftIO.framework */; settings = {ASSET_TAGS = (); }; };
 		45B9317C1B9F7C8A00DA7EE9 /* SwiftUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931781B9F7BE700DA7EE9 /* SwiftUtilities.framework */; settings = {ASSET_TAGS = (); }; };
@@ -178,6 +180,7 @@
 		4532ADD11B852066002080D7 /* TCPChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPChannel.swift; sourceTree = "<group>"; };
 		453CB3E51B8E403E00622621 /* SwiftRTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRTP.swift; sourceTree = "<group>"; };
 		454873211B8BC62200EB3CD3 /* MovieWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieWriter.swift; sourceTree = "<group>"; };
+		4569E00B1BAB30150001AD40 /* H264ParameterSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = H264ParameterSet.swift; sourceTree = "<group>"; };
 		4596DEFF1B825E0E00A5FD87 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		45A2A62F1B852F72006ACBAE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45A2A63A1B853381006ACBAE /* SwiftRTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftRTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -351,6 +354,7 @@
 				4511DD421B4472BA004EA078 /* H264RTPTypes.swift */,
 				451E2D871B4360FB00F93401 /* H264Types.swift */,
 				451E2D891B43614800F93401 /* H264Processor.swift */,
+				4569E00B1BAB30150001AD40 /* H264ParameterSet.swift */,
 				45DBF7621B448189005705E2 /* RTPUtilities.swift */,
 				45CEE98B1B839B2B00ED7D23 /* DecompressionSession.swift */,
 				45194E731B7D43230017E89A /* Support.h */,
@@ -599,6 +603,7 @@
 			files = (
 				4526B34A1B85417E001EB22E /* RTPTypes.swift in Sources */,
 				4526B34C1B85417E001EB22E /* H264Types.swift in Sources */,
+				4569E00D1BAB30150001AD40 /* H264ParameterSet.swift in Sources */,
 				4526B3631B854E23001EB22E /* DecompressionSession.swift in Sources */,
 				4526B3471B85417E001EB22E /* RTPChannel.swift in Sources */,
 				4526B34B1B85417E001EB22E /* H264RTPTypes.swift in Sources */,
@@ -629,6 +634,7 @@
 			files = (
 				45CEE9801B83937800ED7D23 /* RTPTypes.swift in Sources */,
 				45CEE9821B83937800ED7D23 /* H264Types.swift in Sources */,
+				4569E00C1BAB30150001AD40 /* H264ParameterSet.swift in Sources */,
 				4526B3641B854E23001EB22E /* DecompressionSession.swift in Sources */,
 				45CEE97F1B83937800ED7D23 /* RTPProcessor.swift in Sources */,
 				453CB3E61B8E403E00622621 /* SwiftRTP.swift in Sources */,
