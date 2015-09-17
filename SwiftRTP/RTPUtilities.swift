@@ -40,10 +40,12 @@ extension RTPError: CustomStringConvertible {
 
 // MARK: -
 
-func freeBlock(refCon: UnsafeMutablePointer<Void>, doomedMemoryBlock: UnsafeMutablePointer<Void>, sizeInBytes: Int) -> Void {
+private func freeBlock(refCon: UnsafeMutablePointer<Void>, doomedMemoryBlock: UnsafeMutablePointer<Void>, sizeInBytes: Int) -> Void {
     let unmanagedData = Unmanaged<dispatch_data_t>.fromOpaque(COpaquePointer(refCon))
     unmanagedData.release()
 }
+
+// MARK: -
 
 public extension DispatchData {
 
@@ -70,38 +72,3 @@ public extension DispatchData {
     }
 }
 
-// MARK: -
-
-public func makeFormatDescription(SPS:H264NALU, PPS:H264NALU) throws -> CMFormatDescription {
-    return try makeFormatDescription(SPS.data, PPS: PPS.data)
-}
-
-public func makeFormatDescription(SPS:DispatchData <Void>, PPS:DispatchData <Void>) throws -> CMFormatDescription {
-
-    return try PPS.createMap() {
-        (_, PPSBuffer) in
-
-        return try SPS.createMap() {
-            (_, SPSBuffer) in
-
-            let pointers:[UnsafePointer <UInt8>] = [
-                UnsafePointer <UInt8> (PPSBuffer.baseAddress),
-                UnsafePointer <UInt8> (SPSBuffer.baseAddress),
-            ]
-            let sizes:[Int] = [
-                PPSBuffer.count,
-                SPSBuffer.count,
-            ]
-
-            // Size of NALU length headers in AVCC/MPEG-4 format (can be 1, 2, or 4).
-            let NALUnitHeaderLength:Int32 = 4
-
-            var formatDescription: CMFormatDescription?
-            let result = CMVideoFormatDescriptionCreateFromH264ParameterSets(kCFAllocatorDefault, pointers.count, pointers, sizes, NALUnitHeaderLength, &formatDescription)
-            if result != 0 {
-                throw makeOSStatusError(result, description: "CMVideoFormatDescriptionCreateFromH264ParameterSets failed")
-            }
-            return formatDescription!
-        }
-    }
-}

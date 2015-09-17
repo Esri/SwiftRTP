@@ -17,25 +17,11 @@ import SwiftIO
 
 public class RTPChannel {
 
-    public struct Statistics {
-        public var magic:Int = 0
-        public var lastUpdated: CFAbsoluteTime? = nil
-        public var packetsReceived: Int = 0
-        public var nalusProduced: Int = 0
-        public var h264FramesProduced: Int = 0
-        public var formatDescriptionsProduced: Int = 0
-        public var sampleBuffersProduced: Int = 0
-        public var lastH264FrameProduced: CFAbsoluteTime? = nil
-        public var errorsProduced: Int = 0
-        public var h264FramesSkipped: Int = 0
-        public var badSequenceErrors: Int = 0
-    }
-
     public private(set) var udpChannel:UDPChannel!
     public let rtpProcessor = RTPProcessor()
     public let h264Processor = H264Processor()
     public private(set) var resumed = false
-    public private(set) var statistics = Statistics()
+    public private(set) var statistics = RTPStatistics()
     private var backgroundObserver: AnyObject?
     private var foregroundObserver: AnyObject?
     private let queue = dispatch_queue_create("SwiftRTP.RTPChannel", DISPATCH_QUEUE_SERIAL)
@@ -50,7 +36,7 @@ public class RTPChannel {
             assert(resumed == false, "It is undefined to set properties while channel is resumed.")
         }
     }
-    public var statisticsHandler:(Statistics -> Void)? {
+    public var statisticsHandler:(RTPStatistics -> Void)? {
         willSet {
             assert(resumed == false, "It is undefined to set properties while channel is resumed.")
         }
