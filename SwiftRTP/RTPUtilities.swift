@@ -14,7 +14,6 @@ public enum RTPError: ErrorType {
     case unknownH264Type(UInt8)
     case unsupportedFeature(String)
     case skippedFrame(String)
-    case generic(String)
     case posix(Int32,String)
     case streamReset
     case fragmentationUnitError(String,[UInt16])
@@ -29,8 +28,6 @@ extension RTPError: CustomStringConvertible {
                 return "Unsupported Feature: \(string)"
             case .skippedFrame(let string):
                 return "Skipping Frame: \(string)"
-            case .generic(let string):
-                return "\(string)"
             case .posix(let result, let string):
                 return "\(result): \(string)"
             case .streamReset:
