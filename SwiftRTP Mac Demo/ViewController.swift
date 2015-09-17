@@ -17,7 +17,7 @@ class ViewController: NSViewController {
     var rtpChannel:RTPChannel!
     var tcpChannel:TCPChannel!
 
-    let decompressionSession = DecompressionSession()
+    var decompressionSession:DecompressionSession? = nil
     var movieWriter:MovieWriter? = nil
 
     @IBOutlet var videoView: VideoView!
@@ -40,13 +40,21 @@ class ViewController: NSViewController {
 
         NSProcessInfo.processInfo().beginActivityWithOptions(.LatencyCritical, reason: "Because")
 
-//        movieWriter = MovieWriter(movieURL:NSURL(fileURLWithPath: "/Users/schwa/Desktop/Test.h264")!, size:CGSize(width: 1280, height: 7820), error:&error)
-//        movieWriter?.resume(&error)
+//        movieWriter = try! MovieWriter(movieURL:NSURL(fileURLWithPath: "/Users/schwa/Desktop/Test.h264"), size:CGSize(width: 1280, height: 7820))
+//        try! movieWriter?.resume()
 
-        decompressionSession.imageBufferDecoded = {
-            (imageBuffer:CVImageBuffer, presentationTimeStamp:CMTime, presentationDuration:CMTime) -> Void in
-            try! self.movieWriter?.handlePixelBuffer(imageBuffer, presentationTime: presentationTimeStamp)
-        }
+        decompressionSession = DecompressionSession()
+//        decompressionSession?.imageBufferDecoded = {
+//            (imageBuffer:CVImageBuffer, presentationTimeStamp:CMTime, presentationDuration:CMTime) -> Void in
+//            if let movieWriter = self.movieWriter {
+//                do {
+//                    try movieWriter.handlePixelBuffer(imageBuffer, presentationTime: presentationTimeStamp)
+//                }
+//                catch {
+//                    print(error)
+//                }
+//            }
+//        }
 
         try! startUDP()
     }
@@ -68,18 +76,20 @@ class ViewController: NSViewController {
                 }
 
                 strong_self.videoView.process(output)
-                if strong_self.movieWriter != nil {
-                    try! strong_self.decompressionSession.process(output)
+                if strong_self.decompressionSession != nil {
+                    try! strong_self.decompressionSession?.process(output)
                 }
             }
         }
         rtpChannel.errorHandler = {
             (error) in
 
+            print("ERROR: \(error)")
+
             switch error {
                 case let error as RTPError:
                     switch error {
-                        case .skippedFrame:
+                        case .fragmentationUnitError:
                             return
                         default:
                             print("Error handler caught: \(error)")

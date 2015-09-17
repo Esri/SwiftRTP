@@ -18,6 +18,7 @@ import SwiftIO
 public class RTPChannel {
 
     public struct Statistics {
+        public var magic:Int = 0
         public var lastUpdated: CFAbsoluteTime? = nil
         public var packetsReceived: Int = 0
         public var nalusProduced: Int = 0
@@ -110,7 +111,7 @@ public class RTPChannel {
                 try strong_self.udpChannel.resume()
                 strong_self.resumed = true
             }
-            catch let error {
+            catch {
                 strong_self.errorHandler?(error)
             }
         }
@@ -132,7 +133,7 @@ public class RTPChannel {
                 try strong_self.udpChannel.cancel()
                 strong_self.resumed = false
             }
-            catch let error {
+            catch {
                 strong_self.errorHandler?(error)
             }
         }
@@ -166,46 +167,52 @@ public class RTPChannel {
             statistics.nalusProduced += nalus.count
 
             for nalu in nalus {
-                do {
-                    guard let output = try h264Processor.process(nalu) else {
-                        continue
-                    }
-
-                    switch output {
-                        case .formatDescription:
-                            statistics.formatDescriptionsProduced++
-                        case .sampleBuffer:
-                            statistics.sampleBuffersProduced++
-                    }
-
-                    statistics.h264FramesProduced++
-                    statistics.lastH264FrameProduced = currentTime
-                    try handler?(output)
-                }
-
-                catch let error {
-                    switch error {
-                        case RTPError.skippedFrame:
-                            statistics.h264FramesSkipped++
-                        case RTPError.fragmentationUnitError:
-                            print("GAP!")
-                        default:
-                            statistics.errorsProduced++
-                    }
-                    throw error
-                }
+                try processNalu(nalu)
             }
         }
-        catch let error {
+        catch {
             switch error {
                 case RTPError.fragmentationUnitError:
-                    print("GAP!")
                     statistics.badSequenceErrors++
                     statistics.errorsProduced++
                 default:
                     statistics.errorsProduced++
             }
             errorHandler?(error)
+        }
+    }
+
+
+    func processNalu(nalu:H264NALU) throws {
+        do {
+            guard let output = try h264Processor.process(nalu) else {
+                return
+            }
+
+            statistics.magic++
+
+            switch output {
+                case .formatDescription:
+                    statistics.formatDescriptionsProduced++
+                case .sampleBuffer:
+                    statistics.sampleBuffersProduced++
+            }
+
+            statistics.h264FramesProduced++
+
+            statistics.lastH264FrameProduced = CFAbsoluteTimeGetCurrent()
+            try handler?(output)
+        }
+        catch {
+            switch error {
+                case RTPError.skippedFrame:
+                    statistics.h264FramesSkipped++
+                case RTPError.fragmentationUnitError:
+                    fallthrough
+                default:
+                    statistics.errorsProduced++
+            }
+            throw error
         }
     }
 }

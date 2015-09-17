@@ -40,7 +40,6 @@
 		4526B34E1B85417E001EB22E /* RTPUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DBF7621B448189005705E2 /* RTPUtilities.swift */; };
 		4526B34F1B85417E001EB22E /* Support.m in Sources */ = {isa = PBXBuildFile; fileRef = 45194E711B7D431B0017E89A /* Support.m */; };
 		4526B3501B85417E001EB22E /* SwiftRTP.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CEE9731B83930C00ED7D23 /* SwiftRTP.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4526B3571B85417E001EB22E /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CF1A1B83B67700229CC9 /* Logging.swift */; };
 		4526B3631B854E23001EB22E /* DecompressionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CEE98B1B839B2B00ED7D23 /* DecompressionSession.swift */; };
 		4526B3641B854E23001EB22E /* DecompressionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CEE98B1B839B2B00ED7D23 /* DecompressionSession.swift */; };
 		4526B3651B854FA7001EB22E /* Support.h in Headers */ = {isa = PBXBuildFile; fileRef = 45194E731B7D43230017E89A /* Support.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -48,7 +47,6 @@
 		4532ADD21B852066002080D7 /* TCPChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4532ADD11B852066002080D7 /* TCPChannel.swift */; };
 		453CB3E61B8E403E00622621 /* SwiftRTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CB3E51B8E403E00622621 /* SwiftRTP.swift */; };
 		453CB3E71B8E404100622621 /* SwiftRTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CB3E51B8E403E00622621 /* SwiftRTP.swift */; };
-		4540CF1B1B83B67700229CC9 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540CF1A1B83B67700229CC9 /* Logging.swift */; };
 		454873221B8BC62200EB3CD3 /* MovieWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454873211B8BC62200EB3CD3 /* MovieWriter.swift */; };
 		454873231B8BC62200EB3CD3 /* MovieWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454873211B8BC62200EB3CD3 /* MovieWriter.swift */; };
 		45A2A6511B853381006ACBAE /* SwiftRTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A2A63A1B853381006ACBAE /* SwiftRTP.framework */; };
@@ -179,7 +177,6 @@
 		451E2D891B43614800F93401 /* H264Processor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = H264Processor.swift; sourceTree = "<group>"; };
 		4532ADD11B852066002080D7 /* TCPChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPChannel.swift; sourceTree = "<group>"; };
 		453CB3E51B8E403E00622621 /* SwiftRTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRTP.swift; sourceTree = "<group>"; };
-		4540CF1A1B83B67700229CC9 /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Logging.swift; path = ../Externals/SwiftIO/Logging.swift; sourceTree = "<group>"; };
 		454873211B8BC62200EB3CD3 /* MovieWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieWriter.swift; sourceTree = "<group>"; };
 		4596DEFF1B825E0E00A5FD87 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		45A2A62F1B852F72006ACBAE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -360,7 +357,6 @@
 				45194E711B7D431B0017E89A /* Support.m */,
 				45A2A62F1B852F72006ACBAE /* Info.plist */,
 				45CEE9731B83930C00ED7D23 /* SwiftRTP.h */,
-				4540CF1A1B83B67700229CC9 /* Logging.swift */,
 			);
 			path = SwiftRTP;
 			sourceTree = "<group>";
@@ -612,7 +608,6 @@
 				4526B34D1B85417E001EB22E /* H264Processor.swift in Sources */,
 				4526B34E1B85417E001EB22E /* RTPUtilities.swift in Sources */,
 				4526B34F1B85417E001EB22E /* Support.m in Sources */,
-				4526B3571B85417E001EB22E /* Logging.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,7 +631,6 @@
 				45CEE9821B83937800ED7D23 /* H264Types.swift in Sources */,
 				4526B3641B854E23001EB22E /* DecompressionSession.swift in Sources */,
 				45CEE97F1B83937800ED7D23 /* RTPProcessor.swift in Sources */,
-				4540CF1B1B83B67700229CC9 /* Logging.swift in Sources */,
 				453CB3E61B8E403E00622621 /* SwiftRTP.swift in Sources */,
 				45CEE9811B83937800ED7D23 /* H264RTPTypes.swift in Sources */,
 				45CEE97E1B83937800ED7D23 /* RTPChannel.swift in Sources */,

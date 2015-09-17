@@ -25,7 +25,8 @@ public class RTPProcessor {
         }
 
         if stream.ssrcIdentifier != packet.ssrcIdentifier {
-            throw RTPError.streamReset
+            SwiftRTP.sharedInstance.debugLog?(String(RTPError.streamReset))
+            stream = RTPStream(ssrcIdentifier: packet.ssrcIdentifier)
         }
 
         let time = try stream.clock.processTimestamp(packet.timestamp)
@@ -148,16 +149,7 @@ class RTPClock {
             let diff = abs(deltaTimestamp - deltaClock)
 
             totalDiff += diff
-
-//            print(totalDiff / Double(count))
-
-            if diff > 60 {
-                throw RTPError.streamReset
-            }
-
-
             if diff > maxDiff {
-//                print("Max \(diff)")
                 maxDiff = diff
             }
         }
