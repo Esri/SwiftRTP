@@ -20,6 +20,8 @@ public class RTPProcessor {
 
         let packet = RTPPacket(data: data)
 
+        SwiftRTP.sharedInstance.debugLog?(String(packet))
+
         if stream == nil {
             stream = RTPStream(ssrcIdentifier: packet.ssrcIdentifier)
         }
@@ -152,8 +154,8 @@ class RTPClock {
             if diff > maxDiff {
                 maxDiff = diff
             }
+//            SwiftRTP.sharedInstance.debugLog?((totalDiff, maxDiff))
         }
-
 
         let deltaTimestamp = timestamp - firstTimestamp
         let time = CMTimeAdd(offset, CMTimeMake(Int64(deltaTimestamp), H264ClockRate))

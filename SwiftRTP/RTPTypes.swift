@@ -47,3 +47,13 @@ public struct RTPPacket {
         }
     }
 }
+
+extension RTPPacket: CustomStringConvertible {
+    public var description: String {
+
+        let flags = (paddingFlag ? "P" : "p") + (extensionFlag ? "E" : "e") + (markerFlag ? "M" : "m")
+        let csrc = csrcCount > 1 ? "csrcCount: \(csrcCount), " : ""
+
+        return "RTPPacket(version: \(version), flags: \(flags), \(csrc)payloadType: \(payloadType), sequenceNumber: \(sequenceNumber), timestamp:\(timestamp), ssrcIdentifier: \(ssrcIdentifier))"
+    }
+}
