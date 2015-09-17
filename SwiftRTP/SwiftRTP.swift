@@ -14,4 +14,17 @@ public class SwiftRTP {
 
     public var debugLog:((Any) -> Void)? = nil
 //    public var debugLog:((Any) -> Void)? = { print($0) }
+
+    public func postEvent(event:RTPEvent) {
+    }
+
 }
+
+
+
+public enum RTPEvent {
+    case h264ParameterSetCycled
+    case ppsReceived
+    case spsReceived
+}
+
