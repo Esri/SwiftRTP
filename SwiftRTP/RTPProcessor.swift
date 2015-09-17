@@ -147,7 +147,7 @@ class RTPClock {
         }
 
         if let lastClock = lastClock, let lastTimestamp = lastTimestamp {
-            let deltaTimestamp = Double(timestamp - lastTimestamp) / 90_000
+            let deltaTimestamp = Double(Int64(timestamp) - Int64(lastTimestamp)) / 90_000
             let deltaClock = clock - lastClock
             let diff = abs(deltaTimestamp - deltaClock)
 
