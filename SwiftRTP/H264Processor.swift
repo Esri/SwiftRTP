@@ -41,10 +41,10 @@ public class H264Processor {
         switch type {
             case .SPS:
                 currentParameterSet.sps = nalu
-                SwiftRTP.sharedInstance.postEvent(RTPEvent.spsReceived)
+//                SwiftRTP.sharedInstance.postEvent(RTPEvent.spsReceived)
             case .PPS:
                 currentParameterSet.pps = nalu
-                SwiftRTP.sharedInstance.postEvent(RTPEvent.ppsReceived)
+//                SwiftRTP.sharedInstance.postEvent(RTPEvent.ppsReceived)
             default:
                 throw Error.generic("Unhandled NALU type.")
         }
@@ -59,7 +59,7 @@ public class H264Processor {
             lastParameterSet = currentParameterSet
             currentParameterSet = H264ParameterSet()
 
-            SwiftRTP.sharedInstance.postEvent(RTPEvent.h264ParameterSetCycled)
+//            SwiftRTP.sharedInstance.postEvent(RTPEvent.h264ParameterSetCycled)
         }
 
         return .formatDescription(formatDescription)

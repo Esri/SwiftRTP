@@ -16,8 +16,10 @@ class ViewController: UIViewController {
     var tcpChannel:TCPChannel!
     let decompressionSession = DecompressionSession()
     var movieWriter:MovieWriter? = nil
+    var statistics:[RTPEvent:Int] = [:]
 
     @IBOutlet var videoView: VideoView!
+    @IBOutlet var statisticsView: UITextView!
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -72,6 +74,20 @@ class ViewController: UIViewController {
                     }
                 default:
                     print("ERROR: \(error)")
+            }
+        }
+        rtpChannel.eventHandler = {
+            (event) in
+            dispatch_async(dispatch_get_main_queue()) {
+
+                if self.statistics[event] == nil {
+                    self.statistics[event] = 0
+                }
+                else {
+                    self.statistics[event] = self.statistics[event]! + 1
+                }
+
+                self.statisticsView.text = self.statistics.map() { return "\($0): \($1)" }.joinWithSeparator(" \n")
             }
         }
 

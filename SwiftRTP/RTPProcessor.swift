@@ -164,16 +164,3 @@ class RTPClock {
 
 //MARK: -
 
-public struct RTPStatistics {
-    public var magic:Int = 0
-    public var lastUpdated: CFAbsoluteTime? = nil
-    public var packetsReceived: Int = 0
-    public var nalusProduced: Int = 0
-    public var h264FramesProduced: Int = 0
-    public var formatDescriptionsProduced: Int = 0
-    public var sampleBuffersProduced: Int = 0
-    public var lastH264FrameProduced: CFAbsoluteTime? = nil
-    public var errorsProduced: Int = 0
-    public var h264FramesSkipped: Int = 0
-    public var badSequenceErrors: Int = 0
-}

@@ -21,7 +21,6 @@ public class RTPChannel {
     public let rtpProcessor = RTPProcessor()
     public let h264Processor = H264Processor()
     public private(set) var resumed = false
-    public private(set) var statistics = RTPStatistics()
     private var backgroundObserver: AnyObject?
     private var foregroundObserver: AnyObject?
     private let queue = dispatch_queue_create("SwiftRTP.RTPChannel", DISPATCH_QUEUE_SERIAL)
@@ -36,7 +35,7 @@ public class RTPChannel {
             assert(resumed == false, "It is undefined to set properties while channel is resumed.")
         }
     }
-    public var statisticsHandler:(RTPStatistics -> Void)? {
+    public var eventHandler:(RTPEvent -> Void)? {
         willSet {
             assert(resumed == false, "It is undefined to set properties while channel is resumed.")
         }
@@ -131,26 +130,14 @@ public class RTPChannel {
             return
         }
 
-        statistics.packetsReceived++
-
-        let currentTime = CFAbsoluteTimeGetCurrent()
-
-        defer {
-            if let lastUpdate = statistics.lastUpdated {
-                let delta = currentTime - lastUpdate
-                if delta > (1.0 / statisticsFrequency) {
-                    statisticsHandler?(statistics)
-                }
-            }
-            statistics.lastUpdated = currentTime
-        }
+        postEvent(.packetReceived)
 
         do {
             guard let nalus = try rtpProcessor.process(datagram.data) else {
                 return
             }
 
-            statistics.nalusProduced += nalus.count
+            postEvent(.naluProduced)
 
             for nalu in nalus {
                 try processNalu(nalu)
@@ -159,10 +146,10 @@ public class RTPChannel {
         catch {
             switch error {
                 case RTPError.fragmentationUnitError:
-                    statistics.badSequenceErrors++
-                    statistics.errorsProduced++
+                    postEvent(.badFragmentationUnit)
+                    postEvent(.errorInPipeline)
                 default:
-                    statistics.errorsProduced++
+                    postEvent(.errorInPipeline)
             }
             errorHandler?(error)
         }
@@ -175,30 +162,30 @@ public class RTPChannel {
                 return
             }
 
-            statistics.magic++
-
             switch output {
                 case .formatDescription:
-                    statistics.formatDescriptionsProduced++
+                    postEvent(.formatDescriptionProduced)
                 case .sampleBuffer:
-                    statistics.sampleBuffersProduced++
+                    postEvent(.sampleBufferProduced)
             }
 
-            statistics.h264FramesProduced++
-
-            statistics.lastH264FrameProduced = CFAbsoluteTimeGetCurrent()
+            postEvent(.h264FrameProduced)
             try handler?(output)
         }
         catch {
             switch error {
                 case RTPError.skippedFrame:
-                    statistics.h264FramesSkipped++
+                    postEvent(.h264FrameSkipped)
                 case RTPError.fragmentationUnitError:
                     fallthrough
                 default:
-                    statistics.errorsProduced++
+                    postEvent(.errorInPipeline)
             }
             throw error
         }
+    }
+
+    func postEvent(event:RTPEvent) {
+        eventHandler?(event)
     }
 }
