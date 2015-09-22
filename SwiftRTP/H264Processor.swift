@@ -115,6 +115,8 @@ public class H264Processor {
             throw makeOSStatusError(result, description:"CMSampleBufferCreate() failed")
         }
 
+        CMSampleBufferSetDisplayImmediately(sampleBuffer)
+
         return sampleBuffer!
     }
 
