@@ -74,6 +74,7 @@
 		45CEE9841B83937800ED7D23 /* RTPUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DBF7621B448189005705E2 /* RTPUtilities.swift */; };
 		45CEE9851B83937800ED7D23 /* Support.m in Sources */ = {isa = PBXBuildFile; fileRef = 45194E711B7D431B0017E89A /* Support.m */; };
 		45CEE9891B83970800ED7D23 /* FragmentationUnitDefragmenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CEE9881B83970800ED7D23 /* FragmentationUnitDefragmenter.swift */; };
+		45D7040C1BB1D52B009AFE00 /* HeartBeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7040B1BB1D52B009AFE00 /* HeartBeatView.swift */; settings = {ASSET_TAGS = (); }; };
 		45DBE26B1B869C04000D20F2 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DBE26A1B869C04000D20F2 /* VideoView.swift */; };
 		45DBE26E1B869CC8000D20F2 /* SwiftRTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A2A63A1B853381006ACBAE /* SwiftRTP.framework */; };
 		45DBE2701B869CE5000D20F2 /* SwiftRTP.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 45A2A63A1B853381006ACBAE /* SwiftRTP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -203,6 +204,7 @@
 		45CEE9731B83930C00ED7D23 /* SwiftRTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftRTP.h; sourceTree = "<group>"; };
 		45CEE9881B83970800ED7D23 /* FragmentationUnitDefragmenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FragmentationUnitDefragmenter.swift; sourceTree = "<group>"; };
 		45CEE98B1B839B2B00ED7D23 /* DecompressionSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecompressionSession.swift; sourceTree = "<group>"; };
+		45D7040B1BB1D52B009AFE00 /* HeartBeatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartBeatView.swift; sourceTree = "<group>"; };
 		45DA8D5F1B3E1FC9001F739F /* RTPProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTPProcessor.swift; sourceTree = "<group>"; };
 		45DA8D651B3E22FB001F739F /* RTPTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTPTypes.swift; sourceTree = "<group>"; };
 		45DBE26A1B869C04000D20F2 /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 		45C72C0D1B869B7300EC39AF /* SwiftRTP iOS Demo */ = {
 			isa = PBXGroup;
 			children = (
+				45D7040B1BB1D52B009AFE00 /* HeartBeatView.swift */,
 				45C72C101B869B7300EC39AF /* AppDelegate.swift */,
 				45C72C121B869B7300EC39AF /* ViewController.swift */,
 				45DBE26A1B869C04000D20F2 /* VideoView.swift */,
@@ -621,6 +624,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45DBE26B1B869C04000D20F2 /* VideoView.swift in Sources */,
+				45D7040C1BB1D52B009AFE00 /* HeartBeatView.swift in Sources */,
 				45C72C131B869B7300EC39AF /* ViewController.swift in Sources */,
 				454873231B8BC62200EB3CD3 /* MovieWriter.swift in Sources */,
 				45C72C111B869B7300EC39AF /* AppDelegate.swift in Sources */,
@@ -814,7 +818,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "SwiftRTP iOS Demo/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.3dr.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -833,7 +837,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "SwiftRTP iOS Demo/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.3dr.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

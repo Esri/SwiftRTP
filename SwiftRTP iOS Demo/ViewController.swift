@@ -20,6 +20,7 @@ class ViewController: UIViewController {
 
     @IBOutlet var videoView: VideoView!
     @IBOutlet var statisticsView: UITextView!
+    @IBOutlet var heartbeatView: HeartbeatView!
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -87,10 +88,28 @@ class ViewController: UIViewController {
                     self.statistics[event] = self.statistics[event]! + 1
                 }
 
-                self.statisticsView.text = self.statistics.map() { return "\($0): \($1)" }.joinWithSeparator(" \n")
+                var string = NSMutableAttributedString()
+
+                for (event, value) in self.statistics {
+                    let color = self.heartbeatView.colorForEvent(String(event))
+                    string += NSAttributedString(string: "•", attributes: [NSForegroundColorAttributeName : color])
+                    string += NSAttributedString(string: "\(event): \(value)\n")
+                }
+
+                self.statisticsView.attributedText = string
+                self.heartbeatView.handleEvent(String(event))
             }
+
         }
 
         try rtpChannel.resume()
     }
+}
+
+extension NSMutableString {
+}
+
+func += (inout lhs:NSMutableAttributedString, rhs:NSAttributedString) -> NSMutableAttributedString {
+    lhs.appendAttributedString(rhs)
+    return lhs
 }
