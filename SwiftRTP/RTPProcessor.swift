@@ -13,10 +13,17 @@ import SwiftUtilities
 
 public class RTPProcessor {
 
-    var stream:RTPStream!
-    var defragmenter = FragmentationUnitDefragmenter()
+    weak var context: RTPContextType!
+    var stream: RTPStream!
+    var defragmenter: FragmentationUnitDefragmenter
 
-    public func process(data:DispatchData <Void>) throws -> [H264NALU]? {
+    init(context: RTPContextType) {
+        self.context = context
+
+        defragmenter = FragmentationUnitDefragmenter(context: context)
+    }
+
+    public func process(data: DispatchData <Void>) throws -> [H264NALU]? {
 
         let packet = RTPPacket(data: data)
 

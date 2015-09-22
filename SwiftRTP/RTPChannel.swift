@@ -15,11 +15,16 @@ import UIKit
 import SwiftUtilities
 import SwiftIO
 
-public class RTPChannel {
+public protocol RTPContextType: AnyObject {
+    func postEvent(event:RTPEvent)
+}
 
+
+public class RTPChannel: RTPContextType {
+
+    public private(set) var rtpProcessor: RTPProcessor!
+    public private(set) var h264Processor: H264Processor!
     public private(set) var udpChannel:UDPChannel!
-    public let rtpProcessor = RTPProcessor()
-    public let h264Processor = H264Processor()
     public private(set) var resumed = false
     private var backgroundObserver: AnyObject?
     private var foregroundObserver: AnyObject?
@@ -47,6 +52,9 @@ public class RTPChannel {
     }
 
     public init(port:UInt16) throws {
+
+        rtpProcessor = RTPProcessor(context:self)
+        h264Processor = H264Processor(context:self)
 
 #if os(iOS)
         backgroundObserver = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidEnterBackgroundNotification, object: nil, queue: nil) {
@@ -144,13 +152,7 @@ public class RTPChannel {
             }
         }
         catch {
-            switch error {
-                case RTPError.fragmentationUnitError:
-                    postEvent(.badFragmentationUnit)
-                    postEvent(.errorInPipeline)
-                default:
-                    postEvent(.errorInPipeline)
-            }
+            postEvent(.errorInPipeline)
             errorHandler?(error)
         }
     }
@@ -185,7 +187,8 @@ public class RTPChannel {
         }
     }
 
-    func postEvent(event:RTPEvent) {
+    public func postEvent(event:RTPEvent) {
         eventHandler?(event)
     }
 }
+

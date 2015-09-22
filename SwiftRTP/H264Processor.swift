@@ -19,10 +19,12 @@ public class H264Processor {
         case sampleBuffer(CMSampleBuffer)
     }
 
+    weak var context: RTPContextType!
     var lastParameterSet: H264ParameterSet?
     var currentParameterSet: H264ParameterSet = H264ParameterSet()
 
-    public init() {
+    public init(context: RTPContextType) {
+        self.context = context
     }
 
     public func process(nalu:H264NALU) throws -> Output? {
@@ -41,10 +43,10 @@ public class H264Processor {
         switch type {
             case .SPS:
                 currentParameterSet.sps = nalu
-//                SwiftRTP.sharedInstance.postEvent(RTPEvent.spsReceived)
+                context.postEvent(RTPEvent.spsReceived)
             case .PPS:
                 currentParameterSet.pps = nalu
-//                SwiftRTP.sharedInstance.postEvent(RTPEvent.ppsReceived)
+                context.postEvent(RTPEvent.ppsReceived)
             default:
                 throw Error.generic("Unhandled NALU type.")
         }
@@ -59,7 +61,7 @@ public class H264Processor {
             lastParameterSet = currentParameterSet
             currentParameterSet = H264ParameterSet()
 
-//            SwiftRTP.sharedInstance.postEvent(RTPEvent.h264ParameterSetCycled)
+            context.postEvent(RTPEvent.h264ParameterSetCycled)
         }
 
         return .formatDescription(formatDescription)

@@ -82,7 +82,7 @@ class ViewController: UIViewController {
             dispatch_async(dispatch_get_main_queue()) {
 
                 if self.statistics[event] == nil {
-                    self.statistics[event] = 0
+                    self.statistics[event] = 1
                 }
                 else {
                     self.statistics[event] = self.statistics[event]! + 1
@@ -93,7 +93,7 @@ class ViewController: UIViewController {
                 for (event, value) in self.statistics {
                     let color = self.heartbeatView.colorForEvent(String(event))
                     string += NSAttributedString(string: "•", attributes: [NSForegroundColorAttributeName : color])
-                    string += NSAttributedString(string: "\(event): \(value)\n")
+                    string += NSAttributedString(string: "\(event): \(value)\n", attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
                 }
 
                 self.statisticsView.attributedText = string

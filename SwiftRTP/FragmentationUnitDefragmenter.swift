@@ -10,7 +10,12 @@ import SwiftUtilities
 
 public class FragmentationUnitDefragmenter {
 
+    weak var context: RTPContextType!
     public private(set) var fragmentationUnits: [FragmentationUnit] = []
+
+    public init(context: RTPContextType) {
+        self.context = context
+    }
 
     public func processFragmentationUnit(fragmentationUnit:FragmentationUnit) throws -> H264NALU? {
         switch fragmentationUnit.position {
@@ -36,6 +41,7 @@ public class FragmentationUnitDefragmenter {
 
         // Make sure we have a valid subtype
         guard let _ = H264NALUType(rawValue: firstFragmentationUnit.subtype) else {
+            context.postEvent(.badFragmentationUnit)
             throw RTPError.unknownH264Type(firstFragmentationUnit.subtype)
         }
 
@@ -84,10 +90,12 @@ public class FragmentationUnitDefragmenter {
                 if delta != 1 {
                     // If we don't wrap around _and_ there's a gap then there's a problem.
                     if wrapsAround == false {
+                        context.postEvent(.badFragmentationUnit)
                         throw RTPError.fragmentationUnitError("Fragmentation unit doesn't wrap but have found a gap in sequence numbers", sortedInput.map { return $0.sequenceNumber })
                     }
                     // If we do wrap around _and_ there's already a gap, another gap signifies a problem.
                     if gapIndex != nil {
+                        context.postEvent(.badFragmentationUnit)
                         throw RTPError.fragmentationUnitError("Fragmentation unit does wrap but have found more than one gap in sequence numbers", sortedInput.map { return $0.sequenceNumber })
                     }
                     gapIndex = index
@@ -115,6 +123,7 @@ public class FragmentationUnitDefragmenter {
         // Make sure first and last packets are actually start and end packets.
         // In theory we should make sure other packets are not start and end but that's guaranteed not to happen if we get here.
         guard result.first!.position == .Start && result.last!.position == .End else {
+            context.postEvent(.badFragmentationUnit)
             throw RTPError.fragmentationUnitError("First and last packets not start and end packets of a sequence", result.map { return $0.sequenceNumber })
         }
 

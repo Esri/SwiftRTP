@@ -19,6 +19,22 @@ public enum RTPError: ErrorType {
     case fragmentationUnitError(String,[UInt16])
 }
 
+public enum RTPEvent {
+    case h264ParameterSetCycled
+    case ppsReceived
+    case spsReceived
+    case naluProduced
+    case badFragmentationUnit
+    case errorInPipeline
+    case h264FrameProduced
+    case h264FrameSkipped
+    case formatDescriptionProduced
+    case sampleBufferProduced
+    case packetReceived
+}
+
+
+
 extension RTPError: CustomStringConvertible {
     public var description: String {
         switch self {
