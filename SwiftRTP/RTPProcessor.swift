@@ -33,17 +33,14 @@ public class RTPProcessor {
 
         let time = try stream.clock.processTimestamp(packet.timestamp)
 
-        // TODO
         if packet.paddingFlag != false {
             throw RTPError.unsupportedFeature("RTP padding flag not supported (yet)")
         }
 
-        // TODO
         if packet.extensionFlag != false {
             throw RTPError.unsupportedFeature("RTP extension flag not supported (yet)")
         }
 
-        // TODO
         if packet.csrcCount != 0 {
             throw RTPError.unsupportedFeature("Non-zero CSRC not supported (yet)")
         }
@@ -165,6 +162,7 @@ class RTPClock {
     }
 }
 
+//MARK: -
 
 public struct RTPStatistics {
     public var magic:Int = 0
