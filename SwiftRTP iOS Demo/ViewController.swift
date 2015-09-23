@@ -16,8 +16,11 @@ class ViewController: UIViewController {
     var tcpChannel:TCPChannel!
     let decompressionSession = DecompressionSession()
     var movieWriter:MovieWriter? = nil
+    var statistics:[RTPEvent:Int] = [:]
 
     @IBOutlet var videoView: VideoView!
+    @IBOutlet var statisticsView: UITextView!
+    @IBOutlet var heartbeatView: HeartbeatView!
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -62,19 +65,75 @@ class ViewController: UIViewController {
         rtpChannel.errorHandler = {
             (error) in
 
-            switch error {
-                case let error as RTPError:
-                    switch error {
-                        case .skippedFrame:
-                            return
-                        default:
-                            print("ERROR: \(error)")
-                    }
-                default:
-                    print("ERROR: \(error)")
+            dispatch_async(dispatch_get_main_queue()) {
+                switch error {
+                    case let error as RTPError:
+                        switch error {
+                            case .skippedFrame:
+                                return
+                            default:
+                                print("ERROR: \(error)")
+                        }
+                    default:
+                        print("ERROR: \(error)")
+                }
             }
         }
+        rtpChannel.eventHandler = {
+            (event) in
 
+            if true {
+                dispatch_async(dispatch_get_main_queue()) {
+                    if self.statistics[event] == nil {
+                        self.statistics[event] = 1
+                    }
+                    else {
+                        self.statistics[event] = self.statistics[event]! + 1
+                    }
+
+                    Throttler.with("statistics", minimumInterval: 1/10) {
+                        var string = NSMutableAttributedString()
+                        for (event, value) in self.statistics {
+                            let color = self.heartbeatView.colorForEvent(String(event))
+                            string += NSAttributedString(string: "•", attributes: [NSForegroundColorAttributeName : color])
+                            string += NSAttributedString(string: "\(event): \(value)\n", attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
+                        }
+                        self.statisticsView.attributedText = string
+                    }
+                    self.heartbeatView.handleEvent(String(event))
+                }
+            }
+        }
         try rtpChannel.resume()
     }
 }
+
+extension NSMutableString {
+}
+
+func += (inout lhs:NSMutableAttributedString, rhs:NSAttributedString) -> NSMutableAttributedString {
+    lhs.appendAttributedString(rhs)
+    return lhs
+}
+
+class Throttler {
+
+    static var throttles: [String: CFAbsoluteTime] = [:]
+
+    static func with(name: String, minimumInterval: NSTimeInterval, action: () -> Void) {
+        let now = CFAbsoluteTimeGetCurrent()
+        if let last = throttles[name] {
+            let delta = now - last
+            if delta > minimumInterval {
+                action()
+                throttles[name] = now
+            }
+        }
+        else {
+            action()
+            throttles[name] = now
+        }
+    }
+
+}
+

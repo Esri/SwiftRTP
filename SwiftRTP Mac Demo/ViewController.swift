@@ -21,14 +21,9 @@ class ViewController: NSViewController {
     var movieWriter:MovieWriter? = nil
 
     @IBOutlet var videoView: VideoView!
-    dynamic var packetsReceived: Int = 0
-    dynamic var nalusProduced: Int = 0
-    dynamic var h264FramesProduced: Int = 0
-    dynamic var h264FramesSkipped: Int = 0
-    dynamic var h264ProductionErrorsProduced: Int = 0
-    dynamic var lastH264FrameProduced: NSDate? = nil
-    dynamic var formatDescriptionsProduced: Int = 0
-    dynamic var sampleBuffersProduced: Int = 0
+    @IBOutlet var statisticsView: NSTextView!
+
+    var statistics: [RTPEvent:Int] = [:]
 
 
     required init?(coder: NSCoder) {
@@ -98,19 +93,20 @@ class ViewController: NSViewController {
                     print("Error handler caught: \(error)")
             }
         }
-        rtpChannel.statisticsHandler = {
-            (statistics) in
+        rtpChannel.eventHandler = {
+            (event) in
 
-            dispatch_async(dispatch_get_main_queue(), {
-                self.packetsReceived = statistics.packetsReceived
-                self.nalusProduced = statistics.nalusProduced
-                self.h264FramesProduced = statistics.h264FramesProduced
-                self.h264ProductionErrorsProduced = statistics.errorsProduced
-                self.lastH264FrameProduced = NSDate(timeIntervalSinceReferenceDate: statistics.lastH264FrameProduced ?? 0)
-                self.h264FramesSkipped = statistics.h264FramesSkipped
-                self.sampleBuffersProduced = statistics.sampleBuffersProduced
-                self.formatDescriptionsProduced = statistics.formatDescriptionsProduced
-            })
+            dispatch_async(dispatch_get_main_queue()) {
+
+                if self.statistics[event] == nil {
+                    self.statistics[event] = 0
+                }
+                else {
+                    self.statistics[event] = self.statistics[event]! + 1
+                }
+
+                self.statisticsView.string = self.statistics.map() { return "\($0): \($1)" }.joinWithSeparator(" \n")
+            }
         }
 
         try rtpChannel.resume()

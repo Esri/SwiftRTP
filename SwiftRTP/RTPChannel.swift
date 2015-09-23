@@ -15,16 +15,22 @@ import UIKit
 import SwiftUtilities
 import SwiftIO
 
+public protocol RTPContextType: AnyObject {
+    func postEvent(event:RTPEvent)
+}
+
 public class RTPChannel {
 
+    public private(set) var rtpProcessor: RTPProcessor!
+    public private(set) var h264Processor: H264Processor!
     public private(set) var udpChannel:UDPChannel!
-    public let rtpProcessor = RTPProcessor()
-    public let h264Processor = H264Processor()
     public private(set) var resumed = false
-    public private(set) var statistics = RTPStatistics()
+#if os(iOS)
     private var backgroundObserver: AnyObject?
     private var foregroundObserver: AnyObject?
-    private let queue = dispatch_queue_create("SwiftRTP.RTPChannel", DISPATCH_QUEUE_SERIAL)
+#endif
+    private let context = try! RTPContext()
+    private let queue = dispatch_queue_create("SwiftRTP.RTPChannel", dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, 0))
 
     public var handler:(H264Processor.Output throws -> Void)? {
         willSet {
@@ -36,18 +42,19 @@ public class RTPChannel {
             assert(resumed == false, "It is undefined to set properties while channel is resumed.")
         }
     }
-    public var statisticsHandler:(RTPStatistics -> Void)? {
-        willSet {
+    public var eventHandler:(RTPEvent -> Void)? {
+        get {
+            return context.eventHandler
+        }
+        set {
             assert(resumed == false, "It is undefined to set properties while channel is resumed.")
+            context.eventHandler = newValue
         }
     }
-    public var statisticsFrequency:Double = 30.0 {
-        willSet {
-            assert(resumed == false, "It is undefined to set properties while channel is resumed.")
-        }
-    }
-
     public init(port:UInt16) throws {
+
+        rtpProcessor = RTPProcessor(context:context)
+        h264Processor = H264Processor(context:context)
 
 #if os(iOS)
         backgroundObserver = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidEnterBackgroundNotification, object: nil, queue: nil) {
@@ -68,18 +75,21 @@ public class RTPChannel {
             }
 
             dispatch_async(strong_self.queue) {
-                strong_self.udpReadHandler(datagram)
+                strong_self.processDatagram(datagram)
             }
         }
+        udpChannel.qos = QOS_CLASS_USER_INTERACTIVE
     }
 
     deinit {
+#if os(iOS)
         if let backgroundObserver = backgroundObserver {
             NSNotificationCenter.defaultCenter().removeObserver(backgroundObserver)
         }
         if let foregroundObserver = foregroundObserver {
             NSNotificationCenter.defaultCenter().removeObserver(foregroundObserver)
         }
+#endif
     }
 
     public func resume() throws {
@@ -104,7 +114,6 @@ public class RTPChannel {
     }
 
     public func cancel() throws {
-
         dispatch_sync(queue) {
             [weak self] in
 
@@ -125,45 +134,29 @@ public class RTPChannel {
         }
     }
 
-    private func udpReadHandler(datagram:Datagram) {
+    public func processDatagram(datagram:Datagram) {
 
         if resumed == false {
             return
         }
 
-        statistics.packetsReceived++
+        try! context.dumpFile?.write((0, datagram))
 
-        let currentTime = CFAbsoluteTimeGetCurrent()
-
-        defer {
-            if let lastUpdate = statistics.lastUpdated {
-                let delta = currentTime - lastUpdate
-                if delta > (1.0 / statisticsFrequency) {
-                    statisticsHandler?(statistics)
-                }
-            }
-            statistics.lastUpdated = currentTime
-        }
+        postEvent(.packetReceived)
 
         do {
             guard let nalus = try rtpProcessor.process(datagram.data) else {
                 return
             }
 
-            statistics.nalusProduced += nalus.count
+            postEvent(.naluProduced)
 
             for nalu in nalus {
                 try processNalu(nalu)
             }
         }
         catch {
-            switch error {
-                case RTPError.fragmentationUnitError:
-                    statistics.badSequenceErrors++
-                    statistics.errorsProduced++
-                default:
-                    statistics.errorsProduced++
-            }
+            postEvent(.errorInPipeline)
             errorHandler?(error)
         }
     }
@@ -175,30 +168,54 @@ public class RTPChannel {
                 return
             }
 
-            statistics.magic++
-
             switch output {
                 case .formatDescription:
-                    statistics.formatDescriptionsProduced++
+                    postEvent(.formatDescriptionProduced)
                 case .sampleBuffer:
-                    statistics.sampleBuffersProduced++
+                    postEvent(.sampleBufferProduced)
             }
 
-            statistics.h264FramesProduced++
-
-            statistics.lastH264FrameProduced = CFAbsoluteTimeGetCurrent()
+            postEvent(.h264FrameProduced)
             try handler?(output)
         }
         catch {
             switch error {
                 case RTPError.skippedFrame:
-                    statistics.h264FramesSkipped++
+                    postEvent(.h264FrameSkipped)
                 case RTPError.fragmentationUnitError:
                     fallthrough
                 default:
-                    statistics.errorsProduced++
+                    postEvent(.errorInPipeline)
             }
             throw error
         }
     }
+
+    public func postEvent(event:RTPEvent) {
+        eventHandler?(event)
+    }
+}
+
+internal class RTPContext: RTPContextType {
+
+    internal var dumpFile: TLVOutputStream?
+    internal var eventHandler:(RTPEvent -> Void)?
+
+    init() throws {
+// Uncomment to provide logging.
+//        let dumpFilePath = Path.applicationSpecificSupportDirectory + "Logs/VideoLog.tlv"
+//        try dumpFilePath.parent!.createDirectory(withIntermediateDirectories:true)
+//        if dumpFilePath.exists && dumpFilePath.attributes.length == 0 {
+//            try dumpFilePath.remove()
+//        }
+//        try dumpFilePath.rotate()
+//        let fileStream = FileStream(url: dumpFilePath.url)
+//        try fileStream.open(mode:Mode.write, create:true)
+//        dumpFile = TLVOutputStream(outputStream: fileStream)
+    }
+
+    internal func postEvent(event:RTPEvent) {
+        eventHandler?(event)
+    }
+
 }

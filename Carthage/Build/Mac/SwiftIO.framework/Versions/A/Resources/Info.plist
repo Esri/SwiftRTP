@@ -29,7 +29,7 @@
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
-	<string>7A218</string>
+	<string>7A220</string>
 	<key>DTPlatformVersion</key>
 	<string>GM</string>
 	<key>DTSDKBuild</key>
@@ -39,7 +39,7 @@
 	<key>DTXcode</key>
 	<string>0700</string>
 	<key>DTXcodeBuild</key>
-	<string>7A218</string>
+	<string>7A220</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2015 schwa.io. All rights reserved.</string>
 	<key>UIDeviceFamily</key>

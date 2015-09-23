@@ -13,10 +13,17 @@ import SwiftUtilities
 
 public class RTPProcessor {
 
-    var stream:RTPStream!
-    var defragmenter = FragmentationUnitDefragmenter()
+    weak var context: RTPContextType!
+    var stream: RTPStream!
+    var defragmenter: FragmentationUnitDefragmenter
 
-    public func process(data:DispatchData <Void>) throws -> [H264NALU]? {
+    init(context: RTPContextType) {
+        self.context = context
+
+        defragmenter = FragmentationUnitDefragmenter(context: context)
+    }
+
+    public func process(data: DispatchData <Void>) throws -> [H264NALU]? {
 
         let packet = RTPPacket(data: data)
 
@@ -31,7 +38,9 @@ public class RTPProcessor {
             stream = RTPStream(ssrcIdentifier: packet.ssrcIdentifier)
         }
 
-        let time = try stream.clock.processTimestamp(packet.timestamp)
+        var time = try stream.clock.processTimestamp(packet.timestamp)
+        // TODO: Invalidate time.
+        time = kCMTimeInvalid
 
         if packet.paddingFlag != false {
             throw RTPError.unsupportedFeature("RTP padding flag not supported (yet)")
@@ -164,16 +173,3 @@ class RTPClock {
 
 //MARK: -
 
-public struct RTPStatistics {
-    public var magic:Int = 0
-    public var lastUpdated: CFAbsoluteTime? = nil
-    public var packetsReceived: Int = 0
-    public var nalusProduced: Int = 0
-    public var h264FramesProduced: Int = 0
-    public var formatDescriptionsProduced: Int = 0
-    public var sampleBuffersProduced: Int = 0
-    public var lastH264FrameProduced: CFAbsoluteTime? = nil
-    public var errorsProduced: Int = 0
-    public var h264FramesSkipped: Int = 0
-    public var badSequenceErrors: Int = 0
-}
