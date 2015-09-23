@@ -82,7 +82,7 @@ public class DecompressionSession {
             decompressionSession = unmanagedDecompressionSession?.takeRetainedValue()
         }
 
-        let frameFlags = VTDecodeFrameFlags._EnableAsynchronousDecompression
+        let frameFlags = VTDecodeFrameFlags(rawValue: VTDecodeFrameFlags._EnableAsynchronousDecompression.rawValue | VTDecodeFrameFlags._1xRealTimePlayback.rawValue)
         var decodeFlags = VTDecodeInfoFlags()
         let result = VTDecompressionSessionDecodeFrame(decompressionSession!, sampleBuffer, frameFlags, nil, &decodeFlags)
         if result != 0 {
