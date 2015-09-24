@@ -15,21 +15,21 @@ import SwiftIO
 
 public class TCPChannel {
 
-    public let address:Address
-    public let port:UInt16
+    public let address: Address
+    public let port: UInt16
 
-    private var resumed:Bool = false
-    private var queue:dispatch_queue_t!
-    private var socket:Int32!
+    private var resumed: Bool = false
+    private var queue: dispatch_queue_t!
+    private var socket: Int32!
 
-    public init(address:Address, port:UInt16) {
+    public init(address: Address, port: UInt16) {
         self.address = address
         self.port = port
     }
 
-    public convenience init(hostname:String = "0.0.0.0", port:UInt16, family:ProtocolFamily? = nil) {
-        let addresses:[Address] = try! Address.addresses(hostname, `protocol`: .TCP, family: family)
-        self.init(address:addresses[0], port:port)
+    public convenience init(hostname: String = "0.0.0.0", port: UInt16, family: ProtocolFamily? = nil) {
+        let addresses: [Address] = try! Address.addresses(hostname, `protocol`: .TCP, family: family)
+        self.init(address: addresses[0], port: port)
     }
 
     public func resume() throws {
@@ -42,7 +42,7 @@ public class TCPChannel {
         var addr = address.to_sockaddr(port: port)
 
         let result = withUnsafePointer(&addr) {
-            (ptr:UnsafePointer <sockaddr>) -> Int32 in
+            (ptr: UnsafePointer <sockaddr>) -> Int32 in
             return Darwin.connect(socket, ptr, socklen_t(sizeof(sockaddr)))
         }
 

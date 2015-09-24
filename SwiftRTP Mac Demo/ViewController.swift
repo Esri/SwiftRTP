@@ -14,16 +14,16 @@ import SwiftRTP
 
 class ViewController: NSViewController {
 
-    var rtpChannel:RTPChannel!
-    var tcpChannel:TCPChannel!
+    var rtpChannel: RTPChannel!
+    var tcpChannel: TCPChannel!
 
-    var decompressionSession:DecompressionSession? = nil
-    var movieWriter:MovieWriter? = nil
+    var decompressionSession: DecompressionSession? = nil
+    var movieWriter: MovieWriter? = nil
 
     @IBOutlet var videoView: VideoView!
     @IBOutlet var statisticsView: NSTextView!
 
-    var statistics: [RTPEvent:Int] = [:]
+    var statistics: [RTPEvent: Int] = [:]
 
 
     required init?(coder: NSCoder) {
@@ -35,12 +35,12 @@ class ViewController: NSViewController {
 
         NSProcessInfo.processInfo().beginActivityWithOptions(.LatencyCritical, reason: "Because")
 
-//        movieWriter = try! MovieWriter(movieURL:NSURL(fileURLWithPath: "/Users/schwa/Desktop/Test.h264"), size:CGSize(width: 1280, height: 7820))
+//        movieWriter = try! MovieWriter(movieURL: NSURL(fileURLWithPath: "/Users/schwa/Desktop/Test.h264"), size: CGSize(width: 1280, height: 7820))
 //        try! movieWriter?.resume()
 
         decompressionSession = DecompressionSession()
 //        decompressionSession?.imageBufferDecoded = {
-//            (imageBuffer:CVImageBuffer, presentationTimeStamp:CMTime, presentationDuration:CMTime) -> Void in
+//            (imageBuffer: CVImageBuffer, presentationTimeStamp: CMTime, presentationDuration: CMTime) -> Void in
 //            if let movieWriter = self.movieWriter {
 //                do {
 //                    try movieWriter.handlePixelBuffer(imageBuffer, presentationTime: presentationTimeStamp)
@@ -56,11 +56,11 @@ class ViewController: NSViewController {
 
     func startUDP() throws {
 
-        tcpChannel = TCPChannel(hostname:"10.1.1.1", port:5502)
+        tcpChannel = TCPChannel(hostname: "10.1.1.1", port: 5502)
         try tcpChannel.resume()
 
 
-        rtpChannel = try RTPChannel(port:5600)
+        rtpChannel = try RTPChannel(port: 5600)
         rtpChannel.handler = {
             (output) -> Void in
             dispatch_async(dispatch_get_main_queue()) {

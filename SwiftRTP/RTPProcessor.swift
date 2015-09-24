@@ -63,13 +63,13 @@ public class RTPProcessor {
         if let type = H264RTPType(rawValue: nalu.rawType) {
             switch type {
                 case .FU_A:
-                    let fragmentationUnit = FragmentationUnit(rtpPacket:packet, nalu:nalu)
+                    let fragmentationUnit = FragmentationUnit(rtpPacket: packet, nalu: nalu)
                     guard let nalu = try defragmenter.processFragmentationUnit(fragmentationUnit) else {
                         return nil
                     }
                     return [nalu]
                 case .STAP_A:
-                    return try processStapA(rtpPacket:packet, nalu:nalu)
+                    return try processStapA(rtpPacket: packet, nalu: nalu)
                 default:
                     throw RTPError.unsupportedFeature("Unsupported H264 RTP type: \(type)")
             }
@@ -80,9 +80,9 @@ public class RTPProcessor {
     }
 
     // TODO: This is NOT proven working code.
-    func processStapA(rtpPacket rtpPacket:RTPPacket, nalu:H264NALU) throws -> [H264NALU]? {
+    func processStapA(rtpPacket rtpPacket: RTPPacket, nalu: H264NALU) throws -> [H264NALU]? {
 
-        var nalus:[H264NALU] = []
+        var nalus: [H264NALU] = []
 
         var data = nalu.body
 
@@ -97,7 +97,7 @@ public class RTPProcessor {
                     throw SwiftUtilities.Error.generic("STAP-A chunk length \(chunkLength) longer than all of STAP-A data \(data.length) - sizeof(UInt16)")
                 }
 
-                let subdata = data.subBuffer(startIndex: sizeof(UInt16), count:Int(chunkLength))
+                let subdata = data.subBuffer(startIndex: sizeof(UInt16), count: Int(chunkLength))
 
                 let nalu = H264NALU(time: nalu.time, data: subdata)
                 nalus.append(nalu)
@@ -133,7 +133,7 @@ class RTPClock {
     var count: Int = 0
     var offset = kCMTimeZero
 
-    func processTimestamp(timestamp:UInt32) throws -> CMTime {
+    func processTimestamp(timestamp: UInt32) throws -> CMTime {
 
         count++
 

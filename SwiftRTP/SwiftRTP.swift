@@ -12,8 +12,8 @@ public class SwiftRTP {
 
     public static let sharedInstance = SwiftRTP()
 
-    public var debugLog:((Any) -> Void)? = nil
-//    public var debugLog:((Any) -> Void)? = { print($0) }
+    public var debugLog: ((Any) -> Void)? = nil
+//    public var debugLog: ((Any) -> Void)? = { print($0) }
 }
 
 // MARK: -

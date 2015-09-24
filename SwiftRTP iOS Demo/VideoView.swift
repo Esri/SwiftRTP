@@ -29,7 +29,7 @@ class VideoView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
 
-        super.init(coder:aDecoder)
+        super.init(coder: aDecoder)
 
         rebuildSampleBufferDisplayLayer()
     }
@@ -49,7 +49,7 @@ class VideoView: UIView {
 // MARK: -
 
 extension VideoView {
-    func process(input:H264Processor.Output?) {
+    func process(input: H264Processor.Output?) {
         guard let input = input else {
             return
         }

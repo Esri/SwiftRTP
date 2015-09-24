@@ -10,11 +10,11 @@ import UIKit
 
 @IBDesignable public class HeartbeatView: UIView {
 
-    var eventsForHash: [Int:String] = [:]
+    var eventsForHash: [Int: String] = [:]
     var maxEvents: Int = 16
-    var duration:CFTimeInterval = 5
+    var duration: CFTimeInterval = 5
 
-    public func handleEvent(event:String) {
+    public func handleEvent(event: String) {
 
         let hashFraction = CGFloat(fractionForEvent(event))
 
@@ -25,7 +25,7 @@ import UIKit
         let radius = CGFloat(5)
         let color = colorForEvent(event)
         let newLayer = CAShapeLayer()
-        newLayer.path = CGPathCreateWithEllipseInRect(CGRect(x:-radius, y:-radius, width:radius * 2, height:radius * 2), nil)
+        newLayer.path = CGPathCreateWithEllipseInRect(CGRect(x: -radius, y: -radius, width: radius * 2, height: radius * 2), nil)
         newLayer.fillColor = color.CGColor
         newLayer.strokeColor = nil
 
@@ -35,7 +35,7 @@ import UIKit
             )
 
         let pathAnimation = CABasicAnimation(keyPath: "path")
-        pathAnimation.toValue = CGPathCreateWithEllipseInRect(CGRect(x:0, y:0, width:0, height:0), nil)
+        pathAnimation.toValue = CGPathCreateWithEllipseInRect(CGRect(x: 0, y: 0, width: 0, height: 0), nil)
 
         let positionAnimation = CABasicAnimation(keyPath: "position.y")
         positionAnimation.toValue = 0
@@ -50,13 +50,13 @@ import UIKit
         layer.addSublayer(newLayer)
     }
 
-    public func fractionForEvent(event:String) -> Double {
+    public func fractionForEvent(event: String) -> Double {
         let hash = abs(event.hashValue % maxEvents)
         let hashFraction = Double(hash) / Double(maxEvents)
         return hashFraction
     }
 
-    public func colorForEvent(event:String) -> UIColor {
+    public func colorForEvent(event: String) -> UIColor {
         let hashFraction = CGFloat(fractionForEvent(event))
         let color = UIColor(hue: hashFraction, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         return color

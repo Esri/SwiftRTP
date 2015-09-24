@@ -84,7 +84,7 @@ public final class MovieWriter
         state = .Finished
     }
 
-    public func handlePixelBuffer(pixelBuffer:CVPixelBuffer, presentationTime:CMTime) throws {
+    public func handlePixelBuffer(pixelBuffer: CVPixelBuffer, presentationTime: CMTime) throws {
         if state == .Configured {
             writer.startSessionAtSourceTime(presentationTime)
             state = .Recording
@@ -103,7 +103,7 @@ public final class MovieWriter
         writerAdaptor.appendPixelBuffer(pixelBuffer, withPresentationTime: presentationTime)
     }
 
-    private static func removeMovieFile(movieURL:NSURL) throws {
+    private static func removeMovieFile(movieURL: NSURL) throws {
         if NSFileManager().fileExistsAtPath(movieURL.path!) {
             try NSFileManager().removeItemAtURL(movieURL)
         }

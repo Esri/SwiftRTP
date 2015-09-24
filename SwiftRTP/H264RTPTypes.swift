@@ -25,20 +25,20 @@ public struct FragmentationUnit {
         case End =    0b01
     }
 
-    public let header:DispatchData <Void>
-    public let body:DispatchData <Void>
+    public let header: DispatchData <Void>
+    public let body: DispatchData <Void>
 
-    private(set) var position:Position = .Start
-    private(set) var subtype:UInt8 = 0
+    private(set) var position: Position = .Start
+    private(set) var subtype: UInt8 = 0
 
     // From RTPPacket
-    private(set) var time:CMTime
-    private(set) var sequenceNumber:UInt16
+    private(set) var time: CMTime
+    private(set) var sequenceNumber: UInt16
 
     // From H264NALU
-    private(set) var nal_ref_idc:UInt8 = 0
+    private(set) var nal_ref_idc: UInt8 = 0
 
-    public init(rtpPacket:RTPPacket, nalu:H264NALU) {
+    public init(rtpPacket: RTPPacket, nalu: H264NALU) {
 
         let data = nalu.body
 
@@ -51,11 +51,11 @@ public struct FragmentationUnit {
         header.createMap() {
             (_, header) -> Void in
 
-            let rawPosition = UInt8(bitRange(header, range:0..<2))
+            let rawPosition = UInt8(bitRange(header, range: 0..<2))
             position = Position(rawValue: rawPosition)!
-            let reserved = bitRange(header, range:2..<3)
+            let reserved = bitRange(header, range: 2..<3)
             assert(reserved == 0)
-            subtype = UInt8(bitRange(header, range:3..<8))
+            subtype = UInt8(bitRange(header, range: 3..<8))
         }
     }
 }

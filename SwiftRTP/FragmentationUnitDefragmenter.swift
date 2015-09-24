@@ -17,7 +17,7 @@ public class FragmentationUnitDefragmenter {
         self.context = context
     }
 
-    public func processFragmentationUnit(fragmentationUnit:FragmentationUnit) throws -> H264NALU? {
+    public func processFragmentationUnit(fragmentationUnit: FragmentationUnit) throws -> H264NALU? {
         switch fragmentationUnit.position {
             case .Start:
                 fragmentationUnits = [fragmentationUnit]
@@ -31,7 +31,7 @@ public class FragmentationUnitDefragmenter {
         }
     }
 
-    private func processFragmentationUnits(fragmentationUnits:[FragmentationUnit]) throws -> H264NALU {
+    private func processFragmentationUnits(fragmentationUnits: [FragmentationUnit]) throws -> H264NALU {
 
         // TODO: check timestamps and subtypes are correct
 
@@ -45,8 +45,8 @@ public class FragmentationUnitDefragmenter {
             throw RTPError.unknownH264Type(firstFragmentationUnit.subtype)
         }
 
-        let header = H264NALU.headerForType(nal_ref_idc:firstFragmentationUnit.nal_ref_idc, type:firstFragmentationUnit.subtype)
-        let headerData = DispatchData <Void> (value:header)
+        let header = H264NALU.headerForType(nal_ref_idc: firstFragmentationUnit.nal_ref_idc, type: firstFragmentationUnit.subtype)
+        let headerData = DispatchData <Void> (value: header)
 
         // Concat the bodies.
         let bodyData = fragmentationUnits.reduce(DispatchData <Void> ()) {
@@ -55,7 +55,7 @@ public class FragmentationUnitDefragmenter {
 
         let data = headerData + bodyData
 
-        let nalu = H264NALU(time:firstFragmentationUnit.time, data: data)
+        let nalu = H264NALU(time: firstFragmentationUnit.time, data: data)
 
         assert(nalu.rawType == firstFragmentationUnit.subtype)
 
@@ -63,7 +63,7 @@ public class FragmentationUnitDefragmenter {
     }
 
     /// Reorder packets based on sequence number while handling sequence number wrap-around. Throws if there are gaps in the sequence.
-    private func reorderSequence(input:[FragmentationUnit]) throws -> [FragmentationUnit] {
+    private func reorderSequence(input: [FragmentationUnit]) throws -> [FragmentationUnit] {
 
         // This should never happen - but if we do see it we're good.
         if input.count <= 1 {
@@ -104,7 +104,7 @@ public class FragmentationUnitDefragmenter {
             lastSequenceNumber = item.sequenceNumber
         }
 
-        let result:[FragmentationUnit]
+        let result: [FragmentationUnit]
 
         if wrapsAround == true {
             guard let gapIndex = gapIndex else {

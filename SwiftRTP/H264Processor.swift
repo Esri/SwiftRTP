@@ -10,7 +10,7 @@ import CoreMedia
 
 import SwiftUtilities
 
-let H264ClockRate:Int32 = 90_000
+let H264ClockRate: Int32 = 90_000
 
 public class H264Processor {
 
@@ -27,7 +27,7 @@ public class H264Processor {
         self.context = context
     }
 
-    public func process(nalu:H264NALU) throws -> Output? {
+    public func process(nalu: H264NALU) throws -> Output? {
 
         guard let type = nalu.type else {
             throw RTPError.unknownH264Type(nalu.rawType)
@@ -67,7 +67,7 @@ public class H264Processor {
         return .formatDescription(formatDescription)
     }
 
-    public func processVideoFrame(nalu:H264NALU) throws -> Output {
+    public func processVideoFrame(nalu: H264NALU) throws -> Output {
         guard let lastParameterSet = lastParameterSet where lastParameterSet.isComplete == true else {
             throw RTPError.skippedFrame("No formatDescription, skipping frame.")
         }
@@ -76,11 +76,11 @@ public class H264Processor {
         return .sampleBuffer(sampleBuffer)
     }
 
-    func naluToCMSampleBuffer(nalu:H264NALU, formatDescription:CMFormatDescription) throws -> CMSampleBuffer {
+    func naluToCMSampleBuffer(nalu: H264NALU, formatDescription: CMFormatDescription) throws -> CMSampleBuffer {
 
         // Prepend the size of the data to the data as a 32-bit network endian uint. (keyword: "elementary stream")
         let headerValue = UInt32(nalu.data.length)
-        let headerData = DispatchData <Void>(value:headerValue.bigEndian)
+        let headerData = DispatchData <Void>(value: headerValue.bigEndian)
         let sizedData = headerData + nalu.data
 
         let blockBuffer = try sizedData.toCMBlockBuffer()
@@ -92,8 +92,8 @@ public class H264Processor {
 
 
         // Inputs to CMSampleBufferCreate
-        let timingInfo:[CMSampleTimingInfo] = [CMSampleTimingInfo(duration: duration, presentationTimeStamp: nalu.time, decodeTimeStamp: nalu.time)]
-        let sampleSizes:[Int] = [CMBlockBufferGetDataLength(blockBuffer)]
+        let timingInfo: [CMSampleTimingInfo] = [CMSampleTimingInfo(duration: duration, presentationTimeStamp: nalu.time, decodeTimeStamp: nalu.time)]
+        let sampleSizes: [Int] = [CMBlockBufferGetDataLength(blockBuffer)]
 
         // Outputs from CMSampleBufferCreate
         var sampleBuffer: CMSampleBuffer?
@@ -114,7 +114,7 @@ public class H264Processor {
         )
 
         if result != 0 {
-            throw makeOSStatusError(result, description:"CMSampleBufferCreate() failed")
+            throw makeOSStatusError(result, description: "CMSampleBufferCreate() failed")
         }
 
         CMSampleBufferSetDisplayImmediately(sampleBuffer)

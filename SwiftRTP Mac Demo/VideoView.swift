@@ -31,7 +31,7 @@ class VideoView: NSView {
 
 extension VideoView {
 
-    func process(input:H264Processor.Output?) {
+    func process(input: H264Processor.Output?) {
         guard let input = input else {
             return
         }

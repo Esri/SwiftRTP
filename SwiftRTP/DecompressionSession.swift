@@ -17,9 +17,9 @@ import SwiftUtilities
 
 public class DecompressionSession {
 
-    private var decompressionSession:VTDecompressionSession?
+    private var decompressionSession: VTDecompressionSession?
 
-    public var formatDescription:CMVideoFormatDescription? {
+    public var formatDescription: CMVideoFormatDescription? {
         didSet {
             if let formatDescription = formatDescription, let decompressionSession = decompressionSession {
                 if VTDecompressionSessionCanAcceptFormatDescription(decompressionSession, formatDescription) == false {
@@ -30,12 +30,12 @@ public class DecompressionSession {
         }
     }
 
-    public var imageBufferDecoded:((imageBuffer:CVImageBuffer, presentationTimeStamp:CMTime, presentationDuration:CMTime) -> Void)?
+    public var imageBufferDecoded: ((imageBuffer: CVImageBuffer, presentationTimeStamp: CMTime, presentationDuration: CMTime) -> Void)?
 
     public init() {
     }
 
-    public func decodeFrame(sampleBuffer:CMSampleBuffer) throws {
+    public func decodeFrame(sampleBuffer: CMSampleBuffer) throws {
 
         if formatDescription == nil {
             formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer) as CMVideoFormatDescription?
@@ -43,7 +43,7 @@ public class DecompressionSession {
 
         if decompressionSession == nil {
             let callback = {
-                (sourceFrameRefCon:UnsafeMutablePointer<Void>, status:OSStatus, infoFlags:VTDecodeInfoFlags, imageBuffer:CVImageBuffer!, presentationTimeStamp:CMTime, presentationDuration:CMTime) -> Void in
+                (sourceFrameRefCon: UnsafeMutablePointer<Void>, status: OSStatus, infoFlags: VTDecodeInfoFlags, imageBuffer: CVImageBuffer!, presentationTimeStamp: CMTime, presentationDuration: CMTime) -> Void in
                 if status != 0 {
                     return
                 }
@@ -51,8 +51,8 @@ public class DecompressionSession {
             }
 
 #if os(iOS)
-            let videoDecoderSpecification:[String:AnyObject]? = nil
-            let destinationImageBufferAttributes:[String:AnyObject] = [
+            let videoDecoderSpecification: [String: AnyObject]? = nil
+            let destinationImageBufferAttributes: [String: AnyObject] = [
                 kCVPixelBufferOpenGLESCompatibilityKey as String: true,
                 kCVPixelBufferMetalCompatibilityKey as String: true,
             // TODO: This is crashing Swift 2.0b6. Hardcode constant for now.
@@ -60,11 +60,11 @@ public class DecompressionSession {
                 kCVPixelBufferPixelFormatTypeKey as String: 875704438
             ]
 #else
-            let videoDecoderSpecification:[String:AnyObject] = [
+            let videoDecoderSpecification: [String: AnyObject] = [
                 kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder as String: true
             ]
 
-            let destinationImageBufferAttributes:[String:AnyObject] = [
+            let destinationImageBufferAttributes: [String: AnyObject] = [
                 kCVPixelBufferOpenGLCompatibilityKey as String: true,
 
             // TODO: This is crashing Swift 2.0b6. Hardcode constant for now.
@@ -73,7 +73,7 @@ public class DecompressionSession {
             ]
 #endif
 
-            var unmanagedDecompressionSession:Unmanaged <VTDecompressionSession>?
+            var unmanagedDecompressionSession: Unmanaged <VTDecompressionSession>?
             let result = VTDecompressionSessionCreateWithBlock(kCFAllocatorDefault, formatDescription, videoDecoderSpecification, destinationImageBufferAttributes, callback, &unmanagedDecompressionSession)
             if result != 0 {
                 throw makeOSStatusError(result, description: "Unable to create VTDecompressionSession")
@@ -95,7 +95,7 @@ public class DecompressionSession {
 
 public extension DecompressionSession {
 
-    public func process(input:H264Processor.Output) throws {
+    public func process(input: H264Processor.Output) throws {
         switch input {
             case .formatDescription(let formatDescription):
                 self.formatDescription = formatDescription

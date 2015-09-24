@@ -16,14 +16,14 @@ import SwiftUtilities
 import SwiftIO
 
 public protocol RTPContextType: AnyObject {
-    func postEvent(event:RTPEvent)
+    func postEvent(event: RTPEvent)
 }
 
 public class RTPChannel {
 
     public private(set) var rtpProcessor: RTPProcessor!
     public private(set) var h264Processor: H264Processor!
-    public private(set) var udpChannel:UDPChannel!
+    public private(set) var udpChannel: UDPChannel!
     public private(set) var resumed = false
 #if os(iOS)
     private var backgroundObserver: AnyObject?
@@ -32,17 +32,17 @@ public class RTPChannel {
     private let context = try! RTPContext()
     private let queue = dispatch_queue_create("SwiftRTP.RTPChannel", dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, 0))
 
-    public var handler:(H264Processor.Output throws -> Void)? {
+    public var handler: (H264Processor.Output throws -> Void)? {
         willSet {
             assert(resumed == false, "It is undefined to set properties while channel is resumed.")
         }
     }
-    public var errorHandler:(ErrorType -> Void)? {
+    public var errorHandler: (ErrorType -> Void)? {
         willSet {
             assert(resumed == false, "It is undefined to set properties while channel is resumed.")
         }
     }
-    public var eventHandler:(RTPEvent -> Void)? {
+    public var eventHandler: (RTPEvent -> Void)? {
         get {
             return context.eventHandler
         }
@@ -51,10 +51,10 @@ public class RTPChannel {
             context.eventHandler = newValue
         }
     }
-    public init(port:UInt16) throws {
+    public init(port: UInt16) throws {
 
-        rtpProcessor = RTPProcessor(context:context)
-        h264Processor = H264Processor(context:context)
+        rtpProcessor = RTPProcessor(context: context)
+        h264Processor = H264Processor(context: context)
 
 #if os(iOS)
         backgroundObserver = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidEnterBackgroundNotification, object: nil, queue: nil) {
@@ -134,7 +134,7 @@ public class RTPChannel {
         }
     }
 
-    public func processDatagram(datagram:Datagram) {
+    public func processDatagram(datagram: Datagram) {
 
         if resumed == false {
             return
@@ -162,7 +162,7 @@ public class RTPChannel {
     }
 
 
-    func processNalu(nalu:H264NALU) throws {
+    func processNalu(nalu: H264NALU) throws {
         do {
             guard let output = try h264Processor.process(nalu) else {
                 return
@@ -191,7 +191,7 @@ public class RTPChannel {
         }
     }
 
-    public func postEvent(event:RTPEvent) {
+    public func postEvent(event: RTPEvent) {
         eventHandler?(event)
     }
 }
@@ -199,22 +199,22 @@ public class RTPChannel {
 internal class RTPContext: RTPContextType {
 
     internal var dumpFile: TLVOutputStream?
-    internal var eventHandler:(RTPEvent -> Void)?
+    internal var eventHandler: (RTPEvent -> Void)?
 
     init() throws {
 // Uncomment to provide logging.
 //        let dumpFilePath = Path.applicationSpecificSupportDirectory + "Logs/VideoLog.tlv"
-//        try dumpFilePath.parent!.createDirectory(withIntermediateDirectories:true)
+//        try dumpFilePath.parent!.createDirectory(withIntermediateDirectories: true)
 //        if dumpFilePath.exists && dumpFilePath.attributes.length == 0 {
 //            try dumpFilePath.remove()
 //        }
 //        try dumpFilePath.rotate()
 //        let fileStream = FileStream(url: dumpFilePath.url)
-//        try fileStream.open(mode:Mode.write, create:true)
+//        try fileStream.open(mode: Mode.write, create: true)
 //        dumpFile = TLVOutputStream(outputStream: fileStream)
     }
 
-    internal func postEvent(event:RTPEvent) {
+    internal func postEvent(event: RTPEvent) {
         eventHandler?(event)
     }
 

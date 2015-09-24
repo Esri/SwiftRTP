@@ -9,7 +9,7 @@
 
 import SwiftUtilities
 
-public enum H264NALUType:UInt8 {
+public enum H264NALUType: UInt8 {
     case SliceNonIDR = 1 // P/B-Frame
     case SliceIDR = 5 // I-Frame
     case SPS = 7 // "Sequence Parameter Set"
@@ -37,26 +37,26 @@ extension H264NALUType: CustomStringConvertible {
 
 public struct H264NALU {
 
-    public let data:DispatchData <Void>
-    public let body:DispatchData <Void>
-    public let time:CMTime
+    public let data: DispatchData <Void>
+    public let body: DispatchData <Void>
+    public let time: CMTime
 
-    public private(set) var forbidden_zero_bit:Bool = false
-    public private(set) var nal_ref_idc:UInt8 = 0
-    public private(set) var rawType:UInt8 = 0
+    public private(set) var forbidden_zero_bit: Bool = false
+    public private(set) var nal_ref_idc: UInt8 = 0
+    public private(set) var rawType: UInt8 = 0
 
-    public var type:H264NALUType? {
+    public var type: H264NALUType? {
         return H264NALUType(rawValue: rawType)
     }
 
-    static func headerForType(nal_ref_idc  nal_ref_idc:UInt8, type:UInt8) -> UInt8 {
-        var value:UInt8 = 0x0
-        value = bitSet(value, range: 1..<3, flipped:true, newValue: nal_ref_idc)
-        value = bitSet(value, range: 3..<8, flipped:true, newValue: type)
+    static func headerForType(nal_ref_idc  nal_ref_idc: UInt8, type: UInt8) -> UInt8 {
+        var value: UInt8 = 0x0
+        value = bitSet(value, range: 1..<3, flipped: true, newValue: nal_ref_idc)
+        value = bitSet(value, range: 3..<8, flipped: true, newValue: type)
         return value
     }
 
-    public init(time:CMTime, data:DispatchData <Void>) {
+    public init(time: CMTime, data: DispatchData <Void>) {
         assert(data.length > 0)
 
         self.time = time
