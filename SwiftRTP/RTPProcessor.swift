@@ -38,9 +38,7 @@ public class RTPProcessor {
             stream = RTPStream(ssrcIdentifier: packet.ssrcIdentifier)
         }
 
-        var time = try stream.clock.processTimestamp(packet.timestamp)
-        // TODO: Invalidate time.
-        time = kCMTimeInvalid
+        let time = try stream.clock.processTimestamp(packet.timestamp)
 
         if packet.paddingFlag != false {
             throw RTPError.unsupportedFeature("RTP padding flag not supported (yet)")
