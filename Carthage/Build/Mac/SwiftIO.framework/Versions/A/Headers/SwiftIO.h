@@ -16,4 +16,4 @@ FOUNDATION_EXPORT const unsigned char SwiftIOVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <SwiftIO/PublicHeader.h>
 
-
+#import <SwiftIO/SwiftIOSupport.h>

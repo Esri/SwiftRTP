@@ -9,6 +9,7 @@
 import UIKit
 
 import SwiftRTP
+import SwiftIO
 
 class ViewController: UIViewController {
 
@@ -28,6 +29,11 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        statisticsView.text = ""
+
+        print(try! Address.addressesForInterfaces()["en0"])
+
 
 //        movieWriter = MovieWriter(movieURL: NSURL(fileURLWithPath: "/Users/schwa/Desktop/Test.h264")!, size: CGSize(width: 1280, height: 7820), error: &error)
 //        movieWriter?.resume(&error)
