@@ -1,2 +1,2 @@
-github "schwa/SwiftUtilities" "fabbe8ade0e5bd3d587f7c842dc61c12e88a0fe6"
-github "schwa/SwiftIO" "b60866c7f30f4e8fd0e0a7700daadadc26d2b560"
+github "schwa/SwiftUtilities" "0.0.8"
+github "schwa/SwiftIO" "0.0.2"
