@@ -11,6 +11,7 @@ import AVFoundation
 import CoreMedia
 
 import SwiftRTP
+import SwiftIO
 
 class ViewController: NSViewController {
 
@@ -110,5 +111,9 @@ class ViewController: NSViewController {
         }
 
         try rtpChannel.resume()
+    }
+
+    @IBAction func logStatistics(sender:AnyObject?) {
+//        print(rtpChannel.udpChannel.memoryPool.statistics)
     }
 }
