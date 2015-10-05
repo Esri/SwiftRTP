@@ -710,10 +710,10 @@
                                                             <animations/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <size key="minSize" width="470" height="352"/>
-                                                            <size key="maxSize" width="470" height="10000000"/>
+                                                            <size key="maxSize" width="472" height="10000000"/>
                                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <size key="minSize" width="470" height="352"/>
-                                                            <size key="maxSize" width="470" height="10000000"/>
+                                                            <size key="maxSize" width="472" height="10000000"/>
                                                         </textView>
                                                     </subviews>
                                                     <animations/>
