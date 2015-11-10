@@ -38,7 +38,7 @@ public class RTPProcessor {
             stream = RTPStream(ssrcIdentifier: packet.ssrcIdentifier)
         }
 
-        let time = try stream.clock.processTimestamp(packet.timestamp)
+        let time = stream.clock.processTimestamp(packet.timestamp)
 
         if packet.paddingFlag != false {
             throw RTPError.unsupportedFeature("RTP padding flag not supported (yet)")
@@ -124,50 +124,11 @@ class RTPStream {
 
 class RTPClock {
     var firstTimestamp: UInt32? = nil
-    var lastTimestamp: UInt32? = nil
-    var lastClock: CFAbsoluteTime? = nil
-    var maxDiff: Double = 0.0
-    var totalDiff: Double = 0.0
-    var count: Int = 0
-    var offset = kCMTimeZero
 
-    func processTimestamp(timestamp: UInt32) throws -> CMTime {
-
-        count++
-
-        let clock = CFAbsoluteTimeGetCurrent()
-
-        defer {
-            lastTimestamp = timestamp
-            lastClock = clock
-        }
-
+    func processTimestamp(timestamp: UInt32) -> CMTime {
         if firstTimestamp == nil {
             firstTimestamp = timestamp
         }
-
-        guard let firstTimestamp = firstTimestamp else {
-            fatalError()
-        }
-
-        if let lastClock = lastClock, let lastTimestamp = lastTimestamp {
-            let deltaTimestamp = Double(Int64(timestamp) - Int64(lastTimestamp)) / 90_000
-            let deltaClock = clock - lastClock
-            let diff = abs(deltaTimestamp - deltaClock)
-
-            totalDiff += diff
-            if diff > maxDiff {
-                maxDiff = diff
-            }
-//            SwiftRTP.sharedInstance.debugLog?((totalDiff, maxDiff))
-        }
-
-        let deltaTimestamp = timestamp - firstTimestamp
-        let time = CMTimeAdd(offset, CMTimeMake(Int64(deltaTimestamp), H264ClockRate))
-
-        return time
+        return CMTimeMake(Int64(timestamp - firstTimestamp!), H264ClockRate)
     }
 }
-
-//MARK: -
-
