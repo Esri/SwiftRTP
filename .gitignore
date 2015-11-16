@@ -21,4 +21,5 @@ xcuserdata/
 #### Misc
 *.orig
 
+Carthage/Build
 Carthage/Checkouts
