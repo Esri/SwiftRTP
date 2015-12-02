@@ -14,8 +14,7 @@ import SwiftUtilities
 public class RTPProcessor {
 
     weak var context: RTPContextType!
-    var stream: RTPStream!
-    var defragmenter: FragmentationUnitDefragmenter
+    let defragmenter: FragmentationUnitDefragmenter
 
     init(context: RTPContextType) {
         self.context = context
@@ -29,16 +28,7 @@ public class RTPProcessor {
 
         SwiftRTP.sharedInstance.debugLog?(String(packet))
 
-        if stream == nil {
-            stream = RTPStream(ssrcIdentifier: packet.ssrcIdentifier)
-        }
-
-        if stream.ssrcIdentifier != packet.ssrcIdentifier {
-            SwiftRTP.sharedInstance.debugLog?(String(RTPError.streamReset))
-            stream = RTPStream(ssrcIdentifier: packet.ssrcIdentifier)
-        }
-
-        let time = stream.clock.processTimestamp(packet.timestamp)
+        let time = CMTimeMake(Int64(packet.timestamp), H264ClockRate)
 
         if packet.paddingFlag != false {
             throw RTPError.unsupportedFeature("RTP padding flag not supported (yet)")
@@ -105,30 +95,5 @@ public class RTPProcessor {
         }
 
         return nalus
-    }
-
-}
-
-// MARK: -
-
-class RTPStream {
-    var ssrcIdentifier: UInt32
-    var clock = RTPClock()
-
-    init(ssrcIdentifier: UInt32) {
-        self.ssrcIdentifier = ssrcIdentifier
-    }
-}
-
-// MARK: -
-
-class RTPClock {
-    var firstTimestamp: UInt32? = nil
-
-    func processTimestamp(timestamp: UInt32) -> CMTime {
-        if firstTimestamp == nil {
-            firstTimestamp = timestamp
-        }
-        return CMTimeMake(Int64(timestamp - firstTimestamp!), H264ClockRate)
     }
 }
