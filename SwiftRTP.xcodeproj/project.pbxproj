@@ -45,19 +45,15 @@
 		4526B3651B854FA7001EB22E /* Support.h in Headers */ = {isa = PBXBuildFile; fileRef = 45194E731B7D43230017E89A /* Support.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4526B3661B854FAB001EB22E /* Support.h in Headers */ = {isa = PBXBuildFile; fileRef = 45194E731B7D43230017E89A /* Support.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4532ADD21B852066002080D7 /* TCPChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4532ADD11B852066002080D7 /* TCPChannel.swift */; };
+		453961091C0E93D900ED2375 /* SwiftIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 453961021C0E937800ED2375 /* SwiftIO.framework */; };
+		4539610A1C0E93D900ED2375 /* SwiftUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 453961041C0E937800ED2375 /* SwiftUtilities.framework */; };
 		453CB3E61B8E403E00622621 /* SwiftRTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CB3E51B8E403E00622621 /* SwiftRTP.swift */; };
 		453CB3E71B8E404100622621 /* SwiftRTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CB3E51B8E403E00622621 /* SwiftRTP.swift */; };
 		454873221B8BC62200EB3CD3 /* MovieWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454873211B8BC62200EB3CD3 /* MovieWriter.swift */; };
 		454873231B8BC62200EB3CD3 /* MovieWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454873211B8BC62200EB3CD3 /* MovieWriter.swift */; };
-		4569E00C1BAB30150001AD40 /* H264ParameterSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4569E00B1BAB30150001AD40 /* H264ParameterSet.swift */; settings = {ASSET_TAGS = (); }; };
-		4569E00D1BAB30150001AD40 /* H264ParameterSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4569E00B1BAB30150001AD40 /* H264ParameterSet.swift */; settings = {ASSET_TAGS = (); }; };
+		4569E00C1BAB30150001AD40 /* H264ParameterSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4569E00B1BAB30150001AD40 /* H264ParameterSet.swift */; };
+		4569E00D1BAB30150001AD40 /* H264ParameterSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4569E00B1BAB30150001AD40 /* H264ParameterSet.swift */; };
 		45A2A6511B853381006ACBAE /* SwiftRTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A2A63A1B853381006ACBAE /* SwiftRTP.framework */; };
-		45B9317B1B9F7C8A00DA7EE9 /* SwiftIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931761B9F7BE700DA7EE9 /* SwiftIO.framework */; settings = {ASSET_TAGS = (); }; };
-		45B9317C1B9F7C8A00DA7EE9 /* SwiftUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931781B9F7BE700DA7EE9 /* SwiftUtilities.framework */; settings = {ASSET_TAGS = (); }; };
-		45B9317D1B9F7E0100DA7EE9 /* SwiftIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931761B9F7BE700DA7EE9 /* SwiftIO.framework */; };
-		45B9317E1B9F7E0100DA7EE9 /* SwiftIO.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931761B9F7BE700DA7EE9 /* SwiftIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		45B9317F1B9F7E0100DA7EE9 /* SwiftUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931781B9F7BE700DA7EE9 /* SwiftUtilities.framework */; };
-		45B931801B9F7E0100DA7EE9 /* SwiftUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931781B9F7BE700DA7EE9 /* SwiftUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		45C72C111B869B7300EC39AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C72C101B869B7300EC39AF /* AppDelegate.swift */; };
 		45C72C131B869B7300EC39AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C72C121B869B7300EC39AF /* ViewController.swift */; };
 		45C72C161B869B7300EC39AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C72C141B869B7300EC39AF /* Main.storyboard */; };
@@ -74,7 +70,7 @@
 		45CEE9841B83937800ED7D23 /* RTPUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DBF7621B448189005705E2 /* RTPUtilities.swift */; };
 		45CEE9851B83937800ED7D23 /* Support.m in Sources */ = {isa = PBXBuildFile; fileRef = 45194E711B7D431B0017E89A /* Support.m */; };
 		45CEE9891B83970800ED7D23 /* FragmentationUnitDefragmenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CEE9881B83970800ED7D23 /* FragmentationUnitDefragmenter.swift */; };
-		45D7040C1BB1D52B009AFE00 /* HeartBeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7040B1BB1D52B009AFE00 /* HeartBeatView.swift */; settings = {ASSET_TAGS = (); }; };
+		45D7040C1BB1D52B009AFE00 /* HeartBeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7040B1BB1D52B009AFE00 /* HeartBeatView.swift */; };
 		45DBE26B1B869C04000D20F2 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DBE26A1B869C04000D20F2 /* VideoView.swift */; };
 		45DBE26E1B869CC8000D20F2 /* SwiftRTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A2A63A1B853381006ACBAE /* SwiftRTP.framework */; };
 		45DBE2701B869CE5000D20F2 /* SwiftRTP.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 45A2A63A1B853381006ACBAE /* SwiftRTP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -83,12 +79,7 @@
 		45E5040F1B39CCA5007AE307 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E5040E1B39CCA5007AE307 /* ViewController.swift */; };
 		45E504111B39CCA5007AE307 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45E504101B39CCA5007AE307 /* Images.xcassets */; };
 		45E504141B39CCA5007AE307 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45E504121B39CCA5007AE307 /* Main.storyboard */; };
-		45F39ABE1B9F94A80069084D /* SwiftIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931711B9F7BE700DA7EE9 /* SwiftIO.framework */; settings = {ASSET_TAGS = (); }; };
-		45F39ABF1B9F94A80069084D /* SwiftUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931731B9F7BE700DA7EE9 /* SwiftUtilities.framework */; settings = {ASSET_TAGS = (); }; };
-		45F39AC01B9F95690069084D /* SwiftIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931711B9F7BE700DA7EE9 /* SwiftIO.framework */; };
-		45F39AC11B9F95690069084D /* SwiftIO.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 45B931711B9F7BE700DA7EE9 /* SwiftIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		45F39AC21B9F95690069084D /* SwiftUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B931731B9F7BE700DA7EE9 /* SwiftUtilities.framework */; };
-		45F39AC31B9F95690069084D /* SwiftUtilities.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 45B931731B9F7BE700DA7EE9 /* SwiftUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		45FA18141C0E96C400BC4228 /* SwiftIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FA18131C0E96C400BC4228 /* SwiftIO.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,8 +134,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				45F39AC11B9F95690069084D /* SwiftIO.framework in Copy Files (1 item) */,
-				45F39AC31B9F95690069084D /* SwiftUtilities.framework in Copy Files (1 item) */,
 				45DBE2701B869CE5000D20F2 /* SwiftRTP.framework in Copy Files (1 item) */,
 			);
 			name = "Copy Files (1 item)";
@@ -156,8 +145,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				45B9317E1B9F7E0100DA7EE9 /* SwiftIO.framework in Embed Frameworks */,
-				45B931801B9F7E0100DA7EE9 /* SwiftUtilities.framework in Embed Frameworks */,
 				45CEE9791B83930C00ED7D23 /* SwiftRTP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -179,20 +166,15 @@
 		451E2D871B4360FB00F93401 /* H264Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = H264Types.swift; sourceTree = "<group>"; };
 		451E2D891B43614800F93401 /* H264Processor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = H264Processor.swift; sourceTree = "<group>"; };
 		4532ADD11B852066002080D7 /* TCPChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPChannel.swift; sourceTree = "<group>"; };
+		453961021C0E937800ED2375 /* SwiftIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftIO.framework; sourceTree = "<group>"; };
+		453961041C0E937800ED2375 /* SwiftUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftUtilities.framework; sourceTree = "<group>"; };
+		453961071C0E93D100ED2375 /* SwiftUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftUtilities.framework; sourceTree = "<group>"; };
 		453CB3E51B8E403E00622621 /* SwiftRTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRTP.swift; sourceTree = "<group>"; };
 		454873211B8BC62200EB3CD3 /* MovieWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieWriter.swift; sourceTree = "<group>"; };
 		4569E00B1BAB30150001AD40 /* H264ParameterSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = H264ParameterSet.swift; sourceTree = "<group>"; };
 		4596DEFF1B825E0E00A5FD87 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		45A2A62F1B852F72006ACBAE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45A2A63A1B853381006ACBAE /* SwiftRTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftRTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		45B931711B9F7BE700DA7EE9 /* SwiftIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftIO.framework; sourceTree = "<group>"; };
-		45B931721B9F7BE700DA7EE9 /* SwiftIO.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SwiftIO.framework.dSYM; sourceTree = "<group>"; };
-		45B931731B9F7BE700DA7EE9 /* SwiftUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftUtilities.framework; sourceTree = "<group>"; };
-		45B931741B9F7BE700DA7EE9 /* SwiftUtilities.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SwiftUtilities.framework.dSYM; sourceTree = "<group>"; };
-		45B931761B9F7BE700DA7EE9 /* SwiftIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftIO.framework; sourceTree = "<group>"; };
-		45B931771B9F7BE700DA7EE9 /* SwiftIO.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SwiftIO.framework.dSYM; sourceTree = "<group>"; };
-		45B931781B9F7BE700DA7EE9 /* SwiftUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftUtilities.framework; sourceTree = "<group>"; };
-		45B931791B9F7BE700DA7EE9 /* SwiftUtilities.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SwiftUtilities.framework.dSYM; sourceTree = "<group>"; };
 		45C72C0C1B869B7300EC39AF /* SwiftRTP iOS Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftRTP iOS Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C72C0F1B869B7300EC39AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45C72C101B869B7300EC39AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -215,6 +197,7 @@
 		45E5040E1B39CCA5007AE307 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		45E504101B39CCA5007AE307 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		45E504131B39CCA5007AE307 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		45FA18131C0E96C400BC4228 /* SwiftIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftIO.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,8 +205,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45F39ABE1B9F94A80069084D /* SwiftIO.framework in Frameworks */,
-				45F39ABF1B9F94A80069084D /* SwiftUtilities.framework in Frameworks */,
+				453961091C0E93D900ED2375 /* SwiftIO.framework in Frameworks */,
+				4539610A1C0E93D900ED2375 /* SwiftUtilities.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,8 +214,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45F39AC01B9F95690069084D /* SwiftIO.framework in Frameworks */,
-				45F39AC21B9F95690069084D /* SwiftUtilities.framework in Frameworks */,
 				45DBE26E1B869CC8000D20F2 /* SwiftRTP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,8 +222,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45B9317B1B9F7C8A00DA7EE9 /* SwiftIO.framework in Frameworks */,
-				45B9317C1B9F7C8A00DA7EE9 /* SwiftUtilities.framework in Frameworks */,
+				45FA18141C0E96C400BC4228 /* SwiftIO.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,9 +235,7 @@
 				451868D51B3CD0EF00BBBCD8 /* VideoToolbox.framework in Frameworks */,
 				451868D31B3CD0E600BBBCD8 /* AVFoundation.framework in Frameworks */,
 				451868CD1B3CD0E000BBBCD8 /* AVKit.framework in Frameworks */,
-				45B9317F1B9F7E0100DA7EE9 /* SwiftUtilities.framework in Frameworks */,
 				45A2A6511B853381006ACBAE /* SwiftRTP.framework in Frameworks */,
-				45B9317D1B9F7E0100DA7EE9 /* SwiftIO.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,51 +254,47 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		453960FB1C0E937800ED2375 /* Carthage */ = {
+			isa = PBXGroup;
+			children = (
+				453960FC1C0E937800ED2375 /* Build */,
+			);
+			path = Carthage;
+			sourceTree = "<group>";
+		};
+		453960FC1C0E937800ED2375 /* Build */ = {
+			isa = PBXGroup;
+			children = (
+				453960FD1C0E937800ED2375 /* iOS */,
+				453961061C0E93D100ED2375 /* Mac */,
+			);
+			path = Build;
+			sourceTree = "<group>";
+		};
+		453960FD1C0E937800ED2375 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				453961021C0E937800ED2375 /* SwiftIO.framework */,
+				453961041C0E937800ED2375 /* SwiftUtilities.framework */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		453961061C0E93D100ED2375 /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				45FA18131C0E96C400BC4228 /* SwiftIO.framework */,
+				453961071C0E93D100ED2375 /* SwiftUtilities.framework */,
+			);
+			path = Mac;
+			sourceTree = "<group>";
+		};
 		454873201B8BC62200EB3CD3 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
 				454873211B8BC62200EB3CD3 /* MovieWriter.swift */,
 			);
 			path = Demo;
-			sourceTree = "<group>";
-		};
-		45B9316E1B9F7BE700DA7EE9 /* Carthage */ = {
-			isa = PBXGroup;
-			children = (
-				45B9316F1B9F7BE700DA7EE9 /* Build */,
-			);
-			path = Carthage;
-			sourceTree = "<group>";
-		};
-		45B9316F1B9F7BE700DA7EE9 /* Build */ = {
-			isa = PBXGroup;
-			children = (
-				45B931701B9F7BE700DA7EE9 /* iOS */,
-				45B931751B9F7BE700DA7EE9 /* Mac */,
-			);
-			path = Build;
-			sourceTree = "<group>";
-		};
-		45B931701B9F7BE700DA7EE9 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				45B931711B9F7BE700DA7EE9 /* SwiftIO.framework */,
-				45B931721B9F7BE700DA7EE9 /* SwiftIO.framework.dSYM */,
-				45B931731B9F7BE700DA7EE9 /* SwiftUtilities.framework */,
-				45B931741B9F7BE700DA7EE9 /* SwiftUtilities.framework.dSYM */,
-			);
-			path = iOS;
-			sourceTree = "<group>";
-		};
-		45B931751B9F7BE700DA7EE9 /* Mac */ = {
-			isa = PBXGroup;
-			children = (
-				45B931761B9F7BE700DA7EE9 /* SwiftIO.framework */,
-				45B931771B9F7BE700DA7EE9 /* SwiftIO.framework.dSYM */,
-				45B931781B9F7BE700DA7EE9 /* SwiftUtilities.framework */,
-				45B931791B9F7BE700DA7EE9 /* SwiftUtilities.framework.dSYM */,
-			);
-			path = Mac;
 			sourceTree = "<group>";
 		};
 		45C72C0D1B869B7300EC39AF /* SwiftRTP iOS Demo */ = {
@@ -372,7 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				4596DEFF1B825E0E00A5FD87 /* README.markdown */,
-				45B9316E1B9F7BE700DA7EE9 /* Carthage */,
+				453960FB1C0E937800ED2375 /* Carthage */,
 				45CEE9721B83930C00ED7D23 /* SwiftRTP */,
 				454873201B8BC62200EB3CD3 /* Demo */,
 				45E504091B39CCA5007AE307 /* SwiftRTP Mac Demo */,
