@@ -56,7 +56,7 @@ public final class MovieWriter
         writerAdaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerInput, sourcePixelBufferAttributes: nil)
 
         if writer.canAddInput(writerInput) == false {
-            throw Error.generic("Cannot add writer input")
+            throw Error.Generic("Cannot add writer input")
             // return
         }
         writer.addInput(writerInput)
@@ -91,13 +91,13 @@ public final class MovieWriter
         }
 
         if state != .Recording {
-            throw Error.generic("MovieWriter not recording.")
+            throw Error.Generic("MovieWriter not recording.")
         }
         if writer.status != .Writing {
-            throw Error.generic("MovieWriter.writer not writing.")
+            throw Error.Generic("MovieWriter.writer not writing.")
         }
         if writerInput.readyForMoreMediaData == false {
-            throw Error.generic("MovieWriter.writer not ready for more media data.")
+            throw Error.Generic("MovieWriter.writer not ready for more media data.")
         }
 
         writerAdaptor.appendPixelBuffer(pixelBuffer, withPresentationTime: presentationTime)

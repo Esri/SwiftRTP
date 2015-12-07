@@ -82,7 +82,7 @@ public class RTPProcessor {
                 let chunkLength = UInt16(networkEndian: UInt16(bitRange(buffer, range: 0..<16)))
 
                 if Int(chunkLength) > data.length - sizeof(UInt16) {
-                    throw SwiftUtilities.Error.generic("STAP-A chunk length \(chunkLength) longer than all of STAP-A data \(data.length) - sizeof(UInt16)")
+                    throw SwiftUtilities.Error.Generic("STAP-A chunk length \(chunkLength) longer than all of STAP-A data \(data.length) - sizeof(UInt16)")
                 }
 
                 let subdata = data.subBuffer(startIndex: sizeof(UInt16), count: Int(chunkLength))

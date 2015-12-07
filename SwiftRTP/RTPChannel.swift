@@ -140,8 +140,6 @@ public class RTPChannel {
             return
         }
 
-        try! context.dumpFile?.write((0, datagram))
-
         postEvent(.packetReceived)
 
         do {
@@ -198,20 +196,9 @@ public class RTPChannel {
 
 internal class RTPContext: RTPContextType {
 
-    internal var dumpFile: TLVOutputStream?
     internal var eventHandler: (RTPEvent -> Void)?
 
     init() throws {
-// Uncomment to provide logging.
-//        let dumpFilePath = Path.applicationSpecificSupportDirectory + "Logs/VideoLog.tlv"
-//        try dumpFilePath.parent!.createDirectory(withIntermediateDirectories: true)
-//        if dumpFilePath.exists && dumpFilePath.attributes.length == 0 {
-//            try dumpFilePath.remove()
-//        }
-//        try dumpFilePath.rotate()
-//        let fileStream = FileStream(url: dumpFilePath.url)
-//        try fileStream.open(mode: Mode.write, create: true)
-//        dumpFile = TLVOutputStream(outputStream: fileStream)
     }
 
     internal func postEvent(event: RTPEvent) {

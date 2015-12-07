@@ -78,7 +78,7 @@ public extension DispatchData {
             var blockBuffer: CMBlockBuffer?
             let result = CMBlockBufferCreateWithMemoryBlock(kCFAllocatorDefault, UnsafeMutablePointer <Void> (buffer.baseAddress), buffer.length, kCFAllocatorNull, &source, 0, buffer.length, 0, &blockBuffer)
             if OSStatus(result) != kCMBlockBufferNoErr {
-                throw Error.todo
+                throw Error.Unimplemented
             }
 
             assert(CMBlockBufferGetDataLength(blockBuffer!) == buffer.count)

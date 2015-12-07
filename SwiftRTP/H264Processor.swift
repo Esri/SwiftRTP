@@ -48,7 +48,7 @@ public class H264Processor {
                 currentParameterSet.pps = nalu
                 context.postEvent(RTPEvent.ppsReceived)
             default:
-                throw Error.generic("Unhandled NALU type.")
+                throw Error.Generic("Unhandled NALU type.")
         }
 
         guard currentParameterSet.isComplete == true else {
