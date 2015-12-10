@@ -56,14 +56,14 @@ public struct H264NALU {
         return value
     }
 
-    public init(time: CMTime, data: DispatchData <Void>) {
+    public init(time: CMTime, data: DispatchData <Void>) throws {
         assert(data.length > 0)
 
         self.time = time
         self.data = data
 
-        let header = data.subBuffer(startIndex: 0, count: 1)
-        body = data.inset(startInset: 1)
+        let header = try data.subBuffer(startIndex: 0, count: 1)
+        body = try data.inset(startInset: 1)
 
         header.createMap() {
             (_, header) -> Void in

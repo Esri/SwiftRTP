@@ -24,7 +24,7 @@ public class RTPProcessor {
 
     public func process(data: DispatchData <Void>) throws -> [H264NALU]? {
 
-        let packet = RTPPacket(data: data)
+        let packet = try RTPPacket(data: data)
 
         SwiftRTP.sharedInstance.debugLog?(String(packet))
 
@@ -42,7 +42,7 @@ public class RTPProcessor {
             throw RTPError.unsupportedFeature("Non-zero CSRC not supported (yet)")
         }
 
-        let nalu = H264NALU(time: time, data: packet.body)
+        let nalu = try H264NALU(time: time, data: packet.body)
 
         if packet.payloadType != 96 {
             throw RTPError.unknownH264Type(nalu.rawType)
@@ -51,7 +51,7 @@ public class RTPProcessor {
         if let type = H264RTPType(rawValue: nalu.rawType) {
             switch type {
                 case .FU_A:
-                    let fragmentationUnit = FragmentationUnit(rtpPacket: packet, nalu: nalu)
+                    let fragmentationUnit = try FragmentationUnit(rtpPacket: packet, nalu: nalu)
                     guard let nalu = try defragmenter.processFragmentationUnit(fragmentationUnit) else {
                         return nil
                     }
@@ -85,12 +85,12 @@ public class RTPProcessor {
                     throw SwiftUtilities.Error.Generic("STAP-A chunk length \(chunkLength) longer than all of STAP-A data \(data.length) - sizeof(UInt16)")
                 }
 
-                let subdata = data.subBuffer(startIndex: sizeof(UInt16), count: Int(chunkLength))
+                let subdata = try data.subBuffer(startIndex: sizeof(UInt16), count: Int(chunkLength))
 
-                let nalu = H264NALU(time: nalu.time, data: subdata)
+                let nalu = try H264NALU(time: nalu.time, data: subdata)
                 nalus.append(nalu)
 
-                data = data.inset(startInset: sizeof(UInt16) + Int(chunkLength), endInset: 0)
+                data = try data.inset(startInset: sizeof(UInt16) + Int(chunkLength), endInset: 0)
             }
         }
 

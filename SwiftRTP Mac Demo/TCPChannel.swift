@@ -49,7 +49,7 @@ public class TCPChannel {
 
         if result != 0 {
             cleanup()
-            throw Error.POSIX(errno, "connect() failed")
+            throw Errno(rawValue: errno) ?? Error.Unknown
         }
 
         queue = dispatch_queue_create("io.schwa.SwiftIO.TCP", DISPATCH_QUEUE_CONCURRENT)

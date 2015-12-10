@@ -38,12 +38,12 @@ public struct FragmentationUnit {
     // From H264NALU
     private(set) var nal_ref_idc: UInt8 = 0
 
-    public init(rtpPacket: RTPPacket, nalu: H264NALU) {
+    public init(rtpPacket: RTPPacket, nalu: H264NALU) throws {
 
         let data = nalu.body
 
-        header = data.subBuffer(startIndex: 0, count: 1)
-        body = data.inset(startInset: 1)
+        header = try data.subBuffer(startIndex: 0, count: 1)
+        body = try data.inset(startInset: 1)
         self.time = nalu.time
         self.sequenceNumber = rtpPacket.sequenceNumber
         self.nal_ref_idc = nalu.nal_ref_idc

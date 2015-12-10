@@ -23,10 +23,10 @@ public struct RTPPacket {
     public private(set) var timestamp: UInt32 = 0
     public private(set) var ssrcIdentifier: UInt32 = 0
 
-    public init(data: DispatchData <Void>) {
-        header = data.subBuffer(startIndex: 0, count: 12)
+    public init(data: DispatchData <Void>) throws {
+        header = try data.subBuffer(startIndex: 0, count: 12)
 
-        header.createMap() {
+        try header.createMap() {
             (_, header) -> Void in
 
             version = UInt8(bitRange(header, range: 0...1))
@@ -43,7 +43,7 @@ public struct RTPPacket {
             assert(extensionFlag == false)
             assert(csrcCount == 0)
 
-            body = data.inset(startInset: 12)
+            body = try data.inset(startInset: 12)
         }
     }
 }
