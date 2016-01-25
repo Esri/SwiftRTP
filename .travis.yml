@@ -1,10 +1,13 @@
 language: objective-c
-osx_image: xcode7.1
-
+osx_image: xcode7.2
+before_install:
+- brew update > /dev/null
+- brew install carthage > /dev/null
 before_script:
-- xcodebuild -version
-- brew update
-- brew outdated xctool || brew upgrade xctool
-- brew install carthage
+- carthage bootstrap
 script:
-   - ./scripts/build.sh
+- xctool -project SwiftRTP.xcodeproj -scheme SwiftRTP iOS Demo -sdk iphonesimulator build test
+- xctool -project SwiftRTP.xcodeproj -scheme SwiftRTP Mac Demo build test
+- xctool -project SwiftRTP.xcodeproj -scheme SwiftRTP_iOS -sdk iphonesimulator build test
+- xctool -project SwiftRTP.xcodeproj -scheme SwiftRTP_OSX build test
+
