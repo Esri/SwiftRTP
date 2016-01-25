@@ -6,8 +6,8 @@ before_install:
 before_script:
 - carthage bootstrap
 script:
-- xctool -project SwiftRTP.xcodeproj -scheme SwiftRTP iOS Demo -sdk iphonesimulator build test
-- xctool -project SwiftRTP.xcodeproj -scheme SwiftRTP Mac Demo build test
-- xctool -project SwiftRTP.xcodeproj -scheme SwiftRTP_iOS -sdk iphonesimulator build test
-- xctool -project SwiftRTP.xcodeproj -scheme SwiftRTP_OSX build test
+- xctool -project SwiftRTP.xcodeproj -scheme "SwiftRTP iOS Demo" -sdk iphonesimulator build test
+- xctool -project SwiftRTP.xcodeproj -scheme "SwiftRTP Mac Demo" build test
+- xctool -project SwiftRTP.xcodeproj -scheme "SwiftRTP_iOS" -sdk iphonesimulator build test
+- xctool -project SwiftRTP.xcodeproj -scheme "SwiftRTP_OSX" build test
 
