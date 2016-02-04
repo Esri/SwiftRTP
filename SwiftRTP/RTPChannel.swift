@@ -29,7 +29,7 @@ public class RTPChannel {
     private var backgroundObserver: AnyObject?
     private var foregroundObserver: AnyObject?
 #endif
-    private let context = try! RTPContext()
+    private var context: RTPContext! // TODO; Make let
     private let queue = dispatch_queue_create("SwiftRTP.RTPChannel", dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, 0))
 
     public var handler: (H264Processor.Output throws -> Void)? {
@@ -53,17 +53,18 @@ public class RTPChannel {
     }
     public init(port: UInt16) throws {
 
+        context = try RTPContext()
         rtpProcessor = RTPProcessor(context: context)
         h264Processor = H264Processor(context: context)
 
 #if os(iOS)
         backgroundObserver = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidEnterBackgroundNotification, object: nil, queue: nil) {
             [weak self] (notification) in
-            try! self?.cancel()
+            self?.cancel()
         }
         foregroundObserver = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: nil) {
             [weak self] (notification) in
-            try! self?.resume()
+            self?.resume()
         }
 #endif
 
@@ -92,7 +93,7 @@ public class RTPChannel {
 #endif
     }
 
-    public func resume() throws {
+    public func resume() {
         dispatch_sync(queue) {
             [weak self] in
 
@@ -113,7 +114,7 @@ public class RTPChannel {
         }
     }
 
-    public func cancel() throws {
+    public func cancel() {
         dispatch_sync(queue) {
             [weak self] in
 

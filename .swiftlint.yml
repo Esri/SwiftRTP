@@ -2,7 +2,6 @@ excluded:
 - Carthage
 
 disabled_rules:
-- force_try
 - line_length # increasing line_length doesn't seem to work
 - statement_position
 - todo
