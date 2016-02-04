@@ -31,21 +31,21 @@ public class RTPProcessor {
         let time = CMTimeMake(Int64(packet.timestamp), H264ClockRate)
 
         if packet.paddingFlag != false {
-            throw RTPError.unsupportedFeature("RTP padding flag not supported (yet)")
+            throw RTPError.UnsupportedFeature("RTP padding flag not supported (yet)")
         }
 
         if packet.extensionFlag != false {
-            throw RTPError.unsupportedFeature("RTP extension flag not supported (yet)")
+            throw RTPError.UnsupportedFeature("RTP extension flag not supported (yet)")
         }
 
         if packet.csrcCount != 0 {
-            throw RTPError.unsupportedFeature("Non-zero CSRC not supported (yet)")
+            throw RTPError.UnsupportedFeature("Non-zero CSRC not supported (yet)")
         }
 
         let nalu = try H264NALU(time: time, data: packet.body)
 
         if packet.payloadType != 96 {
-            throw RTPError.unknownH264Type(nalu.rawType)
+            throw RTPError.UnknownH264Type(nalu.rawType)
         }
 
         if let type = H264RTPType(rawValue: nalu.rawType) {
@@ -59,7 +59,7 @@ public class RTPProcessor {
                 case .STAP_A:
                     return try processStapA(rtpPacket: packet, nalu: nalu)
                 default:
-                    throw RTPError.unsupportedFeature("Unsupported H264 RTP type: \(type)")
+                    throw RTPError.UnsupportedFeature("Unsupported H264 RTP type: \(type)")
             }
         }
         else {

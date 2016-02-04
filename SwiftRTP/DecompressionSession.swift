@@ -97,9 +97,9 @@ public extension DecompressionSession {
 
     public func process(input: H264Processor.Output) throws {
         switch input {
-            case .formatDescription(let formatDescription):
+            case .FormatDescription(let formatDescription):
                 self.formatDescription = formatDescription
-            case .sampleBuffer(let sampleBuffer):
+            case .SampleBuffer(let sampleBuffer):
                 try self.decodeFrame(sampleBuffer)
         }
     }

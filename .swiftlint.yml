@@ -6,7 +6,6 @@ disabled_rules:
 - statement_position
 - todo
 - valid_docs
-- type_name
 
 enabled_rules:
 - empty_count

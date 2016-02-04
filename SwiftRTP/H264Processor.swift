@@ -15,8 +15,8 @@ let H264ClockRate: Int32 = 90_000
 public class H264Processor {
 
     public enum Output {
-        case formatDescription(CMFormatDescription)
-        case sampleBuffer(CMSampleBuffer)
+        case FormatDescription(CMFormatDescription)
+        case SampleBuffer(CMSampleBuffer)
     }
 
     weak var context: RTPContextType!
@@ -30,7 +30,7 @@ public class H264Processor {
     public func process(nalu: H264NALU) throws -> Output? {
 
         guard let type = nalu.type else {
-            throw RTPError.unknownH264Type(nalu.rawType)
+            throw RTPError.UnknownH264Type(nalu.rawType)
         }
 
         switch type {
@@ -43,10 +43,10 @@ public class H264Processor {
         switch type {
             case .SPS:
                 currentParameterSet.sps = nalu
-                context.postEvent(RTPEvent.spsReceived)
+                context.postEvent(RTPEvent.SPSReceived)
             case .PPS:
                 currentParameterSet.pps = nalu
-                context.postEvent(RTPEvent.ppsReceived)
+                context.postEvent(RTPEvent.PPSReceived)
             default:
                 throw Error.Generic("Unhandled NALU type.")
         }
@@ -61,19 +61,19 @@ public class H264Processor {
             lastParameterSet = currentParameterSet
             currentParameterSet = H264ParameterSet()
 
-            context.postEvent(RTPEvent.h264ParameterSetCycled)
+            context.postEvent(RTPEvent.H264ParameterSetCycled)
         }
 
-        return .formatDescription(formatDescription)
+        return .FormatDescription(formatDescription)
     }
 
     public func processVideoFrame(nalu: H264NALU) throws -> Output {
         guard let lastParameterSet = lastParameterSet where lastParameterSet.isComplete == true else {
-            throw RTPError.skippedFrame("No formatDescription, skipping frame.")
+            throw RTPError.SkippedFrame("No formatDescription, skipping frame.")
         }
 
         let sampleBuffer = try naluToCMSampleBuffer(nalu, formatDescription: lastParameterSet.toFormatDescription())
-        return .sampleBuffer(sampleBuffer)
+        return .SampleBuffer(sampleBuffer)
     }
 
     func naluToCMSampleBuffer(nalu: H264NALU, formatDescription: CMFormatDescription) throws -> CMSampleBuffer {

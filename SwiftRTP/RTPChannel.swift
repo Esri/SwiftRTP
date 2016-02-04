@@ -141,21 +141,21 @@ public class RTPChannel {
             return
         }
 
-        postEvent(.packetReceived)
+        postEvent(.PacketReceived)
 
         do {
             guard let nalus = try rtpProcessor.process(datagram.data) else {
                 return
             }
 
-            postEvent(.naluProduced)
+            postEvent(.NALUProduced)
 
             for nalu in nalus {
                 try processNalu(nalu)
             }
         }
         catch {
-            postEvent(.errorInPipeline)
+            postEvent(.ErrorInPipeline)
             errorHandler?(error)
         }
     }
@@ -168,23 +168,23 @@ public class RTPChannel {
             }
 
             switch output {
-                case .formatDescription:
-                    postEvent(.formatDescriptionProduced)
-                case .sampleBuffer:
-                    postEvent(.sampleBufferProduced)
+                case .FormatDescription:
+                    postEvent(.FormatDescriptionProduced)
+                case .SampleBuffer:
+                    postEvent(.SampleBufferProduced)
             }
 
-            postEvent(.h264FrameProduced)
+            postEvent(.H264FrameProduced)
             try handler?(output)
         }
         catch {
             switch error {
-                case RTPError.skippedFrame:
-                    postEvent(.h264FrameSkipped)
-                case RTPError.fragmentationUnitError:
+                case RTPError.SkippedFrame:
+                    postEvent(.H264FrameSkipped)
+                case RTPError.FragmentationUnitError:
                     fallthrough
                 default:
-                    postEvent(.errorInPipeline)
+                    postEvent(.ErrorInPipeline)
             }
             throw error
         }

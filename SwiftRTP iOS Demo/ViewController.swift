@@ -77,7 +77,7 @@ class ViewController: UIViewController {
                 switch error {
                     case let error as RTPError:
                         switch error {
-                            case .skippedFrame:
+                            case .SkippedFrame:
                                 return
                             default:
                                 print("ERROR: \(error)")
@@ -112,7 +112,7 @@ class ViewController: UIViewController {
                 }
             }
         }
-        try rtpChannel.resume()
+        rtpChannel.resume()
     }
 }
 

@@ -87,7 +87,7 @@ class ViewController: NSViewController {
             switch error {
                 case let error as RTPError:
                     switch error {
-                        case .fragmentationUnitError:
+                        case .FragmentationUnitError:
                             return
                         default:
                             print("Error handler caught: \(error)")
@@ -112,7 +112,7 @@ class ViewController: NSViewController {
             }
         }
 
-        try rtpChannel.resume()
+        rtpChannel.resume()
     }
 
     @IBAction func logStatistics(sender: AnyObject?) {

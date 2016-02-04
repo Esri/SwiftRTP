@@ -38,10 +38,10 @@ extension VideoView {
             return
         }
         switch input {
-            case .formatDescription:
+            case .FormatDescription:
                 // Nothing to do here?
                 break
-            case .sampleBuffer(let sampleBuffer):
+            case .SampleBuffer(let sampleBuffer):
                 sampleBufferDisplayLayer.enqueueSampleBuffer(sampleBuffer)
         }
     }

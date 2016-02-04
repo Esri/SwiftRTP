@@ -11,26 +11,26 @@ import CoreMedia
 import SwiftUtilities
 
 public enum RTPError: ErrorType {
-    case unknownH264Type(UInt8)
-    case unsupportedFeature(String)
-    case skippedFrame(String)
-    case posix(Int32, String)
-    case streamReset
-    case fragmentationUnitError(String, [UInt16])
+    case UnknownH264Type(UInt8)
+    case UnsupportedFeature(String)
+    case SkippedFrame(String)
+    case POSIX(Int32, String)
+    case StreamReset
+    case FragmentationUnitError(String, [UInt16])
 }
 
 public enum RTPEvent {
-    case h264ParameterSetCycled
-    case ppsReceived
-    case spsReceived
-    case naluProduced
-    case badFragmentationUnit
-    case errorInPipeline
-    case h264FrameProduced
-    case h264FrameSkipped
-    case formatDescriptionProduced
-    case sampleBufferProduced
-    case packetReceived
+    case H264ParameterSetCycled
+    case PPSReceived
+    case SPSReceived
+    case NALUProduced
+    case BadFragmentationUnit
+    case ErrorInPipeline
+    case H264FrameProduced
+    case H264FrameSkipped
+    case FormatDescriptionProduced
+    case SampleBufferProduced
+    case PacketReceived
 }
 
 
@@ -38,17 +38,17 @@ public enum RTPEvent {
 extension RTPError: CustomStringConvertible {
     public var description: String {
         switch self {
-            case .unknownH264Type(let type):
+            case .UnknownH264Type(let type):
                 return "Unknown H264 Type: \(type)"
-            case .unsupportedFeature(let string):
+            case .UnsupportedFeature(let string):
                 return "Unsupported Feature: \(string)"
-            case .skippedFrame(let string):
+            case .SkippedFrame(let string):
                 return "Skipping Frame: \(string)"
-            case .posix(let result, let string):
+            case .POSIX(let result, let string):
                 return "\(result): \(string)"
-            case .streamReset:
+            case .StreamReset:
                 return "streamReset"
-            case .fragmentationUnitError(let description, let sequenceNumbers):
+            case .FragmentationUnitError(let description, let sequenceNumbers):
                 return "fragmentationUnitError(\(description), \(sequenceNumbers))"
         }
     }
