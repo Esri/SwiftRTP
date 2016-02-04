@@ -1,0 +1,49 @@
+excluded:
+- Carthage
+
+disabled_rules:
+- force_try
+- line_length # increasing line_length doesn't seem to work
+- statement_position
+- todo
+- valid_docs
+- type_name
+
+enabled_rules:
+- empty_count
+#- missing_docs
+
+cyclomatic_complexity:
+  - 12 # Increased from 10
+
+force_try:
+  severity: warning
+
+function_body_length:
+  - 41
+
+line_length:
+  - 256 # Currently broken in swiftlint 0.7.2
+
+type_name:
+  excluded:
+    - STAP_A
+    - STAP_B
+    - FU_A
+    - FU_B
+
+variable_name:
+  excluded:
+    - nal_ref_idc
+    - forbidden_zero_bit
+    - H264ClockRate
+
+
+#line_length: 256
+# they can set both implicitly with an array
+#type_body_length:
+#  warning: 300
+#  error: 400
+#file_length:
+#  warning: 500
+#  error: 1200

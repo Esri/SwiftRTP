@@ -172,6 +172,8 @@
 		453CB3E51B8E403E00622621 /* SwiftRTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRTP.swift; sourceTree = "<group>"; };
 		454873211B8BC62200EB3CD3 /* MovieWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieWriter.swift; sourceTree = "<group>"; };
 		4569E00B1BAB30150001AD40 /* H264ParameterSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = H264ParameterSet.swift; sourceTree = "<group>"; };
+		459035F21C63F63400D58DDD /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
+		459035F31C63F63400D58DDD /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
 		4596DEFF1B825E0E00A5FD87 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		45A2A62F1B852F72006ACBAE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45A2A63A1B853381006ACBAE /* SwiftRTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftRTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -346,6 +348,8 @@
 			isa = PBXGroup;
 			children = (
 				4596DEFF1B825E0E00A5FD87 /* README.markdown */,
+				459035F21C63F63400D58DDD /* Cartfile */,
+				459035F31C63F63400D58DDD /* Cartfile.resolved */,
 				453960FB1C0E937800ED2375 /* Carthage */,
 				45CEE9721B83930C00ED7D23 /* SwiftRTP */,
 				454873201B8BC62200EB3CD3 /* Demo */,
@@ -421,6 +425,7 @@
 				45A2A6361B853381006ACBAE /* Frameworks */,
 				45A2A6371B853381006ACBAE /* Headers */,
 				45A2A6381B853381006ACBAE /* Resources */,
+				459035F11C63F60B00D58DDD /* Run swiftlint */,
 			);
 			buildRules = (
 			);
@@ -458,6 +463,7 @@
 				45CEE96D1B83930C00ED7D23 /* Frameworks */,
 				45CEE96E1B83930C00ED7D23 /* Headers */,
 				45CEE96F1B83930C00ED7D23 /* Resources */,
+				459035F01C63F5F900D58DDD /* Run swiftlint */,
 			);
 			buildRules = (
 			);
@@ -572,6 +578,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		459035F01C63F5F900D58DDD /* Run swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run swiftlint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
+			showEnvVarsInLog = 0;
+		};
+		459035F11C63F60B00D58DDD /* Run swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run swiftlint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		45A2A6351B853381006ACBAE /* Sources */ = {
