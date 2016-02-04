@@ -10,9 +10,9 @@ import CoreMedia
 
 import SwiftUtilities
 
-let H264ClockRate: Int32 = 90_000
-
 public class H264Processor {
+
+    public static let h264ClockRate: Int32 = 90_000
 
     public enum Output {
         case FormatDescription(CMFormatDescription)

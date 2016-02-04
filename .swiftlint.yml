@@ -2,10 +2,7 @@ excluded:
 - Carthage
 
 disabled_rules:
-- line_length # increasing line_length doesn't seem to work
 - statement_position
-- todo
-- valid_docs
 
 enabled_rules:
 - empty_count
@@ -18,10 +15,14 @@ force_try:
   severity: warning
 
 function_body_length:
-  - 41
+  - 41 # Up from 40
 
 line_length:
-  - 256 # Currently broken in swiftlint 0.7.2
+  warning: 212
+  error: 256
+
+todo:
+  severity: warning
 
 type_name:
   excluded:
@@ -30,18 +31,10 @@ type_name:
     - FU_A
     - FU_B
 
+valid_docs:
+  severity: warning
+
 variable_name:
   excluded:
     - nal_ref_idc
     - forbidden_zero_bit
-    - H264ClockRate
-
-
-#line_length: 256
-# they can set both implicitly with an array
-#type_body_length:
-#  warning: 300
-#  error: 400
-#file_length:
-#  warning: 500
-#  error: 1200
