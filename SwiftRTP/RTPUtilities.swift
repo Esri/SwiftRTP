@@ -14,9 +14,9 @@ public enum RTPError: ErrorType {
     case unknownH264Type(UInt8)
     case unsupportedFeature(String)
     case skippedFrame(String)
-    case posix(Int32,String)
+    case posix(Int32, String)
     case streamReset
-    case fragmentationUnitError(String,[UInt16])
+    case fragmentationUnitError(String, [UInt16])
 }
 
 public enum RTPEvent {
@@ -87,4 +87,3 @@ public extension DispatchData {
         return blockBuffer
     }
 }
-

@@ -23,7 +23,9 @@ class VideoView: NSView {
     }
 
     var sampleBufferDisplayLayer: AVSampleBufferDisplayLayer {
+        // swiftlint:disable:next force_cast
         return layer as! AVSampleBufferDisplayLayer
+        // swiftlint:enable:next force_cast
     }
 }
 

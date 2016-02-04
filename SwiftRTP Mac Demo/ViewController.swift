@@ -6,6 +6,8 @@
 //  Copyright © 2015 3D Robotics Inc. All rights reserved.
 //
 
+// swiftlint:disable force_try
+
 import Cocoa
 import AVFoundation
 import CoreMedia
@@ -113,7 +115,7 @@ class ViewController: NSViewController {
         try rtpChannel.resume()
     }
 
-    @IBAction func logStatistics(sender:AnyObject?) {
+    @IBAction func logStatistics(sender: AnyObject?) {
 //        print(rtpChannel.udpChannel.memoryPool.statistics)
     }
 }

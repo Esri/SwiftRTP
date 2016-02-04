@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 schwa. All rights reserved.
 //
 
+// swiftlint:disable force_try
+
 import UIKit
 
 import SwiftRTP
@@ -142,4 +144,3 @@ class Throttler {
     }
 
 }
-

@@ -11,8 +11,7 @@ import Foundation
 import SwiftRTP
 import SwiftUtilities
 
-public final class MovieWriter
-{
+public final class MovieWriter {
     public enum State {
         case Initial
         case Configured

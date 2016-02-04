@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 schwa.io. All rights reserved.
 //
 
+// swiftlint:disable force_try
+
 import Darwin
 
 import SwiftRTP
