@@ -175,7 +175,6 @@
 		459035F21C63F63400D58DDD /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		459035F31C63F63400D58DDD /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
 		4596DEFF1B825E0E00A5FD87 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
-		45A2A62F1B852F72006ACBAE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45A2A63A1B853381006ACBAE /* SwiftRTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftRTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C72C0C1B869B7300EC39AF /* SwiftRTP iOS Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftRTP iOS Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C72C0F1B869B7300EC39AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -193,6 +192,7 @@
 		45DA8D651B3E22FB001F739F /* RTPTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTPTypes.swift; sourceTree = "<group>"; };
 		45DBE26A1B869C04000D20F2 /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		45DBF7621B448189005705E2 /* RTPUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTPUtilities.swift; sourceTree = "<group>"; };
+		45E4F3701C64232A005B0938 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45E504071B39CCA5007AE307 /* SwiftRTP Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftRTP Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45E5040B1B39CCA5007AE307 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45E5040C1B39CCA5007AE307 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -322,7 +322,7 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		45CEE9721B83930C00ED7D23 /* SwiftRTP */ = {
+		45CEE9721B83930C00ED7D23 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				453CB3E51B8E403E00622621 /* SwiftRTP.swift */,
@@ -338,10 +338,17 @@
 				45CEE98B1B839B2B00ED7D23 /* DecompressionSession.swift */,
 				45194E731B7D43230017E89A /* Support.h */,
 				45194E711B7D431B0017E89A /* Support.m */,
-				45A2A62F1B852F72006ACBAE /* Info.plist */,
 				45CEE9731B83930C00ED7D23 /* SwiftRTP.h */,
 			);
-			path = SwiftRTP;
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		45E4F36F1C64232A005B0938 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				45E4F3701C64232A005B0938 /* Info.plist */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		45E503FE1B39CCA5007AE307 = {
@@ -351,7 +358,8 @@
 				459035F21C63F63400D58DDD /* Cartfile */,
 				459035F31C63F63400D58DDD /* Cartfile.resolved */,
 				453960FB1C0E937800ED2375 /* Carthage */,
-				45CEE9721B83930C00ED7D23 /* SwiftRTP */,
+				45CEE9721B83930C00ED7D23 /* Sources */,
+				45E4F36F1C64232A005B0938 /* Resources */,
 				454873201B8BC62200EB3CD3 /* Demo */,
 				45E504091B39CCA5007AE307 /* SwiftRTP Mac Demo */,
 				45C72C0D1B869B7300EC39AF /* SwiftRTP iOS Demo */,
@@ -761,7 +769,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = SwiftRTP/Info.plist;
+				INFOPLIST_FILE = Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -789,7 +797,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = SwiftRTP/Info.plist;
+				INFOPLIST_FILE = Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -876,7 +884,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = SwiftRTP/Info.plist;
+				INFOPLIST_FILE = Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -902,7 +910,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = SwiftRTP/Info.plist;
+				INFOPLIST_FILE = Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
