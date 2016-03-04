@@ -24,6 +24,10 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		45064B131C8A2328001619C6 /* SwiftIO.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 45FA18131C0E96C400BC4228 /* SwiftIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		45064B141C8A2328001619C6 /* SwiftUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 453961071C0E93D100ED2375 /* SwiftUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		45064B151C8A2341001619C6 /* SwiftIO.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 453961021C0E937800ED2375 /* SwiftIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		45064B161C8A2341001619C6 /* SwiftUtilities.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 453961041C0E937800ED2375 /* SwiftUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		451868CD1B3CD0E000BBBCD8 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451868CC1B3CD0E000BBBCD8 /* AVKit.framework */; };
 		451868D31B3CD0E600BBBCD8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451868D21B3CD0E600BBBCD8 /* AVFoundation.framework */; };
 		451868D51B3CD0EF00BBBCD8 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451868D41B3CD0EF00BBBCD8 /* VideoToolbox.framework */; };
@@ -134,6 +138,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				45064B151C8A2341001619C6 /* SwiftIO.framework in Copy Files (1 item) */,
+				45064B161C8A2341001619C6 /* SwiftUtilities.framework in Copy Files (1 item) */,
 				45DBE2701B869CE5000D20F2 /* SwiftRTP.framework in Copy Files (1 item) */,
 			);
 			name = "Copy Files (1 item)";
@@ -145,6 +151,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				45064B131C8A2328001619C6 /* SwiftIO.framework in Embed Frameworks */,
+				45064B141C8A2328001619C6 /* SwiftUtilities.framework in Embed Frameworks */,
 				45CEE9791B83930C00ED7D23 /* SwiftRTP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
