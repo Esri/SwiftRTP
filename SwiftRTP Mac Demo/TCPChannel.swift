@@ -19,20 +19,18 @@ import SwiftUtilities
 public class TCPChannel {
 
     public let address: Address
-    public let port: UInt16
 
     private var resumed: Bool = false
     private var queue: dispatch_queue_t!
     private var socket: Int32!
 
-    public init(address: Address, port: UInt16) {
+    public init(address: Address) {
         self.address = address
-        self.port = port
     }
 
     public convenience init(hostname: String = "0.0.0.0", port: UInt16, family: ProtocolFamily? = nil) {
-        let addresses: [Address] = try! Address.addresses(hostname, `protocol`: .TCP, family: family)
-        self.init(address: addresses[0], port: port)
+        let addresses: [Address] = try! Address.addresses(hostname, port: port, `protocol`: .TCP, family: family)
+        self.init(address: addresses[0])
     }
 
     public func resume() throws {
@@ -42,7 +40,7 @@ public class TCPChannel {
             return
         }
 
-        var addr = address.to_sockaddr(port: port)
+        var addr = address.to_sockaddr()
 
         let result = withUnsafePointer(&addr) {
             (ptr: UnsafePointer <sockaddr>) -> Int32 in
