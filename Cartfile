@@ -1,2 +1,2 @@
-github "schwa/SwiftIO" "jwight/withport"
-github "schwa/SwiftUtilities" >= 0.0.33
+github "schwa/SwiftIO" >= 0.0.24
+github "schwa/SwiftUtilities" >= 0.0.35
