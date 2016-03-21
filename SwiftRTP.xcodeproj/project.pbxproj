@@ -48,7 +48,6 @@
 		4526B3641B854E23001EB22E /* DecompressionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CEE98B1B839B2B00ED7D23 /* DecompressionSession.swift */; };
 		4526B3651B854FA7001EB22E /* Support.h in Headers */ = {isa = PBXBuildFile; fileRef = 45194E731B7D43230017E89A /* Support.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4526B3661B854FAB001EB22E /* Support.h in Headers */ = {isa = PBXBuildFile; fileRef = 45194E731B7D43230017E89A /* Support.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4532ADD21B852066002080D7 /* TCPChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4532ADD11B852066002080D7 /* TCPChannel.swift */; };
 		453961091C0E93D900ED2375 /* SwiftIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 453961021C0E937800ED2375 /* SwiftIO.framework */; };
 		4539610A1C0E93D900ED2375 /* SwiftUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 453961041C0E937800ED2375 /* SwiftUtilities.framework */; };
 		453CB3E61B8E403E00622621 /* SwiftRTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CB3E51B8E403E00622621 /* SwiftRTP.swift */; };
@@ -78,7 +77,6 @@
 		45DBE26B1B869C04000D20F2 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DBE26A1B869C04000D20F2 /* VideoView.swift */; };
 		45DBE26E1B869CC8000D20F2 /* SwiftRTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A2A63A1B853381006ACBAE /* SwiftRTP.framework */; };
 		45DBE2701B869CE5000D20F2 /* SwiftRTP.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 45A2A63A1B853381006ACBAE /* SwiftRTP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		45DBE2711B869D20000D20F2 /* TCPChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4532ADD11B852066002080D7 /* TCPChannel.swift */; };
 		45E5040D1B39CCA5007AE307 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E5040C1B39CCA5007AE307 /* AppDelegate.swift */; };
 		45E5040F1B39CCA5007AE307 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E5040E1B39CCA5007AE307 /* ViewController.swift */; };
 		45E504111B39CCA5007AE307 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45E504101B39CCA5007AE307 /* Images.xcassets */; };
@@ -173,7 +171,6 @@
 		451E2D801B435F8B00F93401 /* RTPChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTPChannel.swift; sourceTree = "<group>"; };
 		451E2D871B4360FB00F93401 /* H264Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = H264Types.swift; sourceTree = "<group>"; };
 		451E2D891B43614800F93401 /* H264Processor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = H264Processor.swift; sourceTree = "<group>"; };
-		4532ADD11B852066002080D7 /* TCPChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPChannel.swift; sourceTree = "<group>"; };
 		453961021C0E937800ED2375 /* SwiftIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftIO.framework; sourceTree = "<group>"; };
 		453961041C0E937800ED2375 /* SwiftUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftUtilities.framework; sourceTree = "<group>"; };
 		453961071C0E93D100ED2375 /* SwiftUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftUtilities.framework; sourceTree = "<group>"; };
@@ -394,7 +391,6 @@
 				45E5040E1B39CCA5007AE307 /* ViewController.swift */,
 				451868DC1B3CD37300BBBCD8 /* VideoView.swift */,
 				45E504121B39CCA5007AE307 /* Main.storyboard */,
-				4532ADD11B852066002080D7 /* TCPChannel.swift */,
 				45E504101B39CCA5007AE307 /* Images.xcassets */,
 				45E5040A1B39CCA5007AE307 /* Supporting Files */,
 			);
@@ -657,7 +653,6 @@
 				45C72C131B869B7300EC39AF /* ViewController.swift in Sources */,
 				454873231B8BC62200EB3CD3 /* MovieWriter.swift in Sources */,
 				45C72C111B869B7300EC39AF /* AppDelegate.swift in Sources */,
-				45DBE2711B869D20000D20F2 /* TCPChannel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -685,7 +680,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				451868DD1B3CD37300BBBCD8 /* VideoView.swift in Sources */,
-				4532ADD21B852066002080D7 /* TCPChannel.swift in Sources */,
 				454873221B8BC62200EB3CD3 /* MovieWriter.swift in Sources */,
 				45E5040F1B39CCA5007AE307 /* ViewController.swift in Sources */,
 				45E5040D1B39CCA5007AE307 /* AppDelegate.swift in Sources */,

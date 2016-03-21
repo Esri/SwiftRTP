@@ -50,8 +50,12 @@ class ViewController: UIViewController {
 
     func startUDP() throws {
 
-        tcpChannel = TCPChannel(hostname: "10.1.1.1", port: 5502)
-        try tcpChannel.resume()
+        let address = try Address("10.1.1.1:5502")
+
+        tcpChannel = try TCPChannel(address: address)
+        tcpChannel.connect() {
+            result in
+        }
 
 
         rtpChannel = try RTPChannel(port: 5600)
