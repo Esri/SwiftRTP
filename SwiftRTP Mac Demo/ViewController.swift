@@ -61,8 +61,8 @@ class ViewController: NSViewController {
 
         let address = try! Address(address: "10.1.1.1", port: 5502)
 
-        tcpChannel = try! TCPChannel(address: address)
-        try tcpChannel.connect() {
+        tcpChannel = TCPChannel(address: address)
+        tcpChannel.connect() {
             result in
         }
 

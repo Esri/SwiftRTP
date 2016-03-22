@@ -70,7 +70,7 @@ public class RTPChannel {
 
         let address = try Address(address: "0.0.0.0", port: port)
 
-        udpChannel = try UDPChannel(label: "RTP", address: address, qos: QOS_CLASS_USER_INTERACTIVE) {
+        udpChannel = UDPChannel(label: "RTP", address: address, qos: QOS_CLASS_USER_INTERACTIVE) {
             [weak self] (datagram) in
 
             guard let strong_self = self else {
