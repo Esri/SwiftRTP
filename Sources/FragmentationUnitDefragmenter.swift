@@ -8,30 +8,30 @@
 
 import SwiftUtilities
 
-public class FragmentationUnitDefragmenter {
+open class FragmentationUnitDefragmenter {
 
     weak var context: RTPContextType!
-    public private(set) var fragmentationUnits: [FragmentationUnit] = []
+    open fileprivate(set) var fragmentationUnits: [FragmentationUnit] = []
 
     public init(context: RTPContextType) {
         self.context = context
     }
 
-    public func processFragmentationUnit(fragmentationUnit: FragmentationUnit) throws -> H264NALU? {
+    open func processFragmentationUnit(_ fragmentationUnit: FragmentationUnit) throws -> H264NALU? {
         switch fragmentationUnit.position {
-            case .Start:
+            case .start:
                 fragmentationUnits = [fragmentationUnit]
                 return nil
-            case .Middle:
+            case .middle:
                 fragmentationUnits.append(fragmentationUnit)
                 return nil
-            case .End:
+            case .end:
                 fragmentationUnits.append(fragmentationUnit)
                 return try processFragmentationUnits(fragmentationUnits)
         }
     }
 
-    private func processFragmentationUnits(fragmentationUnits: [FragmentationUnit]) throws -> H264NALU {
+    fileprivate func processFragmentationUnits(_ fragmentationUnits: [FragmentationUnit]) throws -> H264NALU {
 
         // TODO: check timestamps and subtypes are correct
 
@@ -41,8 +41,8 @@ public class FragmentationUnitDefragmenter {
 
         // Make sure we have a valid subtype
         guard let _ = H264NALUType(rawValue: firstFragmentationUnit.subtype) else {
-            context.postEvent(.BadFragmentationUnit)
-            throw RTPError.UnknownH264Type(firstFragmentationUnit.subtype)
+            context.postEvent(.badFragmentationUnit)
+            throw RTPError.unknownH264Type(firstFragmentationUnit.subtype)
         }
 
         let header = H264NALU.headerForType(nal_ref_idc: firstFragmentationUnit.nal_ref_idc, type: firstFragmentationUnit.subtype)
@@ -63,7 +63,7 @@ public class FragmentationUnitDefragmenter {
     }
 
     /// Reorder packets based on sequence number while handling sequence number wrap-around. Throws if there are gaps in the sequence.
-    private func reorderSequence(input: [FragmentationUnit]) throws -> [FragmentationUnit] {
+    fileprivate func reorderSequence(_ input: [FragmentationUnit]) throws -> [FragmentationUnit] {
 
         // This should never happen - but if we do see it we're good.
         if input.count <= 1 {
@@ -71,7 +71,7 @@ public class FragmentationUnitDefragmenter {
         }
 
         // Everything else hinges on sorting the packets by sequence number.
-        let sortedInput = input.sort() {
+        let sortedInput = input.sorted() {
             return $0.sequenceNumber < $1.sequenceNumber
         }
 
@@ -82,7 +82,7 @@ public class FragmentationUnitDefragmenter {
         var lastSequenceNumber: UInt16?
 
         // Look for gaps and the number of packets that are in the range before the gap.
-        for (index, item) in sortedInput.enumerate() {
+        for (index, item) in sortedInput.enumerated() {
             if let lastSequenceNumber = lastSequenceNumber {
                 // If the packets are in sequence the difference between sequence numbers should be 1...
                 // But if the packets wrap around there should be exactly one (valid) gap.
@@ -90,13 +90,13 @@ public class FragmentationUnitDefragmenter {
                 if delta != 1 {
                     // If we don't wrap around _and_ there's a gap then there's a problem.
                     if wrapsAround == false {
-                        context.postEvent(.BadFragmentationUnit)
-                        throw RTPError.FragmentationUnitError("Fragmentation unit doesn't wrap but have found a gap in sequence numbers", sortedInput.map { return $0.sequenceNumber })
+                        context.postEvent(.badFragmentationUnit)
+                        throw RTPError.fragmentationUnitError("Fragmentation unit doesn't wrap but have found a gap in sequence numbers", sortedInput.map { return $0.sequenceNumber })
                     }
                     // If we do wrap around _and_ there's already a gap, another gap signifies a problem.
                     if gapIndex != nil {
-                        context.postEvent(.BadFragmentationUnit)
-                        throw RTPError.FragmentationUnitError("Fragmentation unit does wrap but have found more than one gap in sequence numbers", sortedInput.map { return $0.sequenceNumber })
+                        context.postEvent(.badFragmentationUnit)
+                        throw RTPError.fragmentationUnitError("Fragmentation unit does wrap but have found more than one gap in sequence numbers", sortedInput.map { return $0.sequenceNumber })
                     }
                     gapIndex = index
                 }
@@ -122,9 +122,9 @@ public class FragmentationUnitDefragmenter {
 
         // Make sure first and last packets are actually start and end packets.
         // In theory we should make sure other packets are not start and end but that's guaranteed not to happen if we get here.
-        guard result.first!.position == .Start && result.last!.position == .End else {
-            context.postEvent(.BadFragmentationUnit)
-            throw RTPError.FragmentationUnitError("First and last packets not start and end packets of a sequence", result.map { return $0.sequenceNumber })
+        guard result.first!.position == .start && result.last!.position == .end else {
+            context.postEvent(.badFragmentationUnit)
+            throw RTPError.fragmentationUnitError("First and last packets not start and end packets of a sequence", result.map { return $0.sequenceNumber })
         }
 
         return result

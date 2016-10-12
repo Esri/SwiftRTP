@@ -9,34 +9,34 @@
 import SwiftUtilities
 
 public enum H264RTPType: UInt8 {
-    case STAP_A = 24
-    case STAP_B = 25
-    case MTAP16 = 26
-    case MTAP24 = 27
-    case FU_A = 28
-    case FU_B = 29
+    case stap_A = 24
+    case stap_B = 25
+    case mtap16 = 26
+    case mtap24 = 27
+    case fu_A = 28
+    case fu_B = 29
 }
 
 public struct FragmentationUnit {
 
     public enum Position: UInt8 {
-        case Start =  0b10
-        case Middle = 0b00
-        case End =    0b01
+        case start =  0b10
+        case middle = 0b00
+        case end =    0b01
     }
 
     public let header: DispatchData <Void>
     public let body: DispatchData <Void>
 
-    private(set) var position: Position = .Start
-    private(set) var subtype: UInt8 = 0
+    fileprivate(set) var position: Position = .start
+    fileprivate(set) var subtype: UInt8 = 0
 
     // From RTPPacket
-    private(set) var time: CMTime
-    private(set) var sequenceNumber: UInt16
+    fileprivate(set) var time: CMTime
+    fileprivate(set) var sequenceNumber: UInt16
 
     // From H264NALU
-    private(set) var nal_ref_idc: UInt8 = 0
+    fileprivate(set) var nal_ref_idc: UInt8 = 0
 
     public init(rtpPacket: RTPPacket, nalu: H264NALU) throws {
 

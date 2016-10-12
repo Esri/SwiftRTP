@@ -10,13 +10,13 @@ import CoreMedia
 
 import SwiftUtilities
 
-public class H264Processor {
+open class H264Processor {
 
-    public static let h264ClockRate: Int32 = 90_000
+    open static let h264ClockRate: Int32 = 90_000
 
     public enum Output {
-        case FormatDescription(CMFormatDescription)
-        case SampleBuffer(CMSampleBuffer)
+        case formatDescription(CMFormatDescription)
+        case sampleBuffer(CMSampleBuffer)
     }
 
     weak var context: RTPContextType!
@@ -27,28 +27,28 @@ public class H264Processor {
         self.context = context
     }
 
-    public func process(nalu: H264NALU) throws -> Output? {
+    open func process(_ nalu: H264NALU) throws -> Output? {
 
         guard let type = nalu.type else {
-            throw RTPError.UnknownH264Type(nalu.rawType)
+            throw RTPError.unknownH264Type(nalu.rawType)
         }
 
         switch type {
-            case .SliceIDR, .SliceNonIDR:
+            case .sliceIDR, .sliceNonIDR:
                 return try processVideoFrame(nalu)
             default:
                 break
         }
 
         switch type {
-            case .SPS:
+            case .sps:
                 currentParameterSet.sps = nalu
-                context.postEvent(RTPEvent.SPSReceived)
-            case .PPS:
+                context.postEvent(RTPEvent.spsReceived)
+            case .pps:
                 currentParameterSet.pps = nalu
-                context.postEvent(RTPEvent.PPSReceived)
+                context.postEvent(RTPEvent.ppsReceived)
             default:
-                throw Error.Generic("Unhandled NALU type.")
+                throw SwiftUtilities.Error.generic("Unhandled NALU type.")
         }
 
         guard currentParameterSet.isComplete == true else {
@@ -61,27 +61,28 @@ public class H264Processor {
             lastParameterSet = currentParameterSet
             currentParameterSet = H264ParameterSet()
 
-            context.postEvent(RTPEvent.H264ParameterSetCycled)
+            context.postEvent(RTPEvent.h264ParameterSetCycled)
         }
 
-        return .FormatDescription(formatDescription)
+        return .formatDescription(formatDescription)
     }
 
-    public func processVideoFrame(nalu: H264NALU) throws -> Output {
-        guard let lastParameterSet = lastParameterSet where lastParameterSet.isComplete == true else {
-            throw RTPError.SkippedFrame("No formatDescription, skipping frame.")
+    open func processVideoFrame(_ nalu: H264NALU) throws -> Output {
+        guard let lastParameterSet = lastParameterSet , lastParameterSet.isComplete == true else {
+            throw RTPError.skippedFrame("No formatDescription, skipping frame.")
         }
 
         let sampleBuffer = try naluToCMSampleBuffer(nalu, formatDescription: lastParameterSet.toFormatDescription())
-        return .SampleBuffer(sampleBuffer)
+        return .sampleBuffer(sampleBuffer)
     }
 
-    func naluToCMSampleBuffer(nalu: H264NALU, formatDescription: CMFormatDescription) throws -> CMSampleBuffer {
+    func naluToCMSampleBuffer(_ nalu: H264NALU, formatDescription: CMFormatDescription) throws -> CMSampleBuffer {
 
         // Prepend the size of the data to the data as a 32-bit network endian uint. (keyword: "elementary stream")
-        let headerValue = UInt32(nalu.data.length)
-        let headerData = DispatchData <Void>(value: headerValue.bigEndian)
-        let sizedData = headerData + nalu.data
+        let headerValue = UInt32(nalu.data.count)
+        var headerData = DispatchData(value: headerValue.bigEndian)
+        headerData.append(nalu.data)
+        let sizedData = headerData
 
         let blockBuffer = try sizedData.toCMBlockBuffer()
 

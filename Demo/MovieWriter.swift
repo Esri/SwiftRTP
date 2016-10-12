@@ -13,28 +13,28 @@ import SwiftUtilities
 
 public final class MovieWriter {
     public enum State {
-        case Initial
-        case Configured
-        case Recording
-        case Finished
+        case initial
+        case configured
+        case recording
+        case finished
     }
 
-    public let movieURL: NSURL
+    public let movieURL: URL
     public let size: CGSize
 
     var writer: AVAssetWriter!
     var writerInput: AVAssetWriterInput!
     var writerAdaptor: AVAssetWriterInputPixelBufferAdaptor!
 
-    public private(set) var state: State = .Initial
+    public fileprivate(set) var state: State = .initial
 
-    public init(movieURL: NSURL, size: CGSize) throws {
+    public init(movieURL: URL, size: CGSize) throws {
 
 
         self.movieURL = movieURL
         self.size = size
 
-        writer = try AVAssetWriter(URL: movieURL, fileType: AVFileTypeQuickTimeMovie)
+        writer = try AVAssetWriter(outputURL: movieURL, fileType: AVFileTypeQuickTimeMovie)
         writer.movieFragmentInterval = CMTimeMakeWithSeconds(1, 1)
         writer.shouldOptimizeForNetworkUse = true
 
@@ -42,69 +42,69 @@ public final class MovieWriter {
 
         //
         let videoSettings: [String: AnyObject] = [
-            AVVideoCodecKey: AVVideoCodecH264,
-            AVVideoWidthKey: size.width,
-            AVVideoHeightKey: size.height,
+            AVVideoCodecKey: AVVideoCodecH264 as AnyObject,
+            AVVideoWidthKey: size.width as AnyObject,
+            AVVideoHeightKey: size.height as AnyObject,
             AVVideoCompressionPropertiesKey: [
                 AVVideoAverageBitRateKey: 10.1 * (size.width * size.height)
-            ]
+            ] as AnyObject
         ]
         writerInput = AVAssetWriterInput(mediaType: AVMediaTypeVideo, outputSettings: videoSettings)
         writerInput.expectsMediaDataInRealTime = true
 
         writerAdaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerInput, sourcePixelBufferAttributes: nil)
 
-        if writer.canAddInput(writerInput) == false {
-            throw Error.Generic("Cannot add writer input")
+        if writer.canAdd(writerInput) == false {
+            throw SwiftUtilities.Error.generic("Cannot add writer input")
             // return
         }
-        writer.addInput(writerInput)
+        writer.add(writerInput)
 
         writer.startWriting()
 
-        state = .Configured
+        state = .configured
     }
 
     public func resume() throws {
     }
 
-    public func finishRecordingWithCompletionHandler(block: (success: Bool) -> Void) {
-        if state != .Recording {
+    public func finishRecordingWithCompletionHandler(_ block: @escaping (_ success: Bool) -> Void) {
+        if state != .recording {
             print("Movie is not recording", terminator: "")
-            block(success: false)
+            block(false)
             return
         }
 
-        writer.finishWritingWithCompletionHandler {
-            let success = (self.writer.status == .Completed)
-            block(success: success)
+        writer.finishWriting {
+            let success = (self.writer.status == .completed)
+            block(success)
         }
 
-        state = .Finished
+        state = .finished
     }
 
-    public func handlePixelBuffer(pixelBuffer: CVPixelBuffer, presentationTime: CMTime) throws {
-        if state == .Configured {
-            writer.startSessionAtSourceTime(presentationTime)
-            state = .Recording
+    public func handlePixelBuffer(_ pixelBuffer: CVPixelBuffer, presentationTime: CMTime) throws {
+        if state == .configured {
+            writer.startSession(atSourceTime: presentationTime)
+            state = .recording
         }
 
-        if state != .Recording {
-            throw Error.Generic("MovieWriter not recording.")
+        if state != .recording {
+            throw SwiftUtilities.Error.generic("MovieWriter not recording.")
         }
-        if writer.status != .Writing {
-            throw Error.Generic("MovieWriter.writer not writing.")
+        if writer.status != .writing {
+            throw SwiftUtilities.Error.generic("MovieWriter.writer not writing.")
         }
-        if writerInput.readyForMoreMediaData == false {
-            throw Error.Generic("MovieWriter.writer not ready for more media data.")
+        if writerInput.isReadyForMoreMediaData == false {
+            throw SwiftUtilities.Error.generic("MovieWriter.writer not ready for more media data.")
         }
 
-        writerAdaptor.appendPixelBuffer(pixelBuffer, withPresentationTime: presentationTime)
+        writerAdaptor.append(pixelBuffer, withPresentationTime: presentationTime)
     }
 
-    private static func removeMovieFile(movieURL: NSURL) throws {
-        if NSFileManager().fileExistsAtPath(movieURL.path!) {
-            try NSFileManager().removeItemAtURL(movieURL)
+    fileprivate static func removeMovieFile(_ movieURL: URL) throws {
+        if FileManager().fileExists(atPath: movieURL.path) {
+            try FileManager().removeItem(at: movieURL)
         }
     }
 }

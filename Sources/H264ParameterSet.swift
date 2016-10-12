@@ -21,11 +21,11 @@ public struct H264ParameterSet {
     func toFormatDescription() throws -> CMFormatDescription {
 
         guard isComplete == true else {
-            throw Error.Generic("Incomplete parameter set (pps: \(pps != nil), sps: \(sps != nil))")
+            throw SwiftUtilities.Error.generic("Incomplete parameter set (pps: \(pps != nil), sps: \(sps != nil))")
         }
 
         guard let spsData = sps?.data, let ppsData = pps?.data else {
-            throw Error.Generic("No SPS & PPS.")
+            throw SwiftUtilities.Error.generic("No SPS & PPS.")
         }
 
         return try makeFormatDescription(sps: spsData, pps: ppsData)

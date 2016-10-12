@@ -1,2 +1,2 @@
-github "3drobotics/SwiftIO" "develop"
-github "3drobotics/SwiftUtilities" "develop"
+github "schwa/SwiftIO" "develop"
+github "schwa/SwiftUtilities" "master"

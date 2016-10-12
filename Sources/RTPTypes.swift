@@ -12,17 +12,6 @@ public struct RTPPacket {
 
     public let header: DispatchData <Void>
     public private(set) var body: DispatchData <Void>! = nil
-
-    public private(set) var version: UInt8 = 0
-    public private(set) var paddingFlag: Bool = false
-    public private(set) var extensionFlag: Bool = false
-    public private(set) var csrcCount: UInt8 = 0
-    public private(set) var markerFlag: Bool = false
-    public private(set) var payloadType: UInt8 = 0
-    public private(set) var sequenceNumber: UInt16 = 0
-    public private(set) var timestamp: UInt32 = 0
-    public private(set) var ssrcIdentifier: UInt32 = 0
-
     public init(data: DispatchData <Void>) throws {
         header = try data.subBuffer(startIndex: 0, count: 12)
 
@@ -44,6 +33,17 @@ public struct RTPPacket {
             assert(csrcCount == 0)
 
             body = try data.inset(startInset: 12)
+
+    public fileprivate(set) var version: UInt8 = 0
+    public fileprivate(set) var paddingFlag: Bool = false
+    public fileprivate(set) var extensionFlag: Bool = false
+    public fileprivate(set) var csrcCount: UInt8 = 0
+    public fileprivate(set) var markerFlag: Bool = false
+    public fileprivate(set) var payloadType: UInt8 = 0
+    public fileprivate(set) var sequenceNumber: UInt16 = 0
+    public fileprivate(set) var timestamp: UInt32 = 0
+    public fileprivate(set) var ssrcIdentifier: UInt32 = 0
+
         }
     }
 }
