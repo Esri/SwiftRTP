@@ -25,8 +25,8 @@ public struct FragmentationUnit {
         case end =    0b01
     }
 
-    public let header: DispatchData <Void>
-    public let body: DispatchData <Void>
+    public let header: DispatchData 
+    public let body: DispatchData 
 
     fileprivate(set) var position: Position = .start
     fileprivate(set) var subtype: UInt8 = 0
@@ -42,20 +42,29 @@ public struct FragmentationUnit {
 
         let data = nalu.body
 
-        header = try data.subBuffer(startIndex: 0, count: 1)
-        body = try data.inset(startInset: 1)
+        header = data.subdata(in: 0..<1)
+        guard !header.isEmpty else {
+            throw DataError.empty
+        }
+        
+        body = data.subdata(in: 1..<data.endIndex)
+        
         self.time = nalu.time
         self.sequenceNumber = rtpPacket.sequenceNumber
         self.nal_ref_idc = nalu.nal_ref_idc
 
-        header.createMap() {
-            (_, header) -> Void in
-
-            let rawPosition = UInt8(bitRange(header, range: 0..<2))
-            position = Position(rawValue: rawPosition)!
-            let reserved = bitRange(header, range: 2..<3)
-            assert(reserved == 0)
-            subtype = UInt8(bitRange(header, range: 3..<8))
+        position = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> Position in
+            let rawPosition = UInt8(bitRange(buffer: buffer, range: Range(0..<2)))
+            return Position(rawValue: rawPosition)!
+        }
+        
+        let reserved = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UIntMax in
+            return bitRange(buffer: buffer, range: Range(2..<3))
+        }
+        assert(reserved == 0)
+        
+        subtype = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UInt8 in
+            return UInt8(bitRange(buffer: buffer, range: Range(3..<8)))
         }
     }
 }

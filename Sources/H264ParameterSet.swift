@@ -31,26 +31,23 @@ public struct H264ParameterSet {
         return try makeFormatDescription(sps: spsData, pps: ppsData)
     }
 
-    func makeFormatDescription(sps sps: DispatchData <Void>, pps: DispatchData <Void>) throws -> CMFormatDescription {
+    func makeFormatDescription(sps: DispatchData , pps: DispatchData ) throws -> CMFormatDescription {
 
-        return try pps.createMap() {
-            (_, ppsBuffer) in
-
-            return try sps.createMap() {
-                (_, spsBuffer) in
-
+        return try pps.withUnsafeBuffer { (ppsBuffer: UnsafeBufferPointer<UInt8>) -> CMFormatDescription in
+            return try sps.withUnsafeBuffer { (spsBuffer: UnsafeBufferPointer<UInt8>) -> CMFormatDescription in
+                
                 let pointers: [UnsafePointer <UInt8>] = [
-                    UnsafePointer <UInt8> (ppsBuffer.baseAddress),
-                    UnsafePointer <UInt8> (spsBuffer.baseAddress),
-                ]
+                    UnsafePointer <UInt8> (ppsBuffer.baseAddress!),
+                    UnsafePointer <UInt8> (spsBuffer.baseAddress!),
+                    ]
                 let sizes: [Int] = [
                     ppsBuffer.count,
                     spsBuffer.count,
-                ]
-
+                    ]
+                
                 // Size of NALU length headers in AVCC/MPEG-4 format (can be 1, 2, or 4).
                 let NALUnitHeaderLength: Int32 = 4
-
+                
                 var formatDescription: CMFormatDescription?
                 let result = CMVideoFormatDescriptionCreateFromH264ParameterSets(kCFAllocatorDefault, pointers.count, pointers, sizes, NALUnitHeaderLength, &formatDescription)
                 if result != 0 {

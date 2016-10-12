@@ -10,29 +10,8 @@ import SwiftUtilities
 
 public struct RTPPacket {
 
-    public let header: DispatchData <Void>
-    public private(set) var body: DispatchData <Void>! = nil
-    public init(data: DispatchData <Void>) throws {
-        header = try data.subBuffer(startIndex: 0, count: 12)
-
-        try header.createMap() {
-            (_, header) -> Void in
-
-            version = UInt8(bitRange(header, range: 0...1))
-            paddingFlag = bitRange(header, range: 2...2) == 1 ? true : false
-            extensionFlag = bitRange(header, range: 3...3) == 1 ? true : false
-            csrcCount = UInt8(bitRange(header, range: 4...7))
-            markerFlag = bitRange(header, range: 8...8) == 1 ? true : false
-            payloadType = UInt8(bitRange(header, range: 9...15))
-            sequenceNumber = UInt16(bigEndian: UInt16(bitRange(header, range: 16...31)))
-            timestamp = UInt32(bigEndian: UInt32(bitRange(header, range: 32...63)))
-            ssrcIdentifier = UInt32(bigEndian: UInt32(bitRange(header, range: 64...95)))
-
-            assert(paddingFlag == false)
-            assert(extensionFlag == false)
-            assert(csrcCount == 0)
-
-            body = try data.inset(startInset: 12)
+    public let header: DispatchData 
+    public fileprivate(set) var body: DispatchData
 
     public fileprivate(set) var version: UInt8 = 0
     public fileprivate(set) var paddingFlag: Bool = false
@@ -44,7 +23,50 @@ public struct RTPPacket {
     public fileprivate(set) var timestamp: UInt32 = 0
     public fileprivate(set) var ssrcIdentifier: UInt32 = 0
 
+    public init(data: DispatchData ) throws {
+        header = data.subdata(in:0..<12)
+        
+        version = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UInt8 in
+            return UInt8(bitRange(buffer: buffer, range: Range(0...1)))
         }
+        
+        paddingFlag = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UInt8 in
+            return UInt8(bitRange(buffer: buffer, range: Range(2...2)))
+            } == 1 ? true : false
+        
+        extensionFlag = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UInt8 in
+            return UInt8(bitRange(buffer: buffer, range: Range(3...3)))
+            } == 1 ? true : false
+        
+        csrcCount = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UInt8 in
+            return UInt8(bitRange(buffer: buffer, range: Range(4...7)))
+        }
+        
+        markerFlag = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UInt8 in
+            return UInt8(bitRange(buffer: buffer, range: Range(8...8)))
+            } == 1 ? true : false
+        
+        payloadType = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UInt8 in
+            return UInt8(bitRange(buffer: buffer, range: Range(9...15)))
+        }
+        
+        sequenceNumber = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt16>) -> UInt16 in
+            return UInt16(bitRange(buffer: buffer, range: Range(16...31))).bigEndian
+        }
+        
+        timestamp = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt32>) -> UInt32 in
+            return UInt32(bitRange(buffer: buffer, range: Range(32...63))).bigEndian
+        }
+        
+        ssrcIdentifier = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt32>) -> UInt32 in
+            return UInt32(bitRange(buffer: buffer, range: Range(64...95))).bigEndian
+        }
+        
+        body = data.subdata(in: 12..<data.endIndex)
+        
+        assert(paddingFlag == false)
+        assert(extensionFlag == false)
+        assert(csrcCount == 0)
     }
 }
 

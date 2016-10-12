@@ -37,8 +37,8 @@ extension H264NALUType: CustomStringConvertible {
 
 public struct H264NALU {
 
-    public let data: DispatchData <Void>
-    public let body: DispatchData <Void>
+    public let data: DispatchData 
+    public let body: DispatchData 
     public let time: CMTime
 
     public fileprivate(set) var forbidden_zero_bit: Bool = false
@@ -56,20 +56,27 @@ public struct H264NALU {
         return value
     }
 
-    public init(time: CMTime, data: DispatchData <Void>) throws {
-        assert(data.length > 0)
+    public init(time: CMTime, data: DispatchData ) throws {
+        assert(!data.isEmpty)
 
         self.time = time
         self.data = data
 
-        let header = try data.subBuffer(startIndex: 0, count: 1)
-        body = try data.inset(startInset: 1)
+        let header = data.subdata(in: 0..<1)
+//        let header = try data.subBuffer(startIndex: 0, count: 1)
+//        body = try data.inset(startInset: 1)
+        body = data.subdata(in: 1..<data.endIndex)
+        
+        forbidden_zero_bit = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UInt8 in
+            return UInt8(bitRange(buffer: buffer, range: Range(0..<1)))
+            } == 1 ? true : false
 
-        header.createMap() {
-            (_, header) -> Void in
-            forbidden_zero_bit = bitRange(header, range: 0..<1) == 1 ? true : false
-            nal_ref_idc = UInt8(bitRange(header, range: 1..<3))
-            rawType = UInt8(bitRange(header, range: 3..<8))
+        nal_ref_idc = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UInt8 in
+            return UInt8(bitRange(buffer: buffer, range: Range(0..<3)))
+        }
+        
+        rawType = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UInt8 in
+            return UInt8(bitRange(buffer: buffer, range: Range(3..<8)))
         }
     }
 }
