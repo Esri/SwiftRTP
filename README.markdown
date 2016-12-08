@@ -34,7 +34,6 @@ reliable. Further work is needed.
 
 ## Future
 
-* Open Source
 * Fix items in the "What Does Not Work" section. The extra packet
 types are low priority. They're generally not seen coming either from 3DR Solo
 or from ffmpeg.
