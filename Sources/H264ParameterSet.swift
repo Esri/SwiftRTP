@@ -36,10 +36,11 @@ public struct H264ParameterSet {
         return try pps.withUnsafeBuffer { (ppsBuffer: UnsafeBufferPointer<UInt8>) -> CMFormatDescription in
             return try sps.withUnsafeBuffer { (spsBuffer: UnsafeBufferPointer<UInt8>) -> CMFormatDescription in
                 
-                let pointers: [UnsafePointer <UInt8>] = [
-                    UnsafePointer <UInt8> (ppsBuffer.baseAddress!),
-                    UnsafePointer <UInt8> (spsBuffer.baseAddress!),
+                let pointers: [UnsafePointer<UInt8>] = [
+                    ppsBuffer.baseAddress!,
+                    spsBuffer.baseAddress!
                     ]
+                
                 let sizes: [Int] = [
                     ppsBuffer.count,
                     spsBuffer.count,
@@ -49,7 +50,14 @@ public struct H264ParameterSet {
                 let NALUnitHeaderLength: Int32 = 4
                 
                 var formatDescription: CMFormatDescription?
-                let result = CMVideoFormatDescriptionCreateFromH264ParameterSets(kCFAllocatorDefault, pointers.count, pointers, sizes, NALUnitHeaderLength, &formatDescription)
+                let result = CMVideoFormatDescriptionCreateFromH264ParameterSets(
+                    kCFAllocatorDefault,
+                    pointers.count,
+                    pointers,
+                    sizes,
+                    NALUnitHeaderLength,
+                    &formatDescription)
+                
                 if result != 0 {
                     throw makeOSStatusError(result, description: "CMVideoFormatDescriptionCreateFromH264ParameterSets failed")
                 }

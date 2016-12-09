@@ -80,10 +80,10 @@ open class H264Processor {
 
         // Prepend the size of the data to the data as a 32-bit network endian uint. (keyword: "elementary stream")
         let headerValue = UInt32(nalu.data.count)
-        var headerData = DispatchData(value: headerValue.bigEndian)
-        headerData.append(nalu.data)
-        let sizedData = headerData
-
+        
+        var sizedData = DispatchData(value: headerValue.bigEndian)
+        sizedData.append(nalu.data)
+        
         let blockBuffer = try sizedData.toCMBlockBuffer()
 
         // So what about STAP???? From CMSampleBufferCreate "Behavior is undefined if samples in a CMSampleBuffer (or even in multiple buffers in the same stream) have the same presentationTimeStamp"

@@ -77,13 +77,12 @@ public extension DispatchData {
             let wrapped = Box(self)
             
             var source = CMBlockBufferCustomBlockSource()
-            source.refCon = UnsafeMutableRawPointer(Unmanaged.passRetained(wrapped).toOpaque())
+            source.refCon = Unmanaged.passRetained(wrapped).toOpaque()
             source.FreeBlock = freeBlock
-            
             
             var blockBuffer: CMBlockBuffer?
             
-            let result = CMBlockBufferCreateWithMemoryBlock(kCFAllocatorDefault, UnsafeMutableRawPointer(mutating: buffer.baseAddress), buffer.byteCount, kCFAllocatorNull, &source, 0, buffer.byteCount, 0, &blockBuffer)
+            let result = CMBlockBufferCreateWithMemoryBlock(kCFAllocatorDefault, UnsafeMutableRawPointer(mutating: buffer.baseAddress), buffer.count, kCFAllocatorNull, &source, 0, buffer.count, 0, &blockBuffer)
             if OSStatus(result) != kCMBlockBufferNoErr {
                 throw SwiftUtilities.Error.unimplemented
             }

@@ -46,11 +46,10 @@ open class FragmentationUnitDefragmenter {
         }
 
         let header = H264NALU.headerForType(nal_ref_idc: firstFragmentationUnit.nal_ref_idc, type: firstFragmentationUnit.subtype)
-        let headerData = DispatchData (value: header)
 
         // Concat the bodies.
-        var data = DispatchData.empty
-        data.append(headerData)
+        var data = DispatchData(value: header)
+        
         for fragment in fragmentationUnits {
             data.append(fragment.body)
         }

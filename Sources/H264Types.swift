@@ -63,8 +63,6 @@ public struct H264NALU {
         self.data = data
 
         let header = data.subdata(in: 0..<1)
-//        let header = try data.subBuffer(startIndex: 0, count: 1)
-//        body = try data.inset(startInset: 1)
         body = data.subdata(in: 1..<data.endIndex)
         
         forbidden_zero_bit = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UInt8 in
@@ -72,7 +70,7 @@ public struct H264NALU {
             } == 1 ? true : false
 
         nal_ref_idc = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UInt8 in
-            return UInt8(bitRange(buffer: buffer, range: Range(0..<3)))
+            return UInt8(bitRange(buffer: buffer, range: Range(1..<3)))
         }
         
         rawType = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UInt8 in

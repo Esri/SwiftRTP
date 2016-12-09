@@ -84,7 +84,7 @@ open class RTPProcessor {
                 throw SwiftUtilities.Error.generic("STAP-A chunk length \(chunkLength) longer than all of STAP-A data \(data.count) - sizeof(UInt16)")
             }
             
-            let subdata = data.subdata(in: sizeOfUInt16..<Int(chunkLength))
+            let subdata = data.subdata(in: sizeOfUInt16..<Int(chunkLength)+sizeOfUInt16)
             let nalu = try H264NALU(time: nalu.time, data: subdata)
             nalus.append(nalu)
             
