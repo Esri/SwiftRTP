@@ -61,35 +61,45 @@ extension RTPError: CustomStringConvertible {
 // MARK: -
 
 private func freeBlock(_ refCon: UnsafeMutableRawPointer?, doomedMemoryBlock: UnsafeMutableRawPointer, sizeInBytes: Int) -> Void {
-    let unmanagedData = Unmanaged<Box<DispatchData>>.fromOpaque(refCon!)
-    print("freeing \(sizeInBytes)")
+    let unmanagedData = Unmanaged<NSData>.fromOpaque(refCon!)
     unmanagedData.release()
 }
 
 // MARK: -
 
 public extension DispatchData {
-
+    
     func toCMBlockBuffer() throws -> CMBlockBuffer {
         
-        return try withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> CMBlockBuffer in
+        return try withUnsafeBytes {
+            (pointer: UnsafePointer<UInt8>) -> CMBlockBuffer in
             
-            let wrapped = Box(self)
+            let data = NSMutableData(bytes: pointer, length: count)
             
             var source = CMBlockBufferCustomBlockSource()
-            source.refCon = Unmanaged.passRetained(wrapped).toOpaque()
+            source.refCon = Unmanaged.passRetained(data).toOpaque()
             source.FreeBlock = freeBlock
+            
             
             var blockBuffer: CMBlockBuffer?
             
-            let result = CMBlockBufferCreateWithMemoryBlock(kCFAllocatorDefault, UnsafeMutableRawPointer(mutating: buffer.baseAddress), buffer.count, kCFAllocatorNull, &source, 0, buffer.count, 0, &blockBuffer)
+            let result = CMBlockBufferCreateWithMemoryBlock(
+                kCFAllocatorDefault,        // structureAllocator
+                data.mutableBytes,          // memoryBlock
+                data.length,                // blockLength
+                kCFAllocatorNull,           // blockAllocator
+                &source,                    // customBlockSource
+                0,                          // offsetToData
+                data.length,                // dataLength
+                0,                          // flags
+                &blockBuffer)               // newBBufOut
             if OSStatus(result) != kCMBlockBufferNoErr {
                 throw SwiftUtilities.Error.unimplemented
             }
             
-            assert(CMBlockBufferGetDataLength(blockBuffer!) == buffer.count)
+            assert(CMBlockBufferGetDataLength(blockBuffer!) == data.length)
             return blockBuffer!
-            
         }
+  
     }
 }
