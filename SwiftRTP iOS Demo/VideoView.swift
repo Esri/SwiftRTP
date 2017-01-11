@@ -55,14 +55,14 @@ extension VideoView {
         }
 
         switch input {
-            case .FormatDescription:
+            case .formatDescription:
                 // Nothing to do here?
                 break
-            case .SampleBuffer(let sampleBuffer):
+            case .sampleBuffer(let sampleBuffer):
                 if sampleBufferDisplayLayer.error != nil {
                     rebuildSampleBufferDisplayLayer()
                 }
-                sampleBufferDisplayLayer.enqueueSampleBuffer(sampleBuffer)
+                sampleBufferDisplayLayer.enqueue(sampleBuffer)
         }
     }
 }

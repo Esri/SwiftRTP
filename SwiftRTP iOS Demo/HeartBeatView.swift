@@ -8,7 +8,7 @@
 
 import UIKit
 
-@IBDesignable public class HeartbeatView: UIView {
+@IBDesignable public class HeartbeatView: UIView, CAAnimationDelegate {
 
     var eventsForHash: [Int: String] = [:]
     var maxEvents: Int = 16
@@ -16,17 +16,17 @@ import UIKit
 
     public func handleEvent(event: String) {
 
-        let hashFraction = CGFloat(fractionForEvent(event))
+        let hashFraction = CGFloat(fractionForEvent(event: event))
 
         if eventsForHash[hash] == nil {
             eventsForHash[hash] = event
         }
 
         let radius = CGFloat(5)
-        let color = colorForEvent(event)
+        let color = colorForEvent(event: event)
         let newLayer = CAShapeLayer()
-        newLayer.path = CGPathCreateWithEllipseInRect(CGRect(x: -radius, y: -radius, width: radius * 2, height: radius * 2), nil)
-        newLayer.fillColor = color.CGColor
+        newLayer.path = CGPath(ellipseIn: CGRect(x: -radius, y: -radius, width: radius * 2, height: radius * 2), transform: nil)
+        newLayer.fillColor = color.cgColor
         newLayer.strokeColor = nil
 
         newLayer.position = CGPoint(
@@ -35,7 +35,7 @@ import UIKit
             )
 
         let pathAnimation = CABasicAnimation(keyPath: "path")
-        pathAnimation.toValue = CGPathCreateWithEllipseInRect(CGRect(x: 0, y: 0, width: 0, height: 0), nil)
+        pathAnimation.toValue = CGPath(ellipseIn: CGRect(x: 0, y: 0, width: 0, height: 0), transform: nil)
 
         let positionAnimation = CABasicAnimation(keyPath: "position.y")
         positionAnimation.toValue = 0
@@ -46,7 +46,7 @@ import UIKit
         groupAnimation.duration = duration
         groupAnimation.setValue(newLayer, forKey: "layer")
 
-        newLayer.addAnimation(groupAnimation, forKey: "groupAnimation")
+        newLayer.add(groupAnimation, forKey: "groupAnimation")
         layer.addSublayer(newLayer)
     }
 
@@ -57,16 +57,17 @@ import UIKit
     }
 
     public func colorForEvent(event: String) -> UIColor {
-        let hashFraction = CGFloat(fractionForEvent(event))
+        let hashFraction = CGFloat(fractionForEvent(event: event))
         let color = UIColor(hue: hashFraction, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         return color
     }
 
-    public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-        guard let layer = anim.valueForKey("layer") as? CALayer else {
+    public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        guard let layer = anim.value(forKey: "layer") as? CALayer else {
             Swift.print("No layer")
             return
         }
-        layer.modelLayer().removeFromSuperlayer()
+        layer.model().removeFromSuperlayer()
+        
     }
 }

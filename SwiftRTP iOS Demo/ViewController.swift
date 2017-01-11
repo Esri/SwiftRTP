@@ -34,7 +34,7 @@ class ViewController: UIViewController {
 
         statisticsView.text = ""
 
-        print(try! Address.addressesForInterfaces()["en0"])
+        print(try! Address.addressesForInterfaces()["en0"]!)
 
 
 //        movieWriter = MovieWriter(movieURL: NSURL(fileURLWithPath: "/Users/schwa/Desktop/Test.h264")!, size: CGSize(width: 1280, height: 7820), error: &error)
@@ -50,9 +50,9 @@ class ViewController: UIViewController {
 
     func startUDP() throws {
 
-        let address = try Address("10.1.1.1:5502")
+        let address = try Address(address: "10.1.1.1", port: 5502)
 
-        tcpChannel = try TCPChannel(address: address)
+        tcpChannel = TCPChannel(address: address)
         tcpChannel.connect() {
             result in
         }
@@ -61,14 +61,14 @@ class ViewController: UIViewController {
         rtpChannel = try RTPChannel(port: 5600)
         rtpChannel.handler = {
             (output) -> Void in
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 [weak self] in
 
                 guard let strong_self = self else {
                     return
                 }
 
-                strong_self.videoView.process(output)
+                strong_self.videoView.process(input: output)
                 if strong_self.movieWriter != nil {
                     try! strong_self.decompressionSession.process(output)
                 }
@@ -77,11 +77,11 @@ class ViewController: UIViewController {
         rtpChannel.errorHandler = {
             (error) in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 switch error {
                     case let error as RTPError:
                         switch error {
-                            case .SkippedFrame:
+                            case .skippedFrame:
                                 return
                             default:
                                 print("ERROR: \(error)")
@@ -95,7 +95,7 @@ class ViewController: UIViewController {
             (event) in
 
             if true {
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     if self.statistics[event] == nil {
                         self.statistics[event] = 1
                     }
@@ -103,16 +103,16 @@ class ViewController: UIViewController {
                         self.statistics[event] = self.statistics[event]! + 1
                     }
 
-                    Throttler.with("statistics", minimumInterval: 1/10) {
+                    Throttler.with(name: "statistics", minimumInterval: 1/10) {
                         var string = NSMutableAttributedString()
                         for (event, value) in self.statistics {
-                            let color = self.heartbeatView.colorForEvent(String(event))
+                            let color = self.heartbeatView.colorForEvent(event: String(describing: event))
                             string += NSAttributedString(string: "•", attributes: [NSForegroundColorAttributeName : color])
-                            string += NSAttributedString(string: "\(event): \(value)\n", attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
+                            string += NSAttributedString(string: "\(event): \(value)\n", attributes: [NSForegroundColorAttributeName : UIColor.white])
                         }
                         self.statisticsView.attributedText = string
                     }
-                    self.heartbeatView.handleEvent(String(event))
+                    self.heartbeatView.handleEvent(event: String(describing: event))
                 }
             }
         }
@@ -123,8 +123,8 @@ class ViewController: UIViewController {
 extension NSMutableString {
 }
 
-func += (inout lhs: NSMutableAttributedString, rhs: NSAttributedString) -> NSMutableAttributedString {
-    lhs.appendAttributedString(rhs)
+func += ( lhs: inout NSMutableAttributedString, rhs: NSAttributedString) -> NSMutableAttributedString {
+    lhs.append(rhs)
     return lhs
 }
 
@@ -132,7 +132,7 @@ class Throttler {
 
     static var throttles: [String: CFAbsoluteTime] = [:]
 
-    static func with(name: String, minimumInterval: NSTimeInterval, action: () -> Void) {
+    static func with(name: String, minimumInterval: TimeInterval, action: () -> Void) {
         let now = CFAbsoluteTimeGetCurrent()
         if let last = throttles[name] {
             let delta = now - last
