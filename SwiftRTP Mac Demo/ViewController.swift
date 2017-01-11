@@ -36,7 +36,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NSProcessInfo.processInfo().beginActivityWithOptions(.LatencyCritical, reason: "Because")
+        ProcessInfo.processInfo.beginActivity(options: .latencyCritical, reason: "Because")
 
 //        movieWriter = try! MovieWriter(movieURL: NSURL(fileURLWithPath: "/Users/schwa/Desktop/Test.h264"), size: CGSize(width: 1280, height: 7820))
 //        try! movieWriter?.resume()
@@ -70,7 +70,7 @@ class ViewController: NSViewController {
         rtpChannel = try RTPChannel(port: 5600)
         rtpChannel.handler = {
             (output) -> Void in
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 [weak self] in
 
                 guard let strong_self = self else {
@@ -91,7 +91,7 @@ class ViewController: NSViewController {
             switch error {
                 case let error as RTPError:
                     switch error {
-                        case .FragmentationUnitError:
+                        case .fragmentationUnitError:
                             return
                         default:
                             print("Error handler caught: \(error)")
@@ -103,7 +103,7 @@ class ViewController: NSViewController {
         rtpChannel.eventHandler = {
             (event) in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
 
                 if self.statistics[event] == nil {
                     self.statistics[event] = 0
@@ -112,14 +112,14 @@ class ViewController: NSViewController {
                     self.statistics[event] = self.statistics[event]! + 1
                 }
 
-                self.statisticsView.string = self.statistics.map() { return "\($0): \($1)" }.joinWithSeparator(" \n")
+                self.statisticsView.string = self.statistics.map() { return "\($0): \($1)" }.joined(separator: " \n")
             }
         }
 
         rtpChannel.resume()
     }
 
-    @IBAction func logStatistics(sender: AnyObject?) {
+    @IBAction func logStatistics(_ sender: AnyObject?) {
 //        print(rtpChannel.udpChannel.memoryPool.statistics)
     }
 }

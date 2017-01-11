@@ -8,11 +8,11 @@
 
 import Foundation
 
-public class SwiftRTP {
+open class SwiftRTP {
 
-    public static let sharedInstance = SwiftRTP()
+    open static let sharedInstance = SwiftRTP()
 
-    public var debugLog: ((Any) -> Void)? = nil
+    open var debugLog: ((Any) -> Void)? = nil
 //    public var debugLog: ((Any) -> Void)? = { print($0) }
 }
 

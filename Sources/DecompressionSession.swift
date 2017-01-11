@@ -15,11 +15,11 @@ import CoreVideo
 
 import SwiftUtilities
 
-public class DecompressionSession {
+open class DecompressionSession {
 
-    private var decompressionSession: VTDecompressionSession?
+    fileprivate var decompressionSession: VTDecompressionSession?
 
-    public var formatDescription: CMVideoFormatDescription? {
+    open var formatDescription: CMVideoFormatDescription? {
         didSet {
             if let formatDescription = formatDescription, let decompressionSession = decompressionSession {
                 if VTDecompressionSessionCanAcceptFormatDescription(decompressionSession, formatDescription) == false {
@@ -30,51 +30,52 @@ public class DecompressionSession {
         }
     }
 
-    public var imageBufferDecoded: ((imageBuffer: CVImageBuffer, presentationTimeStamp: CMTime, presentationDuration: CMTime) -> Void)?
+    open var imageBufferDecoded: ((_ imageBuffer: CVImageBuffer, _ presentationTimeStamp: CMTime, _ presentationDuration: CMTime) -> Void)?
 
     public init() {
     }
 
-    public func decodeFrame(sampleBuffer: CMSampleBuffer) throws {
+    open func decodeFrame(_ sampleBuffer: CMSampleBuffer) throws {
 
         if formatDescription == nil {
             formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer) as CMVideoFormatDescription?
         }
 
+        //VTDecompressionOutputCallbackBlock = (UnsafeMutableRawPointer?, OSStatus, VTDecodeInfoFlags, CVImageBuffer?, CMTime, CMTime) -> Swift.Void
         if decompressionSession == nil {
-            let callback = {
-                (sourceFrameRefCon: UnsafeMutablePointer<Void>, status: OSStatus, infoFlags: VTDecodeInfoFlags, imageBuffer: CVImageBuffer!, presentationTimeStamp: CMTime, presentationDuration: CMTime) -> Void in
+            let callback: VTDecompressionOutputCallbackBlock = {
+                (sourceFrameRefCon: UnsafeMutableRawPointer?, status: OSStatus, infoFlags: VTDecodeInfoFlags, imageBuffer: CVImageBuffer?, presentationTimeStamp: CMTime, presentationDuration: CMTime) -> Void in
                 if status != 0 {
                     return
                 }
-                self.imageBufferDecoded?(imageBuffer: imageBuffer, presentationTimeStamp: presentationTimeStamp, presentationDuration: presentationDuration)
+                self.imageBufferDecoded?(imageBuffer!, presentationTimeStamp, presentationDuration)
             }
 
 #if os(iOS)
             let videoDecoderSpecification: [String: AnyObject]? = nil
             let destinationImageBufferAttributes: [String: AnyObject] = [
-                kCVPixelBufferOpenGLESCompatibilityKey as String: true,
-                kCVPixelBufferMetalCompatibilityKey as String: true,
+                kCVPixelBufferOpenGLESCompatibilityKey as String: true as AnyObject,
+                kCVPixelBufferMetalCompatibilityKey as String: true as AnyObject,
             // TODO: This is crashing Swift 2.0b6. Hardcode constant for now.
             // kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
-                kCVPixelBufferPixelFormatTypeKey as String: 875704438
+                kCVPixelBufferPixelFormatTypeKey as String: 875704438 as AnyObject
             ]
 #else
             let videoDecoderSpecification: [String: AnyObject] = [
-                kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder as String: true
+                kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder as String: true as AnyObject
             ]
 
             let destinationImageBufferAttributes: [String: AnyObject] = [
-                kCVPixelBufferOpenGLCompatibilityKey as String: true,
+                kCVPixelBufferOpenGLCompatibilityKey as String: true as AnyObject,
 
             // TODO: This is crashing Swift 2.0b6. Hardcode constant for now.
             // kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
-                kCVPixelBufferPixelFormatTypeKey as String: 875704438
+                kCVPixelBufferPixelFormatTypeKey as String: 875704438 as AnyObject
             ]
 #endif
 
             var unmanagedDecompressionSession: Unmanaged <VTDecompressionSession>?
-            let result = VTDecompressionSessionCreateWithBlock(kCFAllocatorDefault, formatDescription, videoDecoderSpecification, destinationImageBufferAttributes, callback, &unmanagedDecompressionSession)
+            let result = VTDecompressionSessionCreateWithBlock(kCFAllocatorDefault, formatDescription, videoDecoderSpecification as CFDictionary!, destinationImageBufferAttributes as CFDictionary!, callback, &unmanagedDecompressionSession)
             if result != 0 {
                 throw makeOSStatusError(result, description: "Unable to create VTDecompressionSession")
             }
@@ -95,11 +96,11 @@ public class DecompressionSession {
 
 public extension DecompressionSession {
 
-    public func process(input: H264Processor.Output) throws {
+    public func process(_ input: H264Processor.Output) throws {
         switch input {
-            case .FormatDescription(let formatDescription):
+            case .formatDescription(let formatDescription):
                 self.formatDescription = formatDescription
-            case .SampleBuffer(let sampleBuffer):
+            case .sampleBuffer(let sampleBuffer):
                 try self.decodeFrame(sampleBuffer)
         }
     }
