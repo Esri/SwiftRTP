@@ -12,7 +12,7 @@ import SwiftUtilities
 
 open class H264Processor {
 
-    open static let h264ClockRate: Int32 = 90_000
+    public static let h264ClockRate: Int32 = 90_000
 
     public enum Output {
         case formatDescription(CMFormatDescription)
@@ -89,7 +89,7 @@ open class H264Processor {
         // So what about STAP???? From CMSampleBufferCreate "Behavior is undefined if samples in a CMSampleBuffer (or even in multiple buffers in the same stream) have the same presentationTimeStamp"
 
         // Computer the duration and time
-        let duration = kCMTimeInvalid // CMTimeMake(3000, H264ClockRate) // TODO: 1/30th of a second. Making this up.
+        let duration = CMTime.invalid // CMTimeMake(3000, H264ClockRate) // TODO: 1/30th of a second. Making this up.
 
 
         // Inputs to CMSampleBufferCreate
@@ -100,18 +100,18 @@ open class H264Processor {
         var sampleBuffer: CMSampleBuffer?
 
         let result = CMSampleBufferCreate(
-            kCFAllocatorDefault,            // allocator: CFAllocator?,
-            blockBuffer,                    // dataBuffer: CMBlockBuffer?,
-            true,                           // dataReady: Boolean,
-            nil,                            // makeDataReadyCallback: CMSampleBufferMakeDataReadyCallback?,
-            nil,                            // makeDataReadyRefcon: UnsafeMutablePointer<Void>,
-            formatDescription,              // formatDescription: CMFormatDescription?,
-            1,                              // numSamples: CMItemCount,
-            timingInfo.count,               // numSampleTimingEntries: CMItemCount,
-            timingInfo,                     // sampleTimingArray: UnsafePointer<CMSampleTimingInfo>,
-            sampleSizes.count,              // numSampleSizeEntries: CMItemCount,
-            sampleSizes,                    // sampleSizeArray: UnsafePointer<Int>,
-            &sampleBuffer                   // sBufOut: UnsafeMutablePointer<Unmanaged<CMSampleBuffer>?>
+            allocator: kCFAllocatorDefault,            // allocator: CFAllocator?,
+            dataBuffer: blockBuffer,                    // dataBuffer: CMBlockBuffer?,
+            dataReady: true,                           // dataReady: Boolean,
+            makeDataReadyCallback: nil,                            // makeDataReadyCallback: CMSampleBufferMakeDataReadyCallback?,
+            refcon: nil,                            // makeDataReadyRefcon: UnsafeMutablePointer<Void>,
+            formatDescription: formatDescription,              // formatDescription: CMFormatDescription?,
+            sampleCount: 1,                              // numSamples: CMItemCount,
+            sampleTimingEntryCount: timingInfo.count,               // numSampleTimingEntries: CMItemCount,
+            sampleTimingArray: timingInfo,                     // sampleTimingArray: UnsafePointer<CMSampleTimingInfo>,
+            sampleSizeEntryCount: sampleSizes.count,              // numSampleSizeEntries: CMItemCount,
+            sampleSizeArray: sampleSizes,                    // sampleSizeArray: UnsafePointer<Int>,
+            sampleBufferOut: &sampleBuffer                   // sBufOut: UnsafeMutablePointer<Unmanaged<CMSampleBuffer>?>
         )
 
         if result != 0 {

@@ -1,2 +1,2 @@
-github "3drobotics/SwiftIO" "0.2"
-github "3drobotics/SwiftUtilities" "0.2"
+github "3drobotics/SwiftIO" "0.2.3"
+github "3drobotics/SwiftUtilities" "7fac43f7eb6cbe15ae28a799f8eb3a41e52e10d2"

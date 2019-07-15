@@ -22,7 +22,7 @@ open class DecompressionSession {
     open var formatDescription: CMVideoFormatDescription? {
         didSet {
             if let formatDescription = formatDescription, let decompressionSession = decompressionSession {
-                if VTDecompressionSessionCanAcceptFormatDescription(decompressionSession, formatDescription) == false {
+                if VTDecompressionSessionCanAcceptFormatDescription(decompressionSession, formatDescription: formatDescription) == false {
                     VTDecompressionSessionInvalidate(decompressionSession)
                     self.decompressionSession = nil
                 }
@@ -75,7 +75,7 @@ open class DecompressionSession {
 #endif
 
             var unmanagedDecompressionSession: Unmanaged <VTDecompressionSession>?
-            let result = VTDecompressionSessionCreateWithBlock(kCFAllocatorDefault, formatDescription, videoDecoderSpecification as CFDictionary!, destinationImageBufferAttributes as CFDictionary!, callback, &unmanagedDecompressionSession)
+            let result = VTDecompressionSessionCreateWithBlock(kCFAllocatorDefault, formatDescription, videoDecoderSpecification as CFDictionary?, destinationImageBufferAttributes as CFDictionary?, callback, &unmanagedDecompressionSession)
             if result != 0 {
                 throw makeOSStatusError(result, description: "Unable to create VTDecompressionSession")
             }
@@ -85,7 +85,7 @@ open class DecompressionSession {
 
         let frameFlags = VTDecodeFrameFlags(rawValue: VTDecodeFrameFlags._EnableAsynchronousDecompression.rawValue | VTDecodeFrameFlags._1xRealTimePlayback.rawValue)
         var decodeFlags = VTDecodeInfoFlags()
-        let result = VTDecompressionSessionDecodeFrame(decompressionSession!, sampleBuffer, frameFlags, nil, &decodeFlags)
+        let result = VTDecompressionSessionDecodeFrame(decompressionSession!, sampleBuffer: sampleBuffer, flags: frameFlags, frameRefcon: nil, infoFlagsOut: &decodeFlags)
         if result != 0 {
             throw makeOSStatusError(result, description: "VTDecompressionSessionDecodeFrame failed (flags: \(decodeFlags))")
         }
@@ -96,7 +96,7 @@ open class DecompressionSession {
 
 public extension DecompressionSession {
 
-    public func process(_ input: H264Processor.Output) throws {
+    func process(_ input: H264Processor.Output) throws {
         switch input {
             case .formatDescription(let formatDescription):
                 self.formatDescription = formatDescription

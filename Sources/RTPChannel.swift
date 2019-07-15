@@ -58,11 +58,11 @@ open class RTPChannel {
         h264Processor = H264Processor(context: context)
 
 #if os(iOS)
-        backgroundObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidEnterBackground, object: nil, queue: nil) {
+        backgroundObserver = NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: nil) {
             [weak self] (notification) in
             self?.cancel()
         }
-        foregroundObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: nil) {
+        foregroundObserver = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: nil) {
             [weak self] (notification) in
             self?.resume()
         }

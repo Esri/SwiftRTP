@@ -10,7 +10,7 @@ import Foundation
 
 open class SwiftRTP {
 
-    open static let sharedInstance = SwiftRTP()
+    public static let sharedInstance = SwiftRTP()
 
     open var debugLog: ((Any) -> Void)? = nil
 //    public var debugLog: ((Any) -> Void)? = { print($0) }

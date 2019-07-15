@@ -51,12 +51,12 @@ public struct H264ParameterSet {
                 
                 var formatDescription: CMFormatDescription?
                 let result = CMVideoFormatDescriptionCreateFromH264ParameterSets(
-                    kCFAllocatorDefault,
-                    pointers.count,
-                    pointers,
-                    sizes,
-                    NALUnitHeaderLength,
-                    &formatDescription)
+                    allocator: kCFAllocatorDefault,
+                    parameterSetCount: pointers.count,
+                    parameterSetPointers: pointers,
+                    parameterSetSizes: sizes,
+                    nalUnitHeaderLength: NALUnitHeaderLength,
+                    formatDescriptionOut: &formatDescription)
                 
                 if result != 0 {
                     throw makeOSStatusError(result, description: "CMVideoFormatDescriptionCreateFromH264ParameterSets failed")

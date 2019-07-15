@@ -28,7 +28,7 @@ open class RTPProcessor {
 
         SwiftRTP.sharedInstance.debugLog?(String(describing: packet))
 
-        let time = CMTimeMake(Int64(packet.timestamp), H264Processor.h264ClockRate)
+        let time = CMTimeMake(value: Int64(packet.timestamp), timescale: H264Processor.h264ClockRate)
 
         if packet.paddingFlag != false {
             throw RTPError.unsupportedFeature("RTP padding flag not supported (yet)")

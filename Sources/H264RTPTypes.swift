@@ -54,17 +54,17 @@ public struct FragmentationUnit {
         self.nal_ref_idc = nalu.nal_ref_idc
 
         position = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> Position in
-            let rawPosition = UInt8(bitRange(buffer: buffer, range: Range(0..<2)))
+            let rawPosition = UInt8(bitRange(buffer: buffer, range: 0..<2))
             return Position(rawValue: rawPosition)!
         }
         
-        let reserved = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UIntMax in
-            return bitRange(buffer: buffer, range: Range(2..<3))
+        let reserved = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UInt64 in
+            return bitRange(buffer: buffer, range: 2..<3)
         }
         assert(reserved == 0)
         
         subtype = header.withUnsafeBuffer { (buffer: UnsafeBufferPointer<UInt8>) -> UInt8 in
-            return UInt8(bitRange(buffer: buffer, range: Range(3..<8)))
+            return UInt8(bitRange(buffer: buffer, range: 3..<8))
         }
     }
 }
